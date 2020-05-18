@@ -35,6 +35,12 @@ class _QuizPageState extends State<QuizPage> {
 
   int questionNumber = 0;
 
+  List<bool> answers = [
+    false,
+    true,
+    true
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
