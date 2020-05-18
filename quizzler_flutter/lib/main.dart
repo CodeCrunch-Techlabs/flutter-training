@@ -77,6 +77,15 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                bool correctAns = answers[questionNumber];
+
+                if(correctAns == true){
+                  print('user got this right');
+                }
+                else{
+                  print('user got this wrong');
+                }
+
                 setState(() {
 //                  scoreKeeper.add(Icon(Icons.check,color: Colors.green,));
                   questionNumber = questionNumber + 1;
@@ -99,6 +108,15 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                bool correctAns = answers[questionNumber];
+
+                if(correctAns == false){
+                  print('user got this right');
+                }
+                else{
+                  print('user got this wrong');
+                }
+
                setState(() {
 //                 scoreKeeper.add( Icon(Icons.close,color: Colors.red,));
                  questionNumber = questionNumber + 1;
