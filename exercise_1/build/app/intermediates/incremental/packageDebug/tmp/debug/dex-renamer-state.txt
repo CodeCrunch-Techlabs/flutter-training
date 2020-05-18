@@ -1,0 +1,4 @@
+#Thu May 14 18:09:34 IST 2020
+base.0=/home/thinkpad/Dropbox/Flutter_Projects/demo_app/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
