@@ -22,7 +22,7 @@ void main() {
 
 final ThemeData kIOSTheme = ThemeData(
   primarySwatch: Colors.orange,
-  primaryColor: Colors.grey[100],
+  primaryColor: Colors.green[200],
   primaryColorBrightness: Brightness.light,
 );
 
