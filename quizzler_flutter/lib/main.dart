@@ -48,6 +48,16 @@ class _QuizPageState extends State<QuizPage> {
 
   List<Icon> scoreKeeper = [];
 
+  void checkAnswer(bool ans){
+    bool correctAns = quizBrain.getquestionAnswer();
+    if(correctAns == ans){
+      scoreKeeper.add(Icon(Icons.check,color: Colors.green,));
+    }
+    else{
+      scoreKeeper.add( Icon(Icons.close,color: Colors.red,));
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,17 +95,8 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAns = quizBrain.getquestionAnswer();
-
-                if(correctAns == true){
-                  print('user got this right');
-                }
-                else{
-                  print('user got this wrong');
-                }
-
+                checkAnswer(true);
                 setState(() {
-//                  scoreKeeper.add(Icon(Icons.check,color: Colors.green,));
                    quizBrain.nextQuestion();
                 });
               },
@@ -114,18 +115,9 @@ class _QuizPageState extends State<QuizPage> {
                   color: Colors.white,
                 ),
               ),
-              onPressed: () {
-                bool correctAns = quizBrain.getquestionAnswer();
-
-                if(correctAns == false){
-                  print('user got this right');
-                }
-                else{
-                  print('user got this wrong');
-                }
-
+              onPressed: (){
+                checkAnswer(false);
                setState(() {
-//                 scoreKeeper.add( Icon(Icons.close,color: Colors.red,));
                  quizBrain.nextQuestion();
                });
               },
