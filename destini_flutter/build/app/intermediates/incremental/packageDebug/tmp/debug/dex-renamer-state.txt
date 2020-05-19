@@ -1,4 +1,4 @@
-#Tue May 19 19:25:24 IST 2020
+#Tue May 19 21:16:35 IST 2020
 base.0=/home/thinkpad/Dropbox/Flutter_Projects/demo_apps/destini_flutter/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
