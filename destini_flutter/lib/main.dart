@@ -13,7 +13,7 @@ class Destini extends StatelessWidget {
   }
 }
 
-StoryBrain storyBrain = StoryBrain();
+StoryBrain storyBrain = StoryBrain();//It's created object to access properties and methods of StoryBrain class.
 
 class StoryPage extends StatefulWidget {
   _StoryPageState createState() => _StoryPageState();
@@ -40,7 +40,7 @@ class _StoryPageState extends State<StoryPage> {
                 flex: 12,
                 child: Center(
                   child: Text(
-                    storyBrain.getStory(),
+                    storyBrain.getStory(),//It's shows story title check getStory() in story_brain.dart file.
                     style: TextStyle(
                       fontSize: 18.0,
                     ),
@@ -53,12 +53,12 @@ class _StoryPageState extends State<StoryPage> {
                   onPressed: () {
                     //Choice 1 made by user.
                     setState(() {
-                      storyBrain.nextStory(1);
+                      storyBrain.nextStory(1);//change story check nextStory(1) in story_brain.dart file.
                     });
                   },
                   color: Colors.red,
                   child: Text(
-                    storyBrain.getChoice1(),
+                    storyBrain.getChoice1(),//It's shows choice 1 text check getChoice1() in story_brain.dart file.
                     style: TextStyle(
                       fontSize: 20.0,
                     ),
@@ -70,19 +70,18 @@ class _StoryPageState extends State<StoryPage> {
               ),
               Expanded(
                 flex: 2,
-                //TODO: Step 28 - Set the "visible" property of the Visibility Widget to equal the output from the buttonShouldBeVisible() method in the storyBrain.
                 child: Visibility(
-                  visible: storyBrain.buttonShouldBeVisible(),
+                  visible: storyBrain.buttonShouldBeVisible(),//Show and hide check buttonShouldBeVisible() in story_brain.dart file.
                   child: FlatButton(
                     onPressed: () {
                       //Choice 2 made by user.
                      setState(() {
-                       storyBrain.nextStory(2);
+                       storyBrain.nextStory(2);//It's shows choice 2 text check getChoice1() in story_brain.dart file.
                      });
                     },
                     color: Colors.blue,
                     child: Text(
-                     storyBrain.getChoice2(),
+                     storyBrain.getChoice2(), //change story check nextStory(2) in story_brain.dart file.
                       style: TextStyle(
                         fontSize: 20.0,
                       ),
@@ -100,4 +99,4 @@ class _StoryPageState extends State<StoryPage> {
 
 
 
-//TODO: Step 29 - Run the app and test it against the Story Outline to make sure you've completed all the steps. The code for the completed app can be found here: https://github.com/londonappbrewery/destini-challenge-completed/
+

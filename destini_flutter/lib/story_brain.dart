@@ -45,7 +45,7 @@ List<Story> _storyData = [
 
     if(_storyNumber == 3 || _storyNumber == 4 || _storyNumber == 5){
       restart();
-    }
+    }//Restart the app meaning back to 0th story from list.
 
     if (choiceNumber == 1 && _storyNumber == 0) {
       _storyNumber = 2;
@@ -60,20 +60,20 @@ List<Story> _storyData = [
     } else if (choiceNumber == 2 && _storyNumber == 2) {
       _storyNumber = 4;
     }
-  }
+  }//Change stories based on conditions.
 
 
 String getStory(){
   return _storyData[_storyNumber].storyTitle;
-}
+}//Get title of story.
 
 String getChoice1(){
   return _storyData[_storyNumber].choice1;
-}
+}//Get choice 1 text.
 
 String getChoice2(){
   return _storyData[_storyNumber].choice2;
-}
+}//Get choice 2 text.
 
   bool buttonShouldBeVisible(){
     if( _storyNumber == 0 || _storyNumber == 1 || _storyNumber == 2 ){
@@ -83,10 +83,9 @@ String getChoice2(){
     {
       return false;
     }
-  }
+  }// Use to show and hide second button using conditions.
 
 }
 
 
 
-//TODO: Step 27 - Create a method called buttonShouldBeVisible() which checks to see if storyNumber is 0 or 1 or 2 (when both buttons should show choices) and return true if that is the case, else it should return false.
