@@ -44,25 +44,25 @@ class _QuizPageState extends State<QuizPage> {
 
  // Question q1 = Question(q: 'You can lead a cow down stairs but not up stairs.', a: false );
 
-  QuizBrain  quizBrain = QuizBrain();//called class from Quiz_Brain.dart file to access questionbank array.
+  QuizBrain  quizBrain = QuizBrain();//Created object and assign QuizBrain to access it's methods and properties.
 
-  List<Icon> scoreKeeper = [];
+  List<Icon> scoreKeeper = [];//For Icons score.
 
   void checkAnswer(bool ans){
-    bool correctAns = quizBrain.getquestionAnswer();
+    bool correctAns = quizBrain.getquestionAnswer();//chekck getquestionAnswer() method in Quiz_brain.dart file.
     setState(() {
       if(correctAns == ans){
         scoreKeeper.add(Icon(Icons.check,color: Colors.green,));
-      }
+      }//If correctans and ans are same then it's add check green icon in scorekeeper array.
       else{
         scoreKeeper.add( Icon(Icons.close,color: Colors.red,));
-      }
-      quizBrain.nextQuestion();
+      }//If correctans and ans are not same then it's add close red icon in scorekeeper array.
+      quizBrain.nextQuestion();//check nextQuestion() method in Quiz_brain.dart file.
       if(quizBrain.isFinished == true){
         showAlert();
         scoreKeeper.clear();
         print(scoreKeeper);
-      }
+      }//It's shows alertbox and make scoreKeeper empty when isFinished value is true, check nextQuestion() method in Quiz_brain.dart file.
     });
   }
 
@@ -83,7 +83,7 @@ class _QuizPageState extends State<QuizPage> {
         )
       ],
     ).show();
-  }
+  }//Alert box widget...
 
 
   @override
@@ -122,7 +122,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                checkAnswer(true);
+                checkAnswer(true); 
               },
             ),
           ),

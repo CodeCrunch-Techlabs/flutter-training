@@ -8,6 +8,7 @@ class QuizBrain{
 
 
   List<Question> _questionBank = [
+    //call Question constructor and set questionText and questionAnswer property of class.
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -41,22 +42,22 @@ class QuizBrain{
     if(_questionNumber < _questionBank.length - 1){
       _questionNumber++;
       isFinished = false;
-    }
+    }//It's increase number till the end of questionBank array.
     else{
       isFinished = true;
       _questionNumber = 0;
-      }
+      }//It's change isfinished value true when questionNumber reached to end of questionBank array.
   }
 
 
 
   String getquestionText(){
       return _questionBank[_questionNumber].questionText;
-  }
+  }//It's get questionText from question class.
 
   bool getquestionAnswer(){
        return _questionBank[_questionNumber].questionAnswer;
-  }
+  }//It's get questionAnswer from question class.
 
 
 }
