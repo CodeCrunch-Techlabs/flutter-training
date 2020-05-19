@@ -44,7 +44,7 @@ class _QuizPageState extends State<QuizPage> {
 
  // Question q1 = Question(q: 'You can lead a cow down stairs but not up stairs.', a: false );
 
-  QuizBrain  quizBrain = QuizBrain();
+  QuizBrain  quizBrain = QuizBrain();//called class from Quiz_Brain.dart file to access questionbank array.
 
   List<Icon> scoreKeeper = [];
 
@@ -65,7 +65,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionBank[questionNumber].questionText,
+                quizBrain.getquestionText(questionNumber),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -89,7 +89,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAns = quizBrain.questionBank[questionNumber].questionAnswer;
+                bool correctAns = quizBrain.getquestionAnswer(questionNumber);
 
                 if(correctAns == true){
                   print('user got this right');
@@ -120,7 +120,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAns = quizBrain.questionBank[questionNumber].questionAnswer;
+                bool correctAns = quizBrain.getquestionAnswer(questionNumber);
 
                 if(correctAns == false){
                   print('user got this right');
