@@ -75,6 +75,16 @@ String getChoice2(){
   return _storyData[_storyNumber].choice2;
 }
 
+  bool buttonShouldBeVisible(){
+    if( _storyNumber == 0 || _storyNumber == 1 || _storyNumber == 2 ){
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
 }
 
 
