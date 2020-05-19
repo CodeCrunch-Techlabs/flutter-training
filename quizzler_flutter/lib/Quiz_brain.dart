@@ -4,6 +4,8 @@ class QuizBrain{
 
   int _questionNumber = 0;
 
+  bool isFinished = false;
+
 
   List<Question> _questionBank = [
     Question('Some cats are actually allergic to humans', true),
@@ -38,8 +40,15 @@ class QuizBrain{
 
     if(_questionNumber < _questionBank.length - 1){
       _questionNumber++;
+      isFinished = false;
     }
+    else{
+      isFinished = true;
+      _questionNumber = 0;
+      }
   }
+
+
 
   String getquestionText(){
       return _questionBank[_questionNumber].questionText;
