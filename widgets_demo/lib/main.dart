@@ -24,125 +24,82 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Widgets Demo"),
         ),
-        body: MyHomePage(),
+        body: HomePage(),
       )
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
 
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  // Check this link https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html to get info about FutureBuilder widget.
+
+
+  Future<String> _calculation = Future<String>.delayed(
+    Duration(seconds: 3),
+        () => 'Data Loaded',
+  );
 
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: Column(
-         mainAxisAlignment: MainAxisAlignment.spaceAround,
-         children: <Widget>[
-           Container(
-             child:  Wrap(
-               spacing: 3.0, // gap between adjacent chips
-               runSpacing: 3.0, // gap between lines
-               children: <Widget>[
-                 Container(
-                   height: 100.0,
-                   width: 100.0,
-                   color: Colors.red,
-                 ),
-                 Container(
-                   height: 100.0,
-                   width: 100.0,
-                   color: Colors.red,
-                 ),
-                 Container(
-                   height: 100.0,
-                   width: 100.0,
-                   color: Colors.red,
-                 ),
-                 Container(
-                   height: 100.0,
-                   width: 100.0,
-                   color: Colors.red,
-                 ),
-                 Container(
-                   height: 100.0,
-                   width: 100.0,
-                   color: Colors.red,
-                 ),
-                 Container(
-                   height: 100.0,
-                   width: 100.0,
-                   color: Colors.red,
-                 ),
-               ],
-             ),
-           ),
-           Container(
-              child: AnimatedPage()
-           ),
-         ],
-       ),
-    );
-  }
-}
-
-// Check this link https://api.flutter.dev/flutter/widgets/AnimatedContainer-class.html to get info about AnimatedContainer widget.
-
-class AnimatedPage extends StatefulWidget {
-  @override
-  _AnimatedPageState createState() => _AnimatedPageState();
-}
-
-class _AnimatedPageState extends State<AnimatedPage> {
-
-  bool selected = false;
-
-  bool _visible = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-         GestureDetector(
-          onTap: () {
-            setState(() {
-              selected = !selected;
-            });
-          },
-          child: Center(
-            child: AnimatedContainer(
-              width: selected ? 100.0 : 300.0,
-              height: selected ? 100.0 : 100.0,
-              color: selected ? Colors.red : Colors.blue,
-              alignment: selected ? Alignment.center : AlignmentDirectional.topCenter,
-              duration: Duration(seconds:2),
-              curve: Curves.fastOutSlowIn,
-              child: Container(
+      child: FutureBuilder<String>(
+        future: _calculation, // a previously-obtained Future<String> or null
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          List<Widget> children;
+          if (snapshot.hasData) {
+            children = <Widget>[
+              Icon(
+                Icons.check_circle_outline,
+                color: Colors.green,
+                size: 60,
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Result: ${snapshot.data}'),
+              )
+            ];
+          } else if (snapshot.hasError) {
+            children = <Widget>[
+              Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 60,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Error: ${snapshot.error}'),
+              )
+            ];
+          } else {
+            children = <Widget>[
+              SizedBox(
+                child: CircularProgressIndicator(),
+                width: 60,
+                height: 60,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Text('Awaiting result...'),
+              )
+            ];
+          }
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: children,
             ),
-          ),
-        ),
-
-        
-        //Check this link https://api.flutter.dev/flutter/widgets/AnimatedOpacity-class.html to get info about AnimatedOpacity widget.
-        Container(
-            child: AnimatedOpacity(
-              duration: Duration(seconds: 2),
-              opacity: _visible ? 1.0 : 0.0,
-              child: const Text("Now you see me, now you don't!"),
-            )
-        ),
-        Container(
-          child: RaisedButton(
-            child: Text('Show Text'),
-            onPressed: (){
-              setState(() {
-                _visible = !_visible;
-              });
-            },
-          ),
-        )
-      ],
+          );
+        },
+      ),
     );
   }
 }
