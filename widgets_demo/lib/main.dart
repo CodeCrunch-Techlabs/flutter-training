@@ -31,49 +31,96 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: SafeArea(
-         child:  Wrap(
-             spacing: 3.0, // gap between adjacent chips
-             runSpacing: 3.0, // gap between lines
-             children: <Widget>[
-               Container(
-                 height: 100.0,
-                 width: 100.0,
-                 color: Colors.red,
-               ),
-               Container(
-                 height: 100.0,
-                 width: 100.0,
-                 color: Colors.red,
-               ),
-               Container(
-                 height: 100.0,
-                 width: 100.0,
-                 color: Colors.red,
-               ),
-               Container(
-                 height: 100.0,
-                 width: 100.0,
-                 color: Colors.red,
-               ),
-               Container(
-                 height: 100.0,
-                 width: 100.0,
-                 color: Colors.red,
-               ),
-               Container(
-                 height: 100.0,
-                 width: 100.0,
-                 color: Colors.red,
-               ),
-             ],
+       child: Column(
+         mainAxisAlignment: MainAxisAlignment.spaceAround,
+         children: <Widget>[
+           Container(
+             child:  Wrap(
+               spacing: 3.0, // gap between adjacent chips
+               runSpacing: 3.0, // gap between lines
+               children: <Widget>[
+                 Container(
+                   height: 100.0,
+                   width: 100.0,
+                   color: Colors.red,
+                 ),
+                 Container(
+                   height: 100.0,
+                   width: 100.0,
+                   color: Colors.red,
+                 ),
+                 Container(
+                   height: 100.0,
+                   width: 100.0,
+                   color: Colors.red,
+                 ),
+                 Container(
+                   height: 100.0,
+                   width: 100.0,
+                   color: Colors.red,
+                 ),
+                 Container(
+                   height: 100.0,
+                   width: 100.0,
+                   color: Colors.red,
+                 ),
+                 Container(
+                   height: 100.0,
+                   width: 100.0,
+                   color: Colors.red,
+                 ),
+               ],
+             ),
+           ),
+           Container(
+              child: AnimatedPage()
            )
+         ],
        ),
     );
   }
 }
 
-// Check this link https://www.youtube.com/watch?v=z5iw2SeFx2M&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=4 to get info about Wrap widget.
+// Check this link https://api.flutter.dev/flutter/widgets/AnimatedContainer-class.html to get info about AnimatedContainer widget.
+
+class AnimatedPage extends StatefulWidget {
+  @override
+  _AnimatedPageState createState() => _AnimatedPageState();
+}
+
+class _AnimatedPageState extends State<AnimatedPage> {
+
+  bool selected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selected = !selected;
+        });
+      },
+      child: Center(
+        child: AnimatedContainer(
+          width: selected ? 200.0 : 100.0,
+          height: selected ? 100.0 : 200.0,
+          color: selected ? Colors.red : Colors.blue,
+          alignment: selected ? Alignment.center : AlignmentDirectional.topCenter,
+          duration: Duration(seconds:2),
+          curve: Curves.fastOutSlowIn,
+          child: Container(
+            width: 100.0,
+            height: 100.0,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
