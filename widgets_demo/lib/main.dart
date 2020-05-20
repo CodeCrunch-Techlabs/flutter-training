@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Widgets Demo"),
         ),
-        body: PageViewPage(),
+        body: HomePage(),
       )
     );
   }
@@ -32,144 +33,87 @@ class MyApp extends StatelessWidget {
 
 
 
-// Check this link https://api.flutter.dev/flutter/widgets/PageController-class.html to get info about FutureBuilder widget.
-//https://www.youtube.com/watch?v=J1gE9xvph-A&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=10&pbjreload=10.
-
-class PageViewPage extends StatefulWidget {
-  @override
-  _PageViewPageState createState() => _PageViewPageState();
-}
-
-class _PageViewPageState extends State<PageViewPage> {
-
-  final controller = PageController(
-    initialPage: 0,
-  );
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child : Scaffold(
-        body: PageView(
-          controller : controller,
-          scrollDirection: Axis.horizontal,
-          children: <Widget>[
-            HomePage(),
-            SecondPage(),
-            ThirdPage()
-          ],
-        ),
-      ),
-    );
-  }
-}
-
+// Check this link https://api.flutter.dev/flutter/widgets/Table-class.html to get info about FutureBuilder widget.
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.red,
+      child: Table(
+        columnWidths: { 0: FractionColumnWidth(.1), 1: FractionColumnWidth(.2)},
+        border: TableBorder.all(color: Colors.black),
+        defaultVerticalAlignment:TableCellVerticalAlignment.middle,
+        children: [
+             TableRow(
+               children: [
+                 TableCell(
+                   child: Text('ID'),
+                 ),
+                 TableCell(
+                   child: Text('NAME'),
+                 ),
+                 TableCell(
+                   child: Text('OCCUPATION'),
+                 ),
+                 TableCell(
+                   child: Text('WORK EXPERIANCE'),
+                 )
+               ]
+             ),
+          TableRow(
+              children: [
+                TableCell(
+                  child: Text('1'),
+                ),
+                TableCell(
+                  child: Text('James'),
+                ),
+                TableCell(
+                  child: Text('Web Developer'),
+                ),
+                TableCell(
+                  child: Text('5 Years'),
+                )
+              ]
           ),
-          SizedBox(height: 20.0),
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.red,
+          TableRow(
+              children: [
+                TableCell(
+                  child: Text('2'),
+                ),
+                TableCell(
+                  child: Text('John'),
+                ),
+                TableCell(
+                  child: Text('Flutter Developer'),
+                ),
+                TableCell(
+                  child: Text('3 Years'),
+                )
+              ]
           ),
-          SizedBox(height: 20.0),
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.red,
-          ),
-          SizedBox(height: 20.0),
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.red,
-          ),
+          TableRow(
+              children: [
+                TableCell(
+                  child: Text('3'),
+                ),
+                TableCell(
+                  child: Text('Angela'),
+                ),
+                TableCell(
+                  child: Text('Flutter Developer'),
+                ),
+                TableCell(
+                  child: Text('10 Years'),
+                )
+              ]
+          )
         ],
       ),
     );
   }
 }
 
-class SecondPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return  Container(
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.blue,
-          ),
-          SizedBox(height: 20.0),
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.blue,
-          ),
-          SizedBox(height: 20.0),
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.blue,
-          ),
-          SizedBox(height: 20.0),
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.blue,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ThirdPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.green,
-          ),
-          SizedBox(height: 20.0),
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.green,
-          ),
-          SizedBox(height: 20.0),
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.green,
-          ),
-          SizedBox(height: 20.0),
-          Container(
-            height: 100.0,
-            width: 200.0,
-            color: Colors.green,
-          ),
-        ],
-      ),
-    );;
-  }
-}
 
 
 
