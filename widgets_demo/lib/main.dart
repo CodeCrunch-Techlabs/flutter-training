@@ -22,9 +22,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Widgets Demo"),
-        ),
         body: HomePage(),
       )
     );
@@ -33,83 +30,59 @@ class MyApp extends StatelessWidget {
 
 
 
-// Check this link https://api.flutter.dev/flutter/widgets/Table-class.html to get info about FutureBuilder widget.
+// Check this link https://www.youtube.com/watch?v=R9C5KMJKluE&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=12 to get info about SliverAppBar widget.
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Table(
-        columnWidths: { 0: FractionColumnWidth(.1), 1: FractionColumnWidth(.2)},
-        border: TableBorder.all(color: Colors.black),
-        defaultVerticalAlignment:TableCellVerticalAlignment.middle,
-        children: [
-             TableRow(
-               children: [
-                 TableCell(
-                   child: Text('ID'),
-                 ),
-                 TableCell(
-                   child: Text('NAME'),
-                 ),
-                 TableCell(
-                   child: Text('OCCUPATION'),
-                 ),
-                 TableCell(
-                   child: Text('WORK EXPERIANCE'),
-                 )
-               ]
-             ),
-          TableRow(
-              children: [
-                TableCell(
-                  child: Text('1'),
-                ),
-                TableCell(
-                  child: Text('James'),
-                ),
-                TableCell(
-                  child: Text('Web Developer'),
-                ),
-                TableCell(
-                  child: Text('5 Years'),
-                )
-              ]
+    return CustomScrollView(
+      slivers: <Widget>[
+         SliverAppBar(
+           title: Text("Neture App"),
+          expandedHeight: 200.0,
+          floating: false,
+          pinned: true,
+           flexibleSpace: Stack(
+             children: <Widget>[
+               Positioned.fill(
+                   child: Image.network(
+                     "https://i.pinimg.com/originals/c2/b1/54/c2b154e1040a61b458be5d668bfa165e.jpg",
+                     fit: BoxFit.cover,
+                   ))
+             ],
+           ),
+        ),
+        SliverGrid(
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200.0,
+            mainAxisSpacing: 10.0,
+            crossAxisSpacing: 10.0,
+            childAspectRatio: 4.0,
           ),
-          TableRow(
-              children: [
-                TableCell(
-                  child: Text('2'),
-                ),
-                TableCell(
-                  child: Text('John'),
-                ),
-                TableCell(
-                  child: Text('Flutter Developer'),
-                ),
-                TableCell(
-                  child: Text('3 Years'),
-                )
-              ]
+          delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+              return Container(
+                alignment: Alignment.center,
+                color: Colors.teal[100 * (index % 9)],
+                child: Text('Grid Item $index'),
+              );
+            },
+            childCount: 20,
           ),
-          TableRow(
-              children: [
-                TableCell(
-                  child: Text('3'),
-                ),
-                TableCell(
-                  child: Text('Angela'),
-                ),
-                TableCell(
-                  child: Text('Flutter Developer'),
-                ),
-                TableCell(
-                  child: Text('10 Years'),
-                )
-              ]
-          )
-        ],
-      ),
+        ),
+        SliverFixedExtentList(
+          itemExtent: 50.0,
+          delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+              return Container(
+                alignment: Alignment.center,
+                color: Colors.lightBlue[100 * (index % 9)],
+                child: Text('List Item $index'),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
