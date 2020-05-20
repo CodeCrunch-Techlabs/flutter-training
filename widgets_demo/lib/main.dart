@@ -35,54 +35,15 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-         SliverAppBar(
-           title: Text("Neture App"),
-          expandedHeight: 200.0,
-          floating: false,
-          pinned: true,
-           flexibleSpace: Stack(
-             children: <Widget>[
-               Positioned.fill(
-                   child: Image.network(
-                     "https://i.pinimg.com/originals/c2/b1/54/c2b154e1040a61b458be5d668bfa165e.jpg",
-                     fit: BoxFit.cover,
-                   ))
-             ],
-           ),
+    return Container(
+      child: FadeInImage(
+        placeholder: NetworkImage(
+          'https://www.slingshotvoip.com/wp-content/uploads/2019/12/placeholder-300x200.png',
         ),
-        SliverGrid(
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200.0,
-            mainAxisSpacing: 10.0,
-            crossAxisSpacing: 10.0,
-            childAspectRatio: 4.0,
-          ),
-          delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-              return Container(
-                alignment: Alignment.center,
-                color: Colors.teal[100 * (index % 9)],
-                child: Text('Grid Item $index'),
-              );
-            },
-            childCount: 20,
-          ),
-        ),
-        SliverFixedExtentList(
-          itemExtent: 50.0,
-          delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-              return Container(
-                alignment: Alignment.center,
-                color: Colors.lightBlue[100 * (index % 9)],
-                child: Text('List Item $index'),
-              );
-            },
-          ),
-        ),
-      ],
+        fadeInDuration: const Duration(seconds: 2),
+        fadeOutDuration: const Duration(seconds: 2),
+        image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsv8_v99tAqX1CGOw-5zpCDmQoQ2aKQBTz_la5s6M7k-LZpC49&usqp=CAU'),
+      ),
     );
   }
 }
