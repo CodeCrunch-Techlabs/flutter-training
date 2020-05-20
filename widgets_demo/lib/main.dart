@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -78,7 +79,7 @@ class MyHomePage extends StatelessWidget {
            ),
            Container(
               child: AnimatedPage()
-           )
+           ),
          ],
        ),
     );
@@ -96,26 +97,52 @@ class _AnimatedPageState extends State<AnimatedPage> {
 
   bool selected = false;
 
+  bool _visible = false;
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selected = !selected;
-        });
-      },
-      child: Center(
-        child: AnimatedContainer(
-          width: selected ? 100.0 : 300.0,
-          height: selected ? 100.0 : 100.0,
-          color: selected ? Colors.red : Colors.blue,
-          alignment: selected ? Alignment.center : AlignmentDirectional.topCenter,
-          duration: Duration(seconds:2),
-          curve: Curves.fastOutSlowIn,
-          child: Container(
+    return Column(
+      children: <Widget>[
+         GestureDetector(
+          onTap: () {
+            setState(() {
+              selected = !selected;
+            });
+          },
+          child: Center(
+            child: AnimatedContainer(
+              width: selected ? 100.0 : 300.0,
+              height: selected ? 100.0 : 100.0,
+              color: selected ? Colors.red : Colors.blue,
+              alignment: selected ? Alignment.center : AlignmentDirectional.topCenter,
+              duration: Duration(seconds:2),
+              curve: Curves.fastOutSlowIn,
+              child: Container(
+              ),
+            ),
           ),
         ),
-      ),
+
+        
+        //Check this link https://api.flutter.dev/flutter/widgets/AnimatedOpacity-class.html to get info about AnimatedOpacity widget.
+        Container(
+            child: AnimatedOpacity(
+              duration: Duration(seconds: 2),
+              opacity: _visible ? 1.0 : 0.0,
+              child: const Text("Now you see me, now you don't!"),
+            )
+        ),
+        Container(
+          child: RaisedButton(
+            child: Text('Show Text'),
+            onPressed: (){
+              setState(() {
+                _visible = !_visible;
+              });
+            },
+          ),
+        )
+      ],
     );
   }
 }
