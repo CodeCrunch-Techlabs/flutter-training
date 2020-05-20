@@ -106,15 +106,13 @@ class _AnimatedPageState extends State<AnimatedPage> {
       },
       child: Center(
         child: AnimatedContainer(
-          width: selected ? 200.0 : 100.0,
-          height: selected ? 100.0 : 200.0,
+          width: selected ? 100.0 : 300.0,
+          height: selected ? 100.0 : 100.0,
           color: selected ? Colors.red : Colors.blue,
           alignment: selected ? Alignment.center : AlignmentDirectional.topCenter,
           duration: Duration(seconds:2),
           curve: Curves.fastOutSlowIn,
           child: Container(
-            width: 100.0,
-            height: 100.0,
           ),
         ),
       ),
