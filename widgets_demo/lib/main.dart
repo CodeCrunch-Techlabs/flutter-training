@@ -54,7 +54,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/widgets/ValueListenableBuilder-class.html.
+//check this https://medium.com/flutter-community/a-deep-dive-into-draggable-and-dragtarget-in-flutter-487919f6f1e4.
 
 
 class MyHomePage extends StatefulWidget {
@@ -70,40 +70,23 @@ class _MyHomePageState extends State<MyHomePage> {
   final Widget goodJob = const Text('Good job!');
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('You have pushed the button this many times:'),
-            ValueListenableBuilder(
-              builder: (BuildContext context, int value, Widget child) {
-                // This builder will only get called when the _counter
-                // is updated.
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text('$value'),
-                    child,
-                  ],
-                );
-              },//context
-              valueListenable: _counter,//value
-              // The child parameter is most helpful if the child is
-              // expensive to build and does not depend on the value from
-              // the notifier.
-              child: goodJob,//child
-            )
-          ],
+    return Container(
+     child: Center(
+       child: Draggable(
+          child: Text(
+            "Take this Shoping trolly!!",
+          ),
+          feedback: Container(
+            child: Icon(Icons.add_shopping_cart,
+            size: 50.0,)
+          ),
+          childWhenDragging: Container(
+            width: 100.0,
+            height: 100.0,
+            color: Colors.black,
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.plus_one),
-        onPressed: () {
-          print(_counter);
-          _counter.value += 1;
-        }
-      ),
+     ),
     );
   }
 }
