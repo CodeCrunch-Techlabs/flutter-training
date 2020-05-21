@@ -54,7 +54,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/widgets/AnimatedBuilder-class.html.
+//check this https://www.youtube.com/watch?v=iEMgjrfuc58&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=29.
 
 
 class MyStatefulWidget extends StatefulWidget {
@@ -64,48 +64,26 @@ class MyStatefulWidget extends StatefulWidget {
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget>
-    with TickerProviderStateMixin {
-  AnimationController _controller;
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    )..repeat();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      child: Container(
-        width: 200.0,
-        height: 200.0,
-        decoration: new BoxDecoration(
-          color: Colors.black,
-          shape: BoxShape.circle,
+    return Container(
+      child: Dismissible(
+         child: ListTile(
+           title: Text('Swipe Me!!'),
+         ),
+        background: Container(
+          color: Colors.green,
+          child: Icon(Icons.check),
         ),
-        child: const Center(
-          child: Text('Whee!',style: TextStyle(
-            color: Colors.white
-          ),),
+        secondaryBackground: Container(
+          color: Colors.red,
+          child: Icon(Icons.cancel),
         ),
+        key: ValueKey('swipe'),
       ),
-      builder: (BuildContext context, Widget child) {
-        return Transform.rotate(
-          angle: _controller.value * 2.0 * math.pi,
-          child: child,
-        );
-      },
     );
   }
 }
