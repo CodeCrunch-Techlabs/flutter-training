@@ -23,52 +23,41 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-          body: MainScreen(),
+          body: Home(),
         ));
   }
 }
 
-class MainScreen extends StatelessWidget {
+
+
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Main Screen'),
-        ),
-        body: GestureDetector(
-          child: Hero(
-            tag: 'imageHero',
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(500.0),
-              child: Image.network(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQx-_naJsnKHbBVP2Zn_Zz1SWwkpf8XdIH0tOM9StkNDBGJ5Fo6&usqp=CAU'),
+        appBar: new AppBar(
+            elevation: 0.0,
+            title: new Text("Flutter Experiments",
+              style: new TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Nunito',
+                  letterSpacing: 1.0
+              ),
             ),
-          ),
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) {
-              return DetailScreen();
-            }));
-          },
-        ));
-  }
-}
-
-class DetailScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        child: Center(
-          child: Hero(
-            tag: 'imageHero',
-            child: Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQx-_naJsnKHbBVP2Zn_Zz1SWwkpf8XdIH0tOM9StkNDBGJ5Fo6&usqp=CAU'),
-          ),
+            backgroundColor: new Color(0xFF2979FF),
+            centerTitle: true
         ),
-        onTap: () {
-          Navigator.pop(context);
-        },
-      ),
+        body: Container(
+          child: Center(
+            child: Tooltip(
+              height: 24,
+              message: 'Cake',
+              child: IconButton(
+                icon: Icon(Icons.cake),
+              )
+            ),
+          )
+        )
     );
   }
 }
+
