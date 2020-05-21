@@ -52,32 +52,41 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=9z_YNlRlWfA&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=24.
+//check this https://www.youtube.com/watch?v=EgtPleVwxBQ&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=27.
 
 class LayoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Stack(
-      fit: StackFit.expand,
-      children: <Widget>[
-        Image.network('https://assets.awwwards.com/awards/images/2019/05/illustration-web-design-thumb.jpg'),
-        Center(
-          child: ClipRect(  // <-- clips to the 200x200 [Container] below
-            child: BackdropFilter(
-              filter: ui.ImageFilter.blur(
-                sigmaX: 3.0,
-                sigmaY: 3.0,
-              ),
-              child: Container(
-                alignment: Alignment.center,
-                width: 200.0,
-                height: 200.0,
-                child: Text('Hello World'),
-              ),
-            ),
-          ),
-        ),
-      ],
+    children: <Widget>[
+      Positioned(
+        top: 10.0,
+        right: 30.0,
+        child: Text('I am hereeee!!!',style: TextStyle(
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+          color: Colors.red
+        ),),
+      ),
+      Positioned(
+        top: 100.0,
+        left: 30.0,
+        child: Text('I am hereeee!!!',style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.greenAccent
+        ),),
+      ),
+      Positioned(
+        bottom: 100.0,
+        right: 30.0,
+        child: Text('I am hereeee!!!',style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue
+        ),),
+      )
+        ],
     );
   }
 }
