@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
@@ -47,46 +49,63 @@ class Home extends StatelessWidget {
             backgroundColor: new Color(0xFF2979FF),
             centerTitle: true
         ),
-        body: LayoutPage()
+        body: MyStatefulWidget()
         );
   }
 }
 
-//check this https://www.youtube.com/watch?v=EgtPleVwxBQ&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=27.
+//check this https://api.flutter.dev/flutter/widgets/AnimatedBuilder-class.html.
 
-class LayoutPage extends StatelessWidget {
+
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key}) : super(key: key);
+
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  Stack(
-    children: <Widget>[
-      Positioned(
-        top: 10.0,
-        right: 30.0,
-        child: Text('I am hereeee!!!',style: TextStyle(
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold,
-          color: Colors.red
-        ),),
+    return AnimatedBuilder(
+      animation: _controller,
+      child: Container(
+        width: 200.0,
+        height: 200.0,
+        decoration: new BoxDecoration(
+          color: Colors.black,
+          shape: BoxShape.circle,
+        ),
+        child: const Center(
+          child: Text('Whee!',style: TextStyle(
+            color: Colors.white
+          ),),
+        ),
       ),
-      Positioned(
-        top: 100.0,
-        left: 30.0,
-        child: Text('I am hereeee!!!',style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.greenAccent
-        ),),
-      ),
-      Positioned(
-        bottom: 100.0,
-        right: 30.0,
-        child: Text('I am hereeee!!!',style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.blue
-        ),),
-      )
-        ],
+      builder: (BuildContext context, Widget child) {
+        return Transform.rotate(
+          angle: _controller.value * 2.0 * math.pi,
+          child: child,
+        );
+      },
     );
   }
 }
