@@ -66,27 +66,66 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final ValueNotifier<int> _counter = ValueNotifier<int>(0);
-  final Widget goodJob = const Text('Good job!');
+  List<int> _list = [];
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+
+
+  void _addItem() {
+    final int _index = _list.length;
+    _list.insert(_index,_index);
+    _listKey.currentState.insertItem(_index);
+  }
+
+  void _removeItem() {
+    final int _index = _list.length-1;
+    _listKey.currentState.removeItem(_index,(context,animation)=> Container()); /// what I'm supposed to do here
+    _list.removeAt(_index);
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-     child: Center(
-       child: Draggable(
-          child: Text(
-            "Take this Shoping trolly!!",
-          ),
-          feedback: Container(
-            child: Icon(Icons.add_shopping_cart,
-            size: 50.0,)
-          ),
-          childWhenDragging: Container(
-            width: 100.0,
-            height: 100.0,
-            color: Colors.black,
+    return Scaffold(
+      body: Center(
+
+        child: AnimatedList(
+          key: _listKey,
+          initialItemCount: 0,
+          itemBuilder: (BuildContext context, int index, Animation animation) {
+            return _buildItem(_list[index].toString(),animation);
+          },),
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              FloatingActionButton(
+                onPressed:()=> _addItem(),
+                tooltip: 'Increment',
+                child: Icon(Icons.add),),
+              FloatingActionButton(
+                onPressed: ()=>_removeItem(),
+                tooltip: 'Decrement',
+                child: Icon(Icons.remove),),
+            ],),
+        ],),
+    );
+  }
+
+  Widget _buildItem(String _item, Animation _animation) {
+    return SizeTransition(
+      sizeFactor: _animation,
+      child: Card(
+        child: ListTile(
+          title: Text(
+            _item,
           ),
         ),
-     ),
+      ),
     );
   }
 }
