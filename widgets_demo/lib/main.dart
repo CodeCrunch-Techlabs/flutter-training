@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'dart:math' as math;
+
 
 void main() => runApp(MyApp());
 
@@ -51,21 +52,45 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=65HoWqBboI8&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=23.
+//check this https://www.youtube.com/watch?v=9z_YNlRlWfA&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=24.
 
 class LayoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      width: 100.0,
-      child: AbsorbPointer(
-        child: FlatButton(
-          child: Text("Click Me"),
-          onPressed: (){
-            print("got it!");
-          },
-        ),
-      )
+    return  Column(
+        children: <Widget>[
+          Container(
+              width: 100.0,
+              child: Container(
+                color: Colors.black,
+                child: Transform(
+                  alignment: Alignment.topRight,
+                  transform: Matrix4.skewY(0.3)..rotateZ(-math.pi / 12.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    color: const Color(0xFFE8581C),
+                    child: const Text('Apartment for rent!'),
+                  ),
+                ),
+              )
+          ),
+          SizedBox(height: 30.0,),
+          Container(
+              width: 100.0,
+              child: Container(
+                color: Colors.blueAccent,
+                child: Transform(
+                  alignment: Alignment.bottomLeft,
+                  transform: Matrix4.skewY(0.3)..rotateZ(-math.pi / 11.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    color: const Color(0xFFE8581C),
+                    child: const Text('Apartment for rent!'),
+                  ),
+                ),
+              )
+          ),
+        ],
     );
   }
 }
