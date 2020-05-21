@@ -36,14 +36,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: FadeInImage(
-        placeholder: NetworkImage(
-          'https://www.slingshotvoip.com/wp-content/uploads/2019/12/placeholder-300x200.png',
-        ),
-        fadeInDuration: const Duration(seconds: 2),
-        fadeOutDuration: const Duration(seconds: 2),
-        image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsv8_v99tAqX1CGOw-5zpCDmQoQ2aKQBTz_la5s6M7k-LZpC49&usqp=CAU'),
-      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50.0),
+        child: Container(child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcThmvE-eCG578_qLM8NJTad1BBto8HgyhAImtgZ3FlQkWj3PDML&usqp=CAU')),
+      )
     );
   }
 }
