@@ -54,77 +54,36 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://medium.com/flutter-community/a-deep-dive-into-draggable-and-dragtarget-in-flutter-487919f6f1e4.
+//check this https://www.youtube.com/watch?v=CI7x0mAZiY0&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=34.
 
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  List<int> _list = [];
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-
-
-  void _addItem() {
-    final int _index = _list.length;
-    _list.insert(_index,_index);
-    _listKey.currentState.insertItem(_index);
-  }
-
-  void _removeItem() {
-    final int _index = _list.length-1;
-    _listKey.currentState.removeItem(_index,(context,animation)=> Container()); /// what I'm supposed to do here
-    _list.removeAt(_index);
-  }
-
-
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-
-        child: AnimatedList(
-          key: _listKey,
-          initialItemCount: 0,
-          itemBuilder: (BuildContext context, int index, Animation animation) {
-            return _buildItem(_list[index].toString(),animation);
-          },),
-      ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
+    return Container(
+         height: 700.0,
+         width: 500.0,
+      color: Colors.red,
+      child: Column(
         children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              FloatingActionButton(
-                onPressed:()=> _addItem(),
-                tooltip: 'Increment',
-                child: Icon(Icons.add),),
-              FloatingActionButton(
-                onPressed: ()=>_removeItem(),
-                tooltip: 'Decrement',
-                child: Icon(Icons.remove),),
-            ],),
-        ],),
-    );
-  }
-
-  Widget _buildItem(String _item, Animation _animation) {
-    return SizeTransition(
-      sizeFactor: _animation,
-      child: Card(
-        child: ListTile(
-          title: Text(
-            _item,
+          Flexible(
+            flex: 3,
+            child: Container(
+              color: Colors.blue,
+            ),
           ),
-        ),
+          Flexible(
+            flex: 2,
+            child: Container(
+              color: Colors.yellow,
+            ),
+          ),
+          Flexible(
+            flex: 1   ,
+            child: Container(
+              color: Colors.green,
+            ),
+          )
+        ],
       ),
     );
   }
