@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=IYDVcriKjsw&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=22.
+
 
 class Home extends StatelessWidget {
   @override
@@ -51,20 +51,21 @@ class Home extends StatelessWidget {
   }
 }
 
+//check this https://www.youtube.com/watch?v=65HoWqBboI8&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=23.
+
 class LayoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
       width: 100.0,
-      child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            if(constraints.maxWidth > 200.0) {
-              return new Text('BIG');
-            } else {
-              return new Text('SMALL');
-            }
-          }
-      ),
+      child: AbsorbPointer(
+        child: FlatButton(
+          child: Text("Click Me"),
+          onPressed: (){
+            print("got it!");
+          },
+        ),
+      )
     );
   }
 }
