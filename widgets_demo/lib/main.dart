@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
+//check this https://www.youtube.com/watch?v=T4Uehk3_wlY&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=21.
 
 class Home extends StatelessWidget {
   @override
@@ -46,18 +46,53 @@ class Home extends StatelessWidget {
             backgroundColor: new Color(0xFF2979FF),
             centerTitle: true
         ),
-        body: Container(
-          child: Center(
-            child: Tooltip(
-              height: 24,
-              message: 'Cake',
-              child: IconButton(
-                icon: Icon(Icons.cake),
-              )
-            ),
-          )
+        body: Column(
+           children: <Widget>[
+             Container(
+               width: 400.0,
+               height: 100.0,
+               color: Colors.red,
+               child: FittedBox(
+                 fit: BoxFit.fitHeight,
+                 child: Container(
+                   width: 200.0,
+                   height: 200.0,
+                   color: Colors.blueAccent,
+                 ),
+               ),
+             ),
+             SizedBox(height: 20.0,),
+             Container(
+               width: 400.0,
+               height: 100.0,
+               color: Colors.red,
+               child: FittedBox(
+                 fit: BoxFit.fill,
+                 child: Container(
+                   width: 200.0,
+                   height: 200.0,
+                   color: Colors.blueAccent,
+                 ),
+               ),
+             ),
+             SizedBox(height: 20.0,),
+             Container(
+               width: 400.0,
+               height: 100.0,
+               color: Colors.red,
+               child: FittedBox(
+                 fit: BoxFit.cover,
+                 child: Container(
+                   width: 200.0,
+                   height: 200.0,
+                   color: Colors.blueAccent,
+                 ),
+               ),
+             ),
+           ],
         )
     );
   }
 }
+
 
