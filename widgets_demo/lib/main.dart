@@ -49,40 +49,60 @@ class Home extends StatelessWidget {
             backgroundColor: new Color(0xFF2979FF),
             centerTitle: true
         ),
-        body: MyStatefulWidget()
+        body: MyHomePage()
         );
   }
 }
 
-//check this https://www.youtube.com/watch?v=iEMgjrfuc58&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=29.
+//check this https://api.flutter.dev/flutter/widgets/ValueListenableBuilder-class.html.
 
 
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+  final String title;
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-
-
+class _MyHomePageState extends State<MyHomePage> {
+  final ValueNotifier<int> _counter = ValueNotifier<int>(0);
+  final Widget goodJob = const Text('Good job!');
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Dismissible(
-         child: ListTile(
-           title: Text('Swipe Me!!'),
-         ),
-        background: Container(
-          color: Colors.green,
-          child: Icon(Icons.check),
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('You have pushed the button this many times:'),
+            ValueListenableBuilder(
+              builder: (BuildContext context, int value, Widget child) {
+                // This builder will only get called when the _counter
+                // is updated.
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text('$value'),
+                    child,
+                  ],
+                );
+              },//context
+              valueListenable: _counter,//value
+              // The child parameter is most helpful if the child is
+              // expensive to build and does not depend on the value from
+              // the notifier.
+              child: goodJob,//child
+            )
+          ],
         ),
-        secondaryBackground: Container(
-          color: Colors.red,
-          child: Icon(Icons.cancel),
-        ),
-        key: ValueKey('swipe'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.plus_one),
+        onPressed: () {
+          print(_counter);
+          _counter.value += 1;
+        }
       ),
     );
   }
