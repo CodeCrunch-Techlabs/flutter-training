@@ -48,134 +48,50 @@ class Home extends StatelessWidget {
             ),
             backgroundColor: new Color(0xFF2979FF),
             centerTitle: true),
-        body: ReorderableListDemo());
+        body: MyHome());
   }
 }
 
-//check this https://medium.com/@adp4infotech4/flutter-building-a-reorderable-listview-735013719cf3.
+//check this https://api.flutter.dev/flutter/widgets/AnimatedSwitcher-class.html.
 
-
-class ReorderableListDemo extends StatefulWidget {
+class MyHome extends StatefulWidget {
   @override
-  _ReorderableListDemo createState() => _ReorderableListDemo();
+  _MyHomeState createState() => _MyHomeState();
 }
 
-class ListViewCard extends StatefulWidget {
-  final int index;
-  final Key key;
-  final List<String> listItems;
+class _MyHomeState extends State<MyHome> {
+  int _count = 0;
 
-  ListViewCard(this.listItems, this.index, this.key);
-
-  @override
-  _ListViewCard createState() => _ListViewCard();
-}
-
-class _ListViewCard extends State<ListViewCard> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(4),
+    return Container(
       color: Colors.white,
-      child: InkWell(
-        splashColor: Colors.blue,
-        onTap: () => Fluttertoast.showToast(
-            msg: "Item ${widget.listItems[widget.index]} selected.",
-            toastLength: Toast.LENGTH_SHORT),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Flexible(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(8.0),
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'Title ${widget.listItems[widget.index]}',
-                      style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      textAlign: TextAlign.left,
-                      maxLines: 5,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8.0),
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'Description ${widget.listItems[widget.index]}',
-                      style: TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.left,
-                      maxLines: 5,
-                    ),
-                  ),
-                ],
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 500),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return ScaleTransition(child: child, scale: animation);
+            },
+            child: Text(
+              '$_count',
+              // This key causes the AnimatedSwitcher to interpret this as a "new"
+              // child each time the count changes, so that it will begin its animation
+              // when the count changes.
+              key: ValueKey<int>(_count),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: Icon(
-                Icons.reorder,
-                color: Colors.grey,
-                size: 24.0,
-              ),
-            ),
-          ],
-        ),
+          ),
+          RaisedButton(
+            child: const Text('Increment'),
+            onPressed: () {
+              setState(() {
+                _count += 1;
+              });
+            },
+          ),
+        ],
       ),
-    );
-  }
-}
-
-class _ReorderableListDemo extends State<ReorderableListDemo> {
-  List<String> alphabetList = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J'
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Reorderable ListView Demo"),
-      ),
-      body: ReorderableListView(
-        onReorder: _onReorder,
-        scrollDirection: Axis.vertical,
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        children: List.generate(
-          alphabetList.length,
-              (index) {
-            return ListViewCard(
-              alphabetList,
-              index,
-              Key('$index'),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-
-
-
-  void _onReorder(int oldIndex, int newIndex) {
-    setState(
-          () {
-        final String item = alphabetList.removeAt(oldIndex);
-        alphabetList.insert(newIndex, item);
-      },
     );
   }
 }
