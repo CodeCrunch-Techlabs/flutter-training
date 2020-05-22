@@ -54,7 +54,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=CI7x0mAZiY0&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=34.
+//check this https://www.youtube.com/watch?v=7FJgd7QN1zI&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=36.
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -90,11 +90,13 @@ class SmallSize extends StatelessWidget {
               ),
             ),
           ),
+          Spacer(flex: 3,),//To Add custom space
           Expanded(
             child: Container(
               color: Colors.yellow,
             ),
           ),
+          Spacer(flex: 2,),
           Expanded(
             child: Container(
               color: Colors.green,
