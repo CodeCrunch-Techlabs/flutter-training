@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -31,96 +30,47 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: new AppBar(
             elevation: 0.0,
-            title: new Text("Flutter Experiments",
+            title: new Text(
+              "Flutter Experiments",
               style: new TextStyle(
                   color: Colors.white,
                   fontFamily: 'Nunito',
-                  letterSpacing: 1.0
-              ),
+                  letterSpacing: 1.0),
             ),
             backgroundColor: new Color(0xFF2979FF),
-            centerTitle: true
-        ),
-        body: MyHomePage()
-        );
+            centerTitle: true),
+        body: MyHomePage());
   }
 }
 
-//check this https://stackoverflow.com/questions/58883067/flutter-custom-animated-icon.
+//check this https://www.youtube.com/watch?v=LPe56fezmoo&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=41.
 
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
-
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-
-
     return Container(
-      child: SafeArea(
-        child: ListView(
-          children: <Widget>[
-             LimitedBox(
-               maxHeight: 600,
-                child: Containers()
-             )
-          ],
-        )
-      )
+        child: SafeArea(
+          child: Column(
+            children: <Widget>[
+              Placeholder(
+                fallbackHeight: 300,
+                fallbackWidth: 20,
+              )
+            ],
+          ),
+         )
     );
   }
 }
-
-class Containers extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          color:  Colors.red,
-          height: 100.0,
-        ),
-        Container(
-          color:  Colors.green,
-          height: 100.0,
-        ),
-        Container(
-          color:  Colors.blueAccent,
-          height: 100.0,
-        ),
-        Container(
-          color:  Colors.yellow,
-          height: 100.0,
-        ),
-         Container(
-          color:  Colors.orange,
-          height: 100.0,
-        ),
-         Container(
-          color:  Colors.purpleAccent,
-          height: 100.0,
-        ),
-         Container(
-          color:  Colors.pink,
-          height: 100.0,
-        )
-      ],
-    );
-  }
-}
-
-
-
-
-
