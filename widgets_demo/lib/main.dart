@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/widgets/AnimatedSwitcher-class.html.
+//check this https://medium.com/aubergine-solutions/options-to-animate-in-flutter-2cec6612c207.
 
 class MyHome extends StatefulWidget {
   @override
@@ -60,39 +60,48 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-  int _count = 0;
+
+  double _ironManAlignment = 50;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 500),
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return ScaleTransition(child: child, scale: animation);
-            },
-            child: Text(
-              '$_count',
-              // This key causes the AnimatedSwitcher to interpret this as a "new"
-              // child each time the count changes, so that it will begin its animation
-              // when the count changes.
-              key: ValueKey<int>(_count),
-            ),
+    return Stack(
+      children: <Widget>[
+        Container(
+          color: Colors.green,
+        ),
+        AnimatedPositioned(
+          duration: Duration(seconds: 3),
+          bottom: _ironManAlignment,
+          left: 90,
+          child: Container(
+            height: 150,
+            width: 150,
+            child: Image.network('https://www.freepngimg.com/thumb/iron_man/3-2-iron-man-png.png'),
           ),
-          RaisedButton(
-            child: const Text('Increment'),
+        ),
+        Align(
+          alignment: AlignmentDirectional.bottomCenter,
+          child: RaisedButton(
             onPressed: () {
-              setState(() {
-                _count += 1;
-              });
+              _flyIronMan();
             },
+            child: Text('Go'),
+            color: Colors.red,
+            textColor: Colors.yellowAccent,
+            shape: BeveledRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
           ),
-        ],
-      ),
+        )
+      ],
     );
   }
+
+  void _flyIronMan() {
+    setState(() {
+      _ironManAlignment = 340;
+    });
+  }
+
 }
 
