@@ -63,38 +63,26 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
 
-  bool expanded = true;
-  AnimationController controller;
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 400),
-      reverseDuration: Duration(milliseconds: 400),
-    );
-  }
-
-
   @override
   Widget build(BuildContext context) {
 
 
     return Container(
-      child: Center(
-        child: IconButton(
-          icon: AnimatedIcon(
-          icon: AnimatedIcons.menu_close,
-          progress: controller,
-          semanticLabel: 'Show menu',
-      ),
-        onPressed: () {
-          setState(() {
-            expanded ? controller.forward() : controller.reverse();
-            expanded = !expanded;
-          });
-        },
-      ) ,
+      child: SafeArea(
+        child: Column(
+         children: <Widget>[
+           AspectRatio(
+             aspectRatio: 3/2,
+             child: Container(
+               color: Colors.blueAccent,
+             ),
+           ),
+           AspectRatio(
+             aspectRatio: 2/1,
+              child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRtY30QvsrmcLKkQw8nI7dJiCoGVWWUnwpaQtpP3ZkZRPos1kh3&usqp=CAU'),
+           )
+         ],
+        ),
       )
     );
   }
