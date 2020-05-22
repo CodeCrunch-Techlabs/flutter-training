@@ -69,24 +69,57 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
 
     return Container(
       child: SafeArea(
-        child: Column(
-         children: <Widget>[
-           AspectRatio(
-             aspectRatio: 3/2,
-             child: Container(
-               color: Colors.blueAccent,
-             ),
-           ),
-           AspectRatio(
-             aspectRatio: 2/1,
-              child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRtY30QvsrmcLKkQw8nI7dJiCoGVWWUnwpaQtpP3ZkZRPos1kh3&usqp=CAU'),
-           )
-         ],
-        ),
+        child: ListView(
+          children: <Widget>[
+             LimitedBox(
+               maxHeight: 600,
+                child: Containers()
+             )
+          ],
+        )
       )
     );
   }
 }
+
+class Containers extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Container(
+          color:  Colors.red,
+          height: 100.0,
+        ),
+        Container(
+          color:  Colors.green,
+          height: 100.0,
+        ),
+        Container(
+          color:  Colors.blueAccent,
+          height: 100.0,
+        ),
+        Container(
+          color:  Colors.yellow,
+          height: 100.0,
+        ),
+         Container(
+          color:  Colors.orange,
+          height: 100.0,
+        ),
+         Container(
+          color:  Colors.purpleAccent,
+          height: 100.0,
+        ),
+         Container(
+          color:  Colors.pink,
+          height: 100.0,
+        )
+      ],
+    );
+  }
+}
+
 
 
 
