@@ -54,97 +54,52 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=7FJgd7QN1zI&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=36.
+//check this https://stackoverflow.com/questions/58883067/flutter-custom-animated-icon.
 
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
 
-
-
+  bool expanded = true;
+  AnimationController controller;
   @override
-  Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    print(screenSize.width);
-    //small = 360.0
-    //large = 640.0
-    return Container(
-      child: screenSize.width == 360.0  ? SmallSize() : BigSize() ,
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 400),
+      reverseDuration: Duration(milliseconds: 400),
     );
   }
-}
 
-class SmallSize extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
+
     return Container(
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              child: Container(
-                color: Colors.blue,
-              ),
-            ),
-          ),
-          Spacer(flex: 3,),//To Add custom space
-          Expanded(
-            child: Container(
-              color: Colors.yellow,
-            ),
-          ),
-          Spacer(flex: 2,),
-          Expanded(
-            child: Container(
-              color: Colors.green,
-            ),
-          )
-        ],
+      child: Center(
+        child: IconButton(
+          icon: AnimatedIcon(
+          icon: AnimatedIcons.menu_close,
+          progress: controller,
+          semanticLabel: 'Show menu',
       ),
+        onPressed: () {
+          setState(() {
+            expanded ? controller.forward() : controller.reverse();
+            expanded = !expanded;
+          });
+        },
+      ) ,
+      )
     );
   }
 }
 
-class BigSize extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              child: Container(
-                color: Colors.blue,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.yellow,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.green,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.purpleAccent,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.red,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
+
 
 
