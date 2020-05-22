@@ -62,14 +62,17 @@ class _MyHomePageState extends State<MyHomePage>
   Widget build(BuildContext context) {
     return Container(
         child: SafeArea(
-          child: Column(
-            children: <Widget>[
-              Placeholder(
-                fallbackHeight: 300,
-                fallbackWidth: 20,
-              )
-            ],
-          ),
+          child: RichText(
+            text: TextSpan(
+              text: 'Hello ',
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                TextSpan(text: 'bold', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),),
+                TextSpan(text: ' world!'),
+                TextSpan(text: ' How are you ?'),
+              ],
+            ),
+          )
          )
     );
   }
