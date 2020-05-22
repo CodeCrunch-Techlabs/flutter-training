@@ -56,29 +56,46 @@ class Home extends StatelessWidget {
 
 //check this https://www.youtube.com/watch?v=CI7x0mAZiY0&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=34.
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    print(screenSize.width);
+    //small = 360.0
+    //large = 640.0
+    return Container(
+      child: screenSize.width == 360.0  ? SmallSize() : BigSize() ,
+    );
+  }
+}
+
+class SmallSize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-         height: 700.0,
-         width: 500.0,
-      color: Colors.red,
-      child: Column(
+      child: Row(
         children: <Widget>[
-          Flexible(
-            flex: 3,
+          Expanded(
             child: Container(
-              color: Colors.blue,
+              child: Container(
+                color: Colors.blue,
+              ),
             ),
           ),
-          Flexible(
-            flex: 2,
+          Expanded(
             child: Container(
               color: Colors.yellow,
             ),
           ),
-          Flexible(
-            flex: 1   ,
+          Expanded(
             child: Container(
               color: Colors.green,
             ),
@@ -88,4 +105,44 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
+class BigSize extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              child: Container(
+                color: Colors.blue,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.yellow,
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.green,
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.purpleAccent,
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.red,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
 
