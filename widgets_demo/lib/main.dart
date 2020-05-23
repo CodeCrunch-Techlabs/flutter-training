@@ -50,7 +50,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=PEsY654EGZ0&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=52.
+//check this https://api.flutter.dev/flutter/widgets/ListView-class.html.
 
 class MyHome extends StatefulWidget {
   @override
@@ -59,20 +59,27 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-
+  final List<String> entries = <String>['A', 'B', 'C', 'D', 'E', 'F'];
+  final List<int> colorCodes = <int>[600, 500, 400, 300, 200, 100];
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-            alignment: Alignment.center,
-        child: FractionallySizedBox(
-          widthFactor: 0.3,
-          child: FlatButton(
-            child: Text('PRESS HERE'),
+        child: Container(
+          child: ListView.separated(
+            padding: const EdgeInsets.all(8),
+            itemCount: entries.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                height: 50,
+                color: Colors.amber[colorCodes[index]],
+                child: Center(child: Text('Entry ${entries[index]}')),
+              );
+            },
+            separatorBuilder: (BuildContext context,
+                int index) => const Divider(),
           ),
-        ),
-      ),
+        )
     );
   }
 }
