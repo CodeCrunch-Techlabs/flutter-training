@@ -50,7 +50,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=o2KveVr7adg&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=49.
+//check this https://api.flutter.dev/flutter/widgets/Stack-class.html.
 
 class MyHome extends StatefulWidget {
   @override
@@ -63,21 +63,29 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: 100.0,
-            maxHeight: 100.0
-          ),
-          child: Column(
-            children: <Widget>[
-              Text('Delicious Candy',textAlign: TextAlign.center,),
-              Container(
-                width: 200.0,
-                height: 50.0,
-                color: Colors.blueAccent,
-              )
-            ],
-          )
+        child: Stack(
+          children: <Widget>[
+            Container(
+              width: 100,
+              height: 100,
+              color: Colors.red,
+            ),
+            Container(
+              width: 90,
+              height: 90,
+              color: Colors.green,
+            ),
+            Container(
+              width: 80,
+              height: 80,
+              color: Colors.blue,
+            ),
+            Container(
+              width: 70,
+              height: 70,
+              color: Colors.purpleAccent,
+            ),
+          ],
         ),
       ),
     );
