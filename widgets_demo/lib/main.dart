@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/widgets/DraggableScrollableSheet-class.html.
+//check this https://www.youtube.com/watch?v=F7Cll22Dno8&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=62.
 
 class MyHome extends StatefulWidget {
   @override
@@ -64,23 +64,11 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: SizedBox.expand(
-        child: DraggableScrollableSheet(
-          builder: (BuildContext context, ScrollController scrollController) {
-            return Container(
-              color: Colors.blue[100],
-              child: ListView.builder(
-                controller: scrollController,
-                itemCount: 25,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(title: Text('Item $index'));
-                },
-              ),
-            );
-          },
-        ),
-      ),
+    return  Container(
+       child: ColorFiltered(
+         colorFilter: ColorFilter.mode(Colors.red, BlendMode.modulate),
+         child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTUR3N71dMrBhvdyYZzQMzLrJ3slplbj6eDJhyONk9xwywwSagK&usqp=CAU'),
+       ),
     );
   }
 }
