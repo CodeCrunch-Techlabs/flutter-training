@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/material/AlertDialog-class.html.
+//check this https://api.flutter.dev/flutter/widgets/AnimatedCrossFade-class.html.
 
 class MyHome extends StatefulWidget {
   @override
@@ -61,47 +61,31 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-  double rating = 1;
+  bool _first = true;
 
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('AlertDialog Title'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('This is a demo alert dialog.'),
-                Text('Would you like to approve of this message?'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Approve'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Container(
-          child: Center(
-            child: FlatButton(
-              child: Text('Show Alert'),
-              onPressed: (){
-                _showMyDialog();
-              },
+        child: Column(
+          children: <Widget>[
+            Container(
+                child: AnimatedCrossFade(
+                  duration: const Duration(seconds: 2),
+                  firstChild: const FlutterLogo(style: FlutterLogoStyle.horizontal, size: 100.0),
+                  secondChild: const FlutterLogo(style: FlutterLogoStyle.stacked, size: 100.0),
+                  crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                )
             ),
-          )
+            SizedBox(height: 40.0,),
+            FlatButton(
+              child: Text("Clik Me"),
+              onPressed: (){
+                setState(() {
+                  _first = !_first;
+                });
+              },
+            )
+          ],
         )
     );
   }
