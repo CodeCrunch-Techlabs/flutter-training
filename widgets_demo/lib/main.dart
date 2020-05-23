@@ -61,24 +61,23 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-  var selectedRange = RangeValues(2,8);
+  double rating = 1;
 
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-          child: RangeSlider(
-            values: selectedRange,
-            onChanged: (RangeValues newRange){
+          child: CupertinoSlider(
+            value: rating,
+            onChanged: (newRating){
               setState(() {
-                selectedRange = newRange;
+                rating = newRating;
               });
             },
             min: 1,
             max: 10,
-            divisions: 10,
-            labels: RangeLabels('${selectedRange.start}', '${selectedRange.end}')
+            divisions: 4,
           )
         )
     );
