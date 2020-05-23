@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:fluttertoast/fluttertoast.dart';
 
-
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -52,7 +50,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=_O0PPD1Xfbk&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=47.
+//check this https://www.youtube.com/watch?v=NvtMt_DtFrQ&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=48.
 
 class MyHome extends StatefulWidget {
   @override
@@ -61,50 +59,23 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-  int _widgetIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
         child: Column(
-           children: <Widget>[
-             IndexedStack(
-               index: _widgetIndex,
-               children: <Widget>[
-                 Container(
-                   height: 200.0,
-                   width: 200.0,
-                   color: Colors.blueAccent,
-                 ),
-                 Container(
-                   height: 200.0,
-                   width: 200.0,
-                   color: Colors.redAccent,
-                 ),
-                 Container(
-                   height: 200.0,
-                   width: 200.0,
-                   color: Colors.purpleAccent,
-                 ),
-               ],
-             ),
-             FlatButton(
-               child: Text('Click Me'),
-               onPressed: (){
-                 setState(() {
-                     _widgetIndex++;
-                 });
-               },
-             )
-           ],
+          children: <Widget>[
+            Container(
+              child: Semantics(
+                  child: Image.network(
+                      'https://thumbs.dreamstime.com/b/neture-beautiful-image-174650696.jpg'),
+                label: 'This is Neture image',
+                readOnly: true,
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
-
 }
-
-
-
-
