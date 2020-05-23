@@ -50,7 +50,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=NvtMt_DtFrQ&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=48.
+//check this https://www.youtube.com/watch?v=o2KveVr7adg&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=49.
 
 class MyHome extends StatefulWidget {
   @override
@@ -63,17 +63,21 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Semantics(
-                  child: Image.network(
-                      'https://thumbs.dreamstime.com/b/neture-beautiful-image-174650696.jpg'),
-                label: 'This is Neture image',
-                readOnly: true,
-              ),
-            ),
-          ],
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 100.0,
+            maxHeight: 100.0
+          ),
+          child: Column(
+            children: <Widget>[
+              Text('Delicious Candy',textAlign: TextAlign.center,),
+              Container(
+                width: 200.0,
+                height: 50.0,
+                color: Colors.blueAccent,
+              )
+            ],
+          )
         ),
       ),
     );
