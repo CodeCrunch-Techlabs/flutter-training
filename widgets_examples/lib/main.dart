@@ -1,43 +1,86 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
-void main() {
-  runApp(PlaceHolderPage());
-}
+void main() => runApp(new MyApp());
 
-class PlaceHolderPage extends StatefulWidget {
-  @override
-  _PlaceHolderState createState() => _PlaceHolderState();
-}
-
-class _PlaceHolderState extends State<PlaceHolderPage> {
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Place HOlder"),
+    return new MaterialApp(
+      title: 'Flutter Demo',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      home: new MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(widget.title),
+      ),
+      body: new Center(
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 20),
-            Placeholder(
-              color: Colors.red,
-              strokeWidth: 4,
-              fallbackWidth: 100,
-              fallbackHeight: 100,
-            ),
-            SizedBox(height: 20),
-            Container(
-              // constraints: BoxConstraints.expand(height: 100, width: 100),
-              child: Placeholder(
-                color: Colors.blueAccent,
-                strokeWidth: 4,
-                fallbackWidth: 10,
-                fallbackHeight: 100,
+            new RichText(
+              text: new TextSpan(
+                text: 'Hello ',
+                style: DefaultTextStyle.of(context).style,
+                children: <TextSpan>[
+                  new TextSpan(
+                      text: 'bold',
+                      style: new TextStyle(fontWeight: FontWeight.bold)),
+                  new TextSpan(text: ' world!'),
+                ],
               ),
+            ),
+            RichText(
+              text: TextSpan(
+                  style: TextStyle(
+                    color: Colors.green,
+                  ),
+                  children: [
+                    TextSpan(text: "jaydip"),
+                    TextSpan(text: "patel"),
+                    TextSpan(text: "valsad"),
+                  ]),
+            ),
+            new Text(
+              'You have pushed the button this many times:',
+            ),
+            new Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.display1,
             ),
           ],
         ),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: new Icon(Icons.add),
       ),
     );
   }
