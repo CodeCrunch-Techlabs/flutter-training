@@ -37,22 +37,11 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: new AppBar(
-            elevation: 0.0,
-            title: new Text(
-              "Flutter Experiments",
-              style: new TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Nunito',
-                  letterSpacing: 1.0),
-            ),
-            backgroundColor: new Color(0xFF2979FF),
-            centerTitle: true),
         body: MyHome());
   }
 }
 
-//check this https://api.flutter.dev/flutter/widgets/TweenAnimationBuilder-class.html.
+//check this https://flutter.dev/docs/catalog/samples/tabbed-app-bar.
 
 class MyHome extends StatefulWidget {
   @override
@@ -65,26 +54,28 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-       child: Center(
-         child:TweenAnimationBuilder(
-           tween: Tween<double>(begin: 0, end: targetValue),
-           duration: Duration(seconds: 1),
-           builder: (BuildContext context, double size, Widget child) {
-             return IconButton(
-               iconSize: size,
-               color: Colors.blue,
-               icon: child,
-               onPressed: () {
-                 setState(() {
-                   targetValue = targetValue == 24.0 ? 48.0 : 24.0;
-                 });
-               },
-             );
-           },
-           child: Icon(Icons.aspect_ratio),
-         )
-       ),
+    return  MaterialApp(
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+         appBar: AppBar(
+           bottom: TabBar(
+             tabs: <Widget>[
+               Tab(text: 'Cat'),
+               Tab(text: 'Dog'),
+               Tab(text: 'Rabbit')
+             ],
+           ),
+         ),
+          body: TabBarView(
+            children: <Widget>[
+              Image.network('https://cdn.pixabay.com/photo/2014/11/30/14/11/kitty-551554__340.jpg'),
+              Image.network('https://static.toiimg.com/thumb/msid-60132235,imgsize-169468,width-800,height-600,resizemode-75/60132235.jpg'),
+              Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQrQ8-nDluM0TMzcbJUHfM-UPZSgNBAjnEJSdjnJj941uowl-2f&usqp=CAU')
+            ],
+          ),
+       )
+      )
     );
   }
 }
