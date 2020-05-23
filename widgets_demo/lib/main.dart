@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/material/SelectableText-class.html.
+//check this https://api.flutter.dev/flutter/material/DataTable-class.html.
 
 class MyHome extends StatefulWidget {
   @override
@@ -67,15 +67,50 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-          child: Center(
-            child: SelectableText(
-              'Hello! How are you?',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold),
-              showCursor: true,
-              cursorColor: Colors.green,
-              toolbarOptions: ToolbarOptions( copy: true),
-            ),
+          child: DataTable(
+            columns: const <DataColumn>[
+              DataColumn(
+                label: Text(
+                  'Name',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'Age',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'Salary',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                )
+              )
+            ],
+            rows: const <DataRow>[
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('Sarah')),
+                  DataCell(Text('19')),
+                  DataCell(Text('0')),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('Janine')),
+                  DataCell(Text('43')),
+                  DataCell(Text('30,000')),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('William')),
+                  DataCell(Text('27')),
+                  DataCell(Text('45,000')),
+                ],
+              ),
+            ],
           )
         )
     );
