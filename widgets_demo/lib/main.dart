@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/material/DataTable-class.html.
+//check this https://www.youtube.com/watch?v=ufb4gIPDmEs&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=58.
 
 class MyHome extends StatefulWidget {
   @override
@@ -61,56 +61,24 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
+  double rating = 1;
 
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-          child: DataTable(
-            columns: const <DataColumn>[
-              DataColumn(
-                label: Text(
-                  'Name',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Age',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Salary',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                )
-              )
-            ],
-            rows: const <DataRow>[
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('Sarah')),
-                  DataCell(Text('19')),
-                  DataCell(Text('0')),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('Janine')),
-                  DataCell(Text('43')),
-                  DataCell(Text('30,000')),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('William')),
-                  DataCell(Text('27')),
-                  DataCell(Text('45,000')),
-                ],
-              ),
-            ],
+          child: Slider(
+            value: rating,
+            onChanged: (newRating){
+              setState(() {
+                rating = newRating;
+              });
+            },
+            min: 1,
+            max: 10,
+            divisions: 4,
+            label: "$rating",
           )
         )
     );
