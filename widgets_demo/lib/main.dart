@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=PY2m0fhGNz4&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=46.
+//check this https://www.youtube.com/watch?v=_O0PPD1Xfbk&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=47.
 
 class MyHome extends StatefulWidget {
   @override
@@ -61,7 +61,7 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-  double padValue = 0;
+  int _widgetIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -69,21 +69,31 @@ class _MyHomeState extends State<MyHome> {
       child: Container(
         child: Column(
            children: <Widget>[
-             AnimatedPadding(
-               padding: EdgeInsets.all(padValue),
-               duration: const Duration(seconds: 1),
-               curve: Curves.easeInOut,
-               child: Container(
-                 height: 100.0,
-                 width: 100.0,
-                 color: Colors.blueAccent,
-               ),
+             IndexedStack(
+               index: _widgetIndex,
+               children: <Widget>[
+                 Container(
+                   height: 200.0,
+                   width: 200.0,
+                   color: Colors.blueAccent,
+                 ),
+                 Container(
+                   height: 200.0,
+                   width: 200.0,
+                   color: Colors.redAccent,
+                 ),
+                 Container(
+                   height: 200.0,
+                   width: 200.0,
+                   color: Colors.purpleAccent,
+                 ),
+               ],
              ),
              FlatButton(
                child: Text('Click Me'),
                onPressed: (){
                  setState(() {
-                   padValue = padValue + 5;
+                     _widgetIndex++;
                  });
                },
              )
