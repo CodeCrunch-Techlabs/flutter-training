@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MyApp());
 }
-
-// MyApp is a StatefulWidget. This allows updating the state of the
-// widget when an item is removed.
+  
 class MyApp extends StatefulWidget {
   MyApp({Key key}) : super(key: key);
 
