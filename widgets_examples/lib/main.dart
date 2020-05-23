@@ -8,64 +8,65 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  double padValue = 0;
-
-  List<Paint> paints = [
-    Paint(1, 'Red', Colors.red),
-    Paint(2, 'Blue', Colors.blue),
-    Paint(3, 'Green', Colors.green),
-    Paint(4, 'Lime', Colors.lime),
-    Paint(5, 'Indigo', Colors.indigo),
-    Paint(6, 'Yellow', Colors.yellow)
-  ];
+  Widget _myAnimatedWidget = FirstWidget();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("ReorderableListView Example"),
-        ),
-        body: ReorderableListView(
-          children: List.generate(paints.length, (index) {
-            return ListTile(
-              key: ValueKey("value$index"),
-              leading: Container(
-                width: 100.0,
-                height: 100.0,
-                color: paints[index].colorpicture,
+      home: Material(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              AnimatedSwitcher(
+                duration: const Duration(seconds: 1),
+                
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                    return ScaleTransition(child: child, scale: animation,);
+                  },
+      
+                child: _myAnimatedWidget,
               ),
-              title: Text('ID: ' + paints[index].id.toString()),
-              subtitle: Text(paints[index].title),
-            );
-          }),
-          onReorder: (int oldIndex, int newIndex) {
-            setState(() {
-              _updateMyItems(oldIndex, newIndex);
-            });
-          },
-        ),
+              RaisedButton(
+                child: Text('Click here'),
+                onPressed: () {
+                  setState(() {
+                    _myAnimatedWidget =
+                        (_myAnimatedWidget.toString() == "FirstWidget")
+                            ? SecondWidget()
+                            : FirstWidget();
+                  });
+                },
+              )
+            ]),
       ),
     );
   }
+}
 
-  void _updateMyItems(int oldIndex, int newIndex) {
-    if (newIndex > oldIndex) {
-      newIndex -= 1;
-    }
-
-    final Paint item = paints.removeAt(oldIndex);
-
-    paints.insert(newIndex, item);
+class FirstWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200.0,
+      height: 200.0,
+      child: Center(child: Text("This is First Widget")),
+      decoration: BoxDecoration(
+        color: Colors.orange,
+      ),
+    );
   }
 }
 
-class Paint {
-  final int id;
-
-  final String title;
-
-  final Color colorpicture;
-
-  Paint(this.id, this.title, this.colorpicture);
+class SecondWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200.0,
+      height: 200.0,
+      child: Center(child: Text("This is Second Widget")),
+      decoration: BoxDecoration(
+        color: Colors.green,
+      ),
+    );
+  }
 }
