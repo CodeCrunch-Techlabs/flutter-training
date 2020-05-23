@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=F7Cll22Dno8&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=62.
+//check this https://api.flutter.dev/flutter/material/ToggleButtons-class.html.
 
 class MyHome extends StatefulWidget {
   @override
@@ -61,13 +61,25 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
+  List<bool> isSelected = [false, false, false];
 
   @override
   Widget build(BuildContext context) {
     return  Container(
-       child: ColorFiltered(
-         colorFilter: ColorFilter.mode(Colors.red, BlendMode.modulate),
-         child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTUR3N71dMrBhvdyYZzQMzLrJ3slplbj6eDJhyONk9xwywwSagK&usqp=CAU'),
+       child:Center(
+         child: ToggleButtons(
+           children: <Widget>[
+             Icon(Icons.ac_unit),
+             Icon(Icons.call),
+             Icon(Icons.cake),
+           ],
+           onPressed: (int index) {
+             setState(() {
+               isSelected[index] = !isSelected[index];
+             });
+           },
+           isSelected: isSelected,
+         ),
        ),
     );
   }
