@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://stackoverflow.com/questions/58586031/what-is-the-proper-way-to-implement-cupertinoactionsheet.
+//check this https://api.flutter.dev/flutter/widgets/TweenAnimationBuilder-class.html.
 
 class MyHome extends StatefulWidget {
   @override
@@ -61,64 +61,30 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
+  double targetValue = 24.0;
 
   @override
   Widget build(BuildContext context) {
     return  Container(
        child: Center(
-         child: Card(
-           elevation: 20,
-           child: Column(
-               mainAxisAlignment: MainAxisAlignment.start,
-               mainAxisSize: MainAxisSize.min,
-               children: <Widget>[
-                 StatefulBuilder(builder:
-                     (BuildContext context, StateSetter setState) {
-                   return CupertinoButton(
-                     child: Text(
-                       'Click me',
-                       style: TextStyle(color: Colors.black),
-                     ),
-                     onPressed: () {
-                       final act = CupertinoActionSheet(
-                           title: Text('Select Option'),
-                           message: Text('Which option you would like to select?'),
-                           actions: <Widget>[
-                             CupertinoActionSheetAction(
-                               child: Text('Yes'),
-                               onPressed: () {
-                                 print('Yes');
-                               },
-                             ),
-                             CupertinoActionSheetAction(
-                               child: Text('No'),
-                               onPressed: () {
-                                 print('No');
-                               },
-                             ),
-                             CupertinoActionSheetAction(
-                               child: Text('Can\'t say anything'),
-                               onPressed: () {
-                                 print('Can\'t say anything');
-                               },
-                             )
-                           ],
-                           cancelButton: CupertinoActionSheetAction(
-                             child: Text('Cancel'),
-                             onPressed: () {
-                               Navigator.pop(context);
-                             },
-                           ));
-                       showCupertinoModalPopup(
-                           context: context,
-                           builder: (BuildContext context) => act);
-                     },
-                   );
-                 })
-               ]),
-         ),
+         child:TweenAnimationBuilder(
+           tween: Tween<double>(begin: 0, end: targetValue),
+           duration: Duration(seconds: 1),
+           builder: (BuildContext context, double size, Widget child) {
+             return IconButton(
+               iconSize: size,
+               color: Colors.blue,
+               icon: child,
+               onPressed: () {
+                 setState(() {
+                   targetValue = targetValue == 24.0 ? 48.0 : 24.0;
+                 });
+               },
+             );
+           },
+           child: Icon(Icons.aspect_ratio),
+         )
        ),
-
     );
   }
 }
