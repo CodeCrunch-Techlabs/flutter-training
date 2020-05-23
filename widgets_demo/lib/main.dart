@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://medium.com/aubergine-solutions/options-to-animate-in-flutter-2cec6612c207.
+//check this https://www.youtube.com/watch?v=PY2m0fhGNz4&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=46.
 
 class MyHome extends StatefulWidget {
   @override
@@ -61,47 +61,40 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-  double _ironManAlignment = 50;
+  double padValue = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          color: Colors.green,
+    return SafeArea(
+      child: Container(
+        child: Column(
+           children: <Widget>[
+             AnimatedPadding(
+               padding: EdgeInsets.all(padValue),
+               duration: const Duration(seconds: 1),
+               curve: Curves.easeInOut,
+               child: Container(
+                 height: 100.0,
+                 width: 100.0,
+                 color: Colors.blueAccent,
+               ),
+             ),
+             FlatButton(
+               child: Text('Click Me'),
+               onPressed: (){
+                 setState(() {
+                   padValue = padValue + 5;
+                 });
+               },
+             )
+           ],
         ),
-        AnimatedPositioned(
-          duration: Duration(seconds: 3),
-          bottom: _ironManAlignment,
-          left: 90,
-          child: Container(
-            height: 150,
-            width: 150,
-            child: Image.network('https://www.freepngimg.com/thumb/iron_man/3-2-iron-man-png.png'),
-          ),
-        ),
-        Align(
-          alignment: AlignmentDirectional.bottomCenter,
-          child: RaisedButton(
-            onPressed: () {
-              _flyIronMan();
-            },
-            child: Text('Go'),
-            color: Colors.red,
-            textColor: Colors.yellowAccent,
-            shape: BeveledRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20))),
-          ),
-        )
-      ],
+      ),
     );
   }
 
-  void _flyIronMan() {
-    setState(() {
-      _ironManAlignment = 340;
-    });
-  }
-
 }
+
+
+
 
