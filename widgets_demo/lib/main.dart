@@ -61,7 +61,6 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-  List<bool> isSelected = [false, false, false];
 
   @override
   Widget build(BuildContext context) {
