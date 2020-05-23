@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/widgets/AnimatedCrossFade-class.html.
+//check this https://api.flutter.dev/flutter/widgets/DraggableScrollableSheet-class.html.
 
 class MyHome extends StatefulWidget {
   @override
@@ -61,32 +61,26 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-  bool _first = true;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Column(
-          children: <Widget>[
-            Container(
-                child: AnimatedCrossFade(
-                  duration: const Duration(seconds: 2),
-                  firstChild: const FlutterLogo(style: FlutterLogoStyle.horizontal, size: 100.0),
-                  secondChild: const FlutterLogo(style: FlutterLogoStyle.stacked, size: 100.0),
-                  crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                )
-            ),
-            SizedBox(height: 40.0,),
-            FlatButton(
-              child: Text("Clik Me"),
-              onPressed: (){
-                setState(() {
-                  _first = !_first;
-                });
-              },
-            )
-          ],
-        )
+    return  Scaffold(
+      body: SizedBox.expand(
+        child: DraggableScrollableSheet(
+          builder: (BuildContext context, ScrollController scrollController) {
+            return Container(
+              color: Colors.blue[100],
+              child: ListView.builder(
+                controller: scrollController,
+                itemCount: 25,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(title: Text('Item $index'));
+                },
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
