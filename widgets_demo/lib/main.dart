@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/material/ToggleButtons-class.html.
+//check this https://stackoverflow.com/questions/58586031/what-is-the-proper-way-to-implement-cupertinoactionsheet.
 
 class MyHome extends StatefulWidget {
   @override
@@ -66,21 +66,60 @@ class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     return  Container(
-       child:Center(
-         child: ToggleButtons(
-           children: <Widget>[
-             Icon(Icons.ac_unit),
-             Icon(Icons.call),
-             Icon(Icons.cake),
-           ],
-           onPressed: (int index) {
-             setState(() {
-               isSelected[index] = !isSelected[index];
-             });
-           },
-           isSelected: isSelected,
+       child: Center(
+         child: Card(
+           elevation: 20,
+           child: Column(
+               mainAxisAlignment: MainAxisAlignment.start,
+               mainAxisSize: MainAxisSize.min,
+               children: <Widget>[
+                 StatefulBuilder(builder:
+                     (BuildContext context, StateSetter setState) {
+                   return CupertinoButton(
+                     child: Text(
+                       'Click me',
+                       style: TextStyle(color: Colors.black),
+                     ),
+                     onPressed: () {
+                       final act = CupertinoActionSheet(
+                           title: Text('Select Option'),
+                           message: Text('Which option you would like to select?'),
+                           actions: <Widget>[
+                             CupertinoActionSheetAction(
+                               child: Text('Yes'),
+                               onPressed: () {
+                                 print('Yes');
+                               },
+                             ),
+                             CupertinoActionSheetAction(
+                               child: Text('No'),
+                               onPressed: () {
+                                 print('No');
+                               },
+                             ),
+                             CupertinoActionSheetAction(
+                               child: Text('Can\'t say anything'),
+                               onPressed: () {
+                                 print('Can\'t say anything');
+                               },
+                             )
+                           ],
+                           cancelButton: CupertinoActionSheetAction(
+                             child: Text('Cancel'),
+                             onPressed: () {
+                               Navigator.pop(context);
+                             },
+                           ));
+                       showCupertinoModalPopup(
+                           context: context,
+                           builder: (BuildContext context) => act);
+                     },
+                   );
+                 })
+               ]),
          ),
        ),
+
     );
   }
 }
