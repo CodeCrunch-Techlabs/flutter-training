@@ -1,70 +1,59 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  MyApp({Key key}) : super(key: key);
-
-  @override
-  MyAppState createState() {
-    return MyAppState();
-  }
-}
-
-class MyAppState extends State<MyApp> {
-  final items = List<String>.generate(20, (i) => "Item ${i + 1}");
-
+void main() => runApp(
+      new MyApp(),
+    );
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final title = 'Dismissing Items';
-
     return MaterialApp(
-      title: title,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            final item = items[index];
-
-            return Dismissible(
-              key: Key(item),
-              onDismissed: (direction) {
-                setState(() {
-                  items.removeAt(index);
-                });
-                Scaffold.of(context)
-                    .showSnackBar(SnackBar(content: Text("$item dismissed")));
-              },
-              background: Container(color: Colors.red),
-              child: ListTile(title: Text('$item')),
-            );
-            ValueListenableBuilder(
-              valueListenable: null,
-              child: Container(
-                height: 100,
-                width: 100,
-                color: Colors.green,
-              ),
-              builder: (context, value, child) {
-                return Transform.rotate(
-                  angle: value * 2.0 * 3.14,
-                  child: child,
-                );
-              },
-            );
+      title: 'Draggable',
+      home: Drag(),
+    );
+  }
+}
+class Drag extends StatefulWidget {
+  Drag({Key key}) : super(key: key);
+  @override
+  _DragState createState() => _DragState();
+}
+class _DragState extends State<Drag> {
+double top = 0;
+  double left = 0;
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: Draggable(
+          child: Container(
+            padding: EdgeInsets.only(top: top, left: left),
+            child: DragItem(),
+          ),
+          feedback: Container(
+            padding: EdgeInsets.only(top: top, left: left),
+            child: DragItem(),
+          ),
+          childWhenDragging: Container(
+            padding: EdgeInsets.only(top: top, left: left),
+            child: DragItem(),
+          ),
+          onDragCompleted: () {},
+          onDragEnd: (drag) {
+            setState(() {
+              top = top + drag.offset.dy < 0 ? 0 : top + drag.offset.dy;
+              left = left + drag.offset.dx < 0 ? 0 : left + drag.offset.dx;
+            });
           },
         ),
       ),
+    );
+  }
+}
+class DragItem extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      IconData(57744, fontFamily: 'MaterialIcons'),
+      size: 36,
     );
   }
 }
