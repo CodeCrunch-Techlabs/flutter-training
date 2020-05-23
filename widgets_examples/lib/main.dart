@@ -1,87 +1,71 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  double padValue = 0;
+
+  List<Paint> paints = [
+    Paint(1, 'Red', Colors.red),
+    Paint(2, 'Blue', Colors.blue),
+    Paint(3, 'Green', Colors.green),
+    Paint(4, 'Lime', Colors.lime),
+    Paint(5, 'Indigo', Colors.indigo),
+    Paint(6, 'Yellow', Colors.yellow)
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("ReorderableListView Example"),
+        ),
+        body: ReorderableListView(
+          children: List.generate(paints.length, (index) {
+            return ListTile(
+              key: ValueKey("value$index"),
+              leading: Container(
+                width: 100.0,
+                height: 100.0,
+                color: paints[index].colorpicture,
+              ),
+              title: Text('ID: ' + paints[index].id.toString()),
+              subtitle: Text(paints[index].title),
+            );
+          }),
+          onReorder: (int oldIndex, int newIndex) {
+            setState(() {
+              _updateMyItems(oldIndex, newIndex);
+            });
+          },
+        ),
       ),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
     );
+  }
+
+  void _updateMyItems(int oldIndex, int newIndex) {
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+
+    final Paint item = paints.removeAt(oldIndex);
+
+    paints.insert(newIndex, item);
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class Paint {
+  final int id;
 
   final String title;
 
-  @override
-  _MyHomePageState createState() => new _MyHomePageState();
-}
+  final Color colorpicture;
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
-      ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new RichText(
-              text: new TextSpan(
-                text: 'Hello ',
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  new TextSpan(
-                      text: 'bold',
-                      style: new TextStyle(fontWeight: FontWeight.bold)),
-                  new TextSpan(text: ' world!'),
-                ],
-              ),
-            ),
-            RichText(
-              text: TextSpan(
-                  style: TextStyle(
-                    color: Colors.green,
-                  ),
-                  children: [
-                    TextSpan(text: "jaydip"),
-                    TextSpan(text: "patel"),
-                    TextSpan(text: "valsad"),
-                  ]),
-            ),
-            new Text(
-              'You have pushed the button this many times:',
-            ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
-      ),
-    );
-  }
+  Paint(this.id, this.title, this.colorpicture);
 }
