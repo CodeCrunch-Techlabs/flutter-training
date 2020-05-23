@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
   runApp(MyApp());
 }
-  
+
 class MyApp extends StatefulWidget {
   MyApp({Key key}) : super(key: key);
 
@@ -35,17 +36,31 @@ class MyAppState extends State<MyApp> {
           itemBuilder: (context, index) {
             final item = items[index];
 
-            return Dismissible( 
-              key: Key(item), 
-              onDismissed: (direction) { 
+            return Dismissible(
+              key: Key(item),
+              onDismissed: (direction) {
                 setState(() {
                   items.removeAt(index);
-                }); 
+                });
                 Scaffold.of(context)
                     .showSnackBar(SnackBar(content: Text("$item dismissed")));
-              }, 
+              },
               background: Container(color: Colors.red),
               child: ListTile(title: Text('$item')),
+            );
+            ValueListenableBuilder(
+              valueListenable: null,
+              child: Container(
+                height: 100,
+                width: 100,
+                color: Colors.green,
+              ),
+              builder: (context, value, child) {
+                return Transform.rotate(
+                  angle: value * 2.0 * 3.14,
+                  child: child,
+                );
+              },
             );
           },
         ),
