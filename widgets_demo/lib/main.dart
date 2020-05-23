@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=ufb4gIPDmEs&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=58.
+//check this https://api.flutter.dev/flutter/material/AlertDialog-class.html.
 
 class MyHome extends StatefulWidget {
   @override
@@ -63,21 +63,44 @@ class _MyHomeState extends State<MyHome> {
 
   double rating = 1;
 
-
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('This is a demo alert dialog.'),
+                Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-          child: CupertinoSlider(
-            value: rating,
-            onChanged: (newRating){
-              setState(() {
-                rating = newRating;
-              });
-            },
-            min: 1,
-            max: 10,
-            divisions: 4,
+          child: Center(
+            child: FlatButton(
+              child: Text('Show Alert'),
+              onPressed: (){
+                _showMyDialog();
+              },
+            ),
           )
         )
     );
