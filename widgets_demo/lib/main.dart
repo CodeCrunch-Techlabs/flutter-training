@@ -50,7 +50,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=QZAvjqOqiLY&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=51.
+//check this https://www.youtube.com/watch?v=PEsY654EGZ0&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=52.
 
 class MyHome extends StatefulWidget {
   @override
@@ -59,22 +59,17 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-  double opacityValue = 1.0;
+
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        child: FlatButton(
-          onPressed: (){
-            setState(() {
-         opacityValue = opacityValue == 1.0 ? 0.0 : 1.0;
-            });
-          },
-          child: AnimatedOpacity(
-            opacity: opacityValue ,
-            duration: const Duration(seconds: 1),
-            child: Image.network('https://img.icons8.com/color/96/000000/flutter.png'),
+            alignment: Alignment.center,
+        child: FractionallySizedBox(
+          widthFactor: 0.3,
+          child: FlatButton(
+            child: Text('PRESS HERE'),
           ),
         ),
       ),
