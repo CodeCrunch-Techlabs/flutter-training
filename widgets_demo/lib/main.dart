@@ -61,24 +61,24 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-  double rating = 1;
+  var selectedRange = RangeValues(2,8);
 
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-          child: Slider(
-            value: rating,
-            onChanged: (newRating){
+          child: RangeSlider(
+            values: selectedRange,
+            onChanged: (RangeValues newRange){
               setState(() {
-                rating = newRating;
+                selectedRange = newRange;
               });
             },
             min: 1,
             max: 10,
-            divisions: 4,
-            label: "$rating",
+            divisions: 10,
+            labels: RangeLabels('${selectedRange.start}', '${selectedRange.end}')
           )
         )
     );
