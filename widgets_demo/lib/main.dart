@@ -35,6 +35,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlueAccent,
         appBar: new AppBar(
             elevation: 0.0,
             title: new Text(
@@ -50,7 +51,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/widgets/ListView-class.html.
+//check this https://www.youtube.com/watch?v=l8dj0yPBvgQ&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=54.
 
 class MyHome extends StatefulWidget {
   @override
@@ -59,26 +60,37 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-  final List<String> entries = <String>['A', 'B', 'C', 'D', 'E', 'F'];
-  final List<int> colorCodes = <int>[600, 500, 400, 300, 200, 100];
+ 
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-          child: ListView.separated(
-            padding: const EdgeInsets.all(8),
-            itemCount: entries.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                height: 50,
-                color: Colors.amber[colorCodes[index]],
-                child: Center(child: Text('Entry ${entries[index]}')),
-              );
-            },
-            separatorBuilder: (BuildContext context,
-                int index) => const Divider(),
-          ),
+          child: ListView(
+            children: <Widget>[
+               Card(
+                 child:ListTile(
+                   leading: Image.network('https://img.icons8.com/bubbles/50/000000/user-male.png'),
+                   title: Text('James'),
+                   trailing: Icon(Icons.menu),
+                 ),
+               ),
+              Card(
+                child:ListTile(
+                  leading: Image.network('https://img.icons8.com/bubbles/50/000000/user-male.png'),
+                  title: Text('James'),
+                  trailing: Icon(Icons.menu),
+                ),
+              ),
+              Card(
+                child:ListTile(
+                  leading: Image.network('https://img.icons8.com/bubbles/100/000000/gemologist-female.png'),
+                  title: Text('Janny'),
+                  trailing: Icon(Icons.menu),
+                ),
+              )
+            ],
+          )
         )
     );
   }
