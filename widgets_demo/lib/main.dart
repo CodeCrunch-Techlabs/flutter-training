@@ -50,7 +50,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/widgets/Stack-class.html.
+//check this https://www.youtube.com/watch?v=QZAvjqOqiLY&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=51.
 
 class MyHome extends StatefulWidget {
   @override
@@ -59,33 +59,23 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
+  double opacityValue = 1.0;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              width: 100,
-              height: 100,
-              color: Colors.red,
-            ),
-            Container(
-              width: 90,
-              height: 90,
-              color: Colors.green,
-            ),
-            Container(
-              width: 80,
-              height: 80,
-              color: Colors.blue,
-            ),
-            Container(
-              width: 70,
-              height: 70,
-              color: Colors.purpleAccent,
-            ),
-          ],
+        child: FlatButton(
+          onPressed: (){
+            setState(() {
+         opacityValue = opacityValue == 1.0 ? 0.0 : 1.0;
+            });
+          },
+          child: AnimatedOpacity(
+            opacity: opacityValue ,
+            duration: const Duration(seconds: 1),
+            child: Image.network('https://img.icons8.com/color/96/000000/flutter.png'),
+          ),
         ),
       ),
     );
