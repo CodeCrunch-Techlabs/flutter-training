@@ -1,9 +1,11 @@
+
 import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:fluttertoast/fluttertoast.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -35,7 +37,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
         appBar: new AppBar(
             elevation: 0.0,
             title: new Text(
@@ -51,7 +52,7 @@ class Home extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=l8dj0yPBvgQ&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=54.
+//check this https://api.flutter.dev/flutter/material/SelectableText-class.html.
 
 class MyHome extends StatefulWidget {
   @override
@@ -60,36 +61,21 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
- 
+
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-          child: ListView(
-            children: <Widget>[
-               Card(
-                 child:ListTile(
-                   leading: Image.network('https://img.icons8.com/bubbles/50/000000/user-male.png'),
-                   title: Text('James'),
-                   trailing: Icon(Icons.menu),
-                 ),
-               ),
-              Card(
-                child:ListTile(
-                  leading: Image.network('https://img.icons8.com/bubbles/50/000000/user-male.png'),
-                  title: Text('James'),
-                  trailing: Icon(Icons.menu),
-                ),
-              ),
-              Card(
-                child:ListTile(
-                  leading: Image.network('https://img.icons8.com/bubbles/100/000000/gemologist-female.png'),
-                  title: Text('Janny'),
-                  trailing: Icon(Icons.menu),
-                ),
-              )
-            ],
+          child: Center(
+            child: SelectableText(
+              'Hello! How are you?',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold),
+              showCursor: true,
+              cursorColor: Colors.green,
+              toolbarOptions: ToolbarOptions( copy: true),
+            ),
           )
         )
     );
