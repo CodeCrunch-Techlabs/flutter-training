@@ -65,16 +65,21 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text('ListViews')),
-        body: ListView.builder(
-        itemCount: europeanCountries.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(europeanCountries[index]),
-          );
-        },
-      )
-      ),
+          appBar: AppBar(title: Text('ListViews')),
+          body: ListView.builder(
+            itemCount: europeanCountries.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: SelectableText(
+                  europeanCountries[index],
+                  showCursor: true,
+                  cursorWidth: 5,
+                  cursorColor: Colors.green,
+                  cursorRadius: Radius.circular(0),
+                ),
+              );
+            },
+          )),
     );
   }
 }
