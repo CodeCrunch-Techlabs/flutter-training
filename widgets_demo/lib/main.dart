@@ -46,29 +46,18 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return  SafeArea(
       child: Container(
-         child: ListWheelScrollView(
-            children: <Widget>[
-              Container(
-                color: Colors.blue[100],
-              ),
-              Container(
-                color: Colors.blue[200],
-              ),
-              Container(
-                color: Colors.blue[300],
-              ),
-              Container(
-                color: Colors.blue[400],
-              ),
-              Container(
-                color: Colors.blue[500],
-              ),
-              Container(
-                color: Colors.blue[600],
-              )
-            ],
-           itemExtent: 40,
-         ),
+         child: ShaderMask(
+           shaderCallback: (Rect bounds) =>
+               RadialGradient(
+                 center: Alignment.topLeft,
+                 radius: 1.0,
+                 colors: [Colors.yellow, Colors.deepOrange.shade900],
+                 tileMode: TileMode.mirror,
+               ).createShader(bounds),
+           child: const Text('I’m burning the memories',style: TextStyle(
+             fontSize: 20 , fontWeight: FontWeight.bold
+           ),)
+         )
       ),
     );
   }
