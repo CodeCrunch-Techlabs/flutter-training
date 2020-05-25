@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=zpO6n_oZWw0&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=69.
+//check this https://www.youtube.com/watch?v=dUhmWAz4C7Y&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=70.
 
 class MyHome extends StatefulWidget {
   @override
@@ -41,20 +41,34 @@ class MyHome extends StatefulWidget {
 class _MyHomeState extends State<MyHome> {
 
 
+
   @override
   Widget build(BuildContext context) {
     return  SafeArea(
-      child: Scaffold(
-           body: Builder(
-             builder: (context) => FlatButton(
-               child: Text('Show a SnackBar'),
-               onPressed: (){
-                 Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text("Hello !!"),
-                 ));
-               },
-             ),
-           ),
+      child: Container(
+         child: ListWheelScrollView(
+            children: <Widget>[
+              Container(
+                color: Colors.blue[100],
+              ),
+              Container(
+                color: Colors.blue[200],
+              ),
+              Container(
+                color: Colors.blue[300],
+              ),
+              Container(
+                color: Colors.blue[400],
+              ),
+              Container(
+                color: Colors.blue[500],
+              ),
+              Container(
+                color: Colors.blue[600],
+              )
+            ],
+           itemExtent: 40,
+         ),
       ),
     );
   }
