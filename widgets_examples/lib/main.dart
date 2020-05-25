@@ -1,113 +1,88 @@
+ 
 import 'package:flutter/material.dart';
-  
-  void main() => runApp(MyApp());
-  
-  class MyApp extends StatelessWidget {
-    @override
-    Widget build(BuildContext context) {
-      return MaterialApp(
-        title: 'Flutter ListWheelScrollview ',
-        home: ListWheelScrollViewApp(),
-      );
-    }
-  }
-  
-  class ListWheelScrollViewApp extends StatefulWidget {
-    @override
-    _ListWheelScrollViewAppState createState() {
-      return _ListWheelScrollViewAppState();
-    }
-  }
-  
-  class _ListWheelScrollViewAppState extends State<ListWheelScrollViewApp> {
-  
-    int _selectedItemIndex = 0;
-  
-    @override
-    Widget build(BuildContext context) {
-      List<Widget> items = [
-        ListTile(
-          leading: Icon(Icons.local_activity, size: 50),
-          title: Text('Activity'),
-          subtitle: Text('Description here'),
-        ),
-        ListTile(
-          leading: Icon(Icons.local_airport, size: 50),
-          title: Text('Airport'),
-          subtitle: Text('Description here'),
-        ),
-        ListTile(
-          leading: Icon(Icons.local_atm, size: 50),
-          title: Text('ATM'),
-          subtitle: Text('Description here'),
-        ),
-        ListTile(
-          leading: Icon(Icons.local_bar, size: 50),
-          title: Text('Bar'),
-          subtitle: Text('Description here'),
-        ),
-        ListTile(
-          leading: Icon(Icons.local_cafe, size: 50),
-          title: Text('Cafe'),
-          subtitle: Text('Description here'),
-        ),
-        ListTile(
-          leading: Icon(Icons.local_car_wash, size: 50),
-          title: Text('Car Wash'),
-          subtitle: Text('Description here'),
-        ),
-        ListTile(
-          leading: Icon(Icons.local_convenience_store, size: 50),
-          title: Text('Convenience Store'),
-          subtitle: Text('Description here'),
-        ),
-        ListTile(
-          leading: Icon(Icons.local_dining, size: 50),
-          title: Text('Dining'),
-          subtitle: Text('Description here'),
-        ),
-        ListTile(
-          leading: Icon(Icons.local_drink, size: 50),
-          title: Text('Drink'),
-          subtitle: Text('Description here'),
-        ),
-        ListTile(
-          leading: Icon(Icons.local_florist, size: 50),
-          title: Text('Florist'),
-          subtitle: Text('Description here'),
-        ),
-        ListTile(
-          leading: Icon(Icons.local_gas_station, size: 50),
-          title: Text('Gas Station'),
-          subtitle: Text('Description here'),
-        ),
-        ListTile(
-          leading: Icon(Icons.local_grocery_store, size: 50),
-          title: Text('Grocery Store'),
-          subtitle: Text('Description here'),
-        ),
-      ];
-  
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('ListWheelScrollViewApp'),
-        ),
+
+import 'package:flutter/widgets.dart';
+
+void main() => runApp(MyApp());
+
+ 
+class MyApp extends StatelessWidget {
+  static const String _title = 'Flutter Code Sample';
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: _title,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(_title)),
         body: Center(
-            child: ListWheelScrollView(
-              itemExtent: 75,
-              children: items,
-              magnification: 1.5,
-              useMagnifier: true,
-              physics: FixedExtentScrollPhysics(),
-              diameterRatio: 1.5,
-              squeeze: 0.8,
-              onSelectedItemChanged: (index) => {
-                setState(() {
-                _selectedItemIndex = index;
-                })
-              },
-            )
-        )
-      );
-    }
+          child: MyStatefulWidget(),
+        ),
+      ),
+    );
   }
+}
+
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key}) : super(key: key);
+
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int _downCounter = 0;
+  int _upCounter = 0;
+  double x = 0.0;
+  double y = 0.0;
+
+  void _incrementDown(PointerEvent details) {
+    _updateLocation(details);
+    setState(() {
+      _downCounter++;
+    });
+  }
+
+  void _incrementUp(PointerEvent details) {
+    _updateLocation(details);
+    setState(() {
+      _upCounter++;
+    });
+  }
+
+  void _updateLocation(PointerEvent details) {
+    setState(() {
+      x = details.position.dx;
+      y = details.position.dy;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints.tight(Size(300.0, 200.0)),
+      child: Listener(
+        onPointerDown: _incrementDown,
+        onPointerMove: _updateLocation,
+        onPointerUp: _incrementUp,
+        child: Container(
+          color: Colors.lightBlueAccent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                  'You have pressed or released in this area this many times:'),
+              Text(
+                '$_downCounter presses\n$_upCounter releases',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              Text(
+                'The cursor is here: (${x.toStringAsFixed(2)}, ${y.toStringAsFixed(2)})',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
