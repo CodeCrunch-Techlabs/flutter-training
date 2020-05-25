@@ -1,63 +1,52 @@
-import 'package:flutter/material.dart';  
-  
-void main() => runApp(MyApp());  
-  
-class MyApp extends StatelessWidget {  
-  @override  
-  Widget build(BuildContext context) {  
-    final appTitle = 'Flutter Basic Alert Demo';  
-    return MaterialApp(  
-      title: appTitle,  
-      home: Scaffold(  
-        appBar: AppBar(  
-          title: Text(appTitle),  
-        ),  
-        body: MyAlert(),  
-      ),  
-    );  
-  }  
-}  
-  
-class MyAlert extends StatelessWidget {  
-  @override  
-  Widget build(BuildContext context) {  
-    return Padding(  
-      padding: const EdgeInsets.all(20.0),  
-      child: RaisedButton(  
-        child: Text('Show alert'),  
-        onPressed: () {  
-          showAlertDialog(context);  
-        },  
-      ),  
-    );  
-  }  
-}  
-  
-showAlertDialog(BuildContext context) {  
-  // Create button  
-  Widget okButton = FlatButton(  
-    child: Text("OK"),  
-    onPressed: () {  
-      Navigator.of(context).pop();  
-    },  
-  );  
-  
-  // Create AlertDialog  
-  AlertDialog alert = AlertDialog(  
-    title: Text("Simple Alert"),  
-    content: Text("This is an alert message."),  
-    actions: [  
-      okButton,  
-    ], 
-    backgroundColor: Colors.pink, 
-    
-  );  
-  
-  // show the dialog  
-  showDialog(  
-    context: context,  
-    builder: (BuildContext context) {  
-      return alert;  
-    },  
-  );  
-}  
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+
+class MyApp extends StatelessWidget {
+  final title = 'AnimatedCrossFade example';
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: title,
+      home: MyHomePage(title: title,),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  final String title;
+  const MyHomePage({Key key, this.title}) : super(key: key);
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  bool _first = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: AnimatedCrossFade(
+          duration: const Duration(seconds: 1),
+          firstChild: const FlutterLogo(style: FlutterLogoStyle.horizontal, size: 100.0),
+          secondChild: const FlutterLogo(style: FlutterLogoStyle.stacked, size: 100.0),
+          crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+        )
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.transform),
+        onPressed: () {
+          setState(() {
+           _first = !_first; 
+          });
+        }
+      ),
+    );
+  }
+}
