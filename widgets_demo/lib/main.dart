@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//check this https://www.youtube.com/watch?v=dUhmWAz4C7Y&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=70.
+//check this https://stackoverflow.com/questions/57454851/understanding-flutters-shadermask.
 
 class MyHome extends StatefulWidget {
   @override
@@ -47,6 +47,7 @@ class _MyHomeState extends State<MyHome> {
     return  SafeArea(
       child: Container(
          child: ShaderMask(
+             blendMode: BlendMode.srcATop,
            shaderCallback: (Rect bounds) =>
                RadialGradient(
                  center: Alignment.topLeft,
