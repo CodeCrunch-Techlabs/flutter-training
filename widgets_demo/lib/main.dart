@@ -25,9 +25,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       child: Container(
         child: Center(
-          child: CircularProgressIndicator(
-            strokeWidth: 4,
-          ),
+          child: LinearProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+          )
         ),
       )
     );
