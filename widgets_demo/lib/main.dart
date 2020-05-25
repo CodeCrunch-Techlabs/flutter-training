@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
+import 'package:flutter/scheduler.dart' show timeDilation;
 
 void main() => runApp(MyApp());
 
@@ -13,25 +13,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      home: MyStatefulWidget(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Widgets"),
+        ),
+        body: MyStatefulWidget(),
+      ),
     );
   }
 }
 
-class SpinningContainer extends AnimatedWidget {
-  const SpinningContainer({Key key, AnimationController controller})
-      : super(key: key, listenable: controller);
 
-  Animation<double> get _progress => listenable;
-
-  @override
-  Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: _progress.value * 2.0 * math.pi,
-      child: Container(width: 100.0, height: 100.0, color: Colors.green),
-    );
-  }
-}
 
 class MyStatefulWidget extends StatefulWidget {
   MyStatefulWidget({Key key}) : super(key: key);
@@ -40,28 +32,39 @@ class MyStatefulWidget extends StatefulWidget {
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget>
-    with TickerProviderStateMixin {
-  AnimationController _controller;
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 5),
-      vsync: this,
-    )..repeat();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  bool _isSelected = false;
 
   @override
   Widget build(BuildContext context) {
-    return SpinningContainer(controller: _controller);
+    return Column(
+      children: <Widget>[
+        CheckboxListTile(
+          title: const Text('Animate Slowly'),
+          value: timeDilation != 1.0,
+          onChanged: (bool value) {
+            setState(() {
+              timeDilation = value ? 10.0 : 1.0;
+            });
+          },
+          secondary: const Icon(Icons.hourglass_empty),
+        ),
+        CheckboxListTile(
+          title: const Text('Item 1'),
+          value: _isSelected,
+          onChanged: (bool newvalue) {
+            setState(() {
+              _isSelected = newvalue;
+            });
+          },
+          secondary: const Icon(Icons.favorite),
+          activeColor: Colors.green,
+          checkColor: Colors.black,
+        ),
+      ],
+    );
   }
 }
+
 
