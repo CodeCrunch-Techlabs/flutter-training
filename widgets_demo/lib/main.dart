@@ -1,64 +1,67 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-          body: MyHome(),
-        ));
+      home: MyHomePage(),
+    );
   }
 }
 
-//check this https://stackoverflow.com/questions/57454851/understanding-flutters-shadermask.
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
 
-class MyHome extends StatefulWidget {
+  final String title;
+
   @override
-  _MyHomeState createState() => _MyHomeState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomeState extends State<MyHome> {
-
-
-
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
+    List<Widget> list = [];
+    for (int i = 0; i < 100; i++) list.add(buildContainer());
+    return Scaffold(
+        body: ListView(children: list));
+  }
+
+  Widget buildContainer() {
+    ScrollController _scrollController = ScrollController();
+
+    return NotificationListener<ScrollNotification>(
+      onNotification: (scrollState) {
+        if (scrollState is ScrollEndNotification && scrollState.metrics.pixels != 160) {
+          Future.delayed(const Duration(milliseconds: 100), () {}).then((s) {
+            _scrollController.animateTo(160,
+                duration: Duration(milliseconds: 500), curve: Curves.ease);
+          });
+        }
+        return false;
+      },
       child: Container(
-         child: ShaderMask(
-             blendMode: BlendMode.srcATop,
-           shaderCallback: (Rect bounds) =>
-               RadialGradient(
-                 center: Alignment.topLeft,
-                 radius: 1.0,
-                 colors: [Colors.yellow, Colors.deepOrange.shade900],
-                 tileMode: TileMode.mirror,
-               ).createShader(bounds),
-           child: const Text('I’m burning the memories',style: TextStyle(
-             fontSize: 20 , fontWeight: FontWeight.bold
-           ),)
-         )
+        height: 160,
+        margin: EdgeInsets.only(bottom: 1),
+        child: ListView(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          controller: _scrollController,
+          children: <Widget>[
+            Container(
+              width: 360,
+              height: 20,
+              color: Colors.red,
+            ),
+            Container(
+              width: 160,
+              height: 20,
+              color: Colors.blue,
+            ),
+          ],
+        ),
       ),
     );
   }
