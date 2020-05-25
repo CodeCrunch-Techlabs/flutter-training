@@ -18,71 +18,29 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+class MyClipper extends CustomClipper<Rect>{
+  Rect getClip(Size size){
+    return Rect.fromLTWH(100, 100, 100, 100);
+  }
+
+  bool shouldReclip(oldClipper){
+    return false;
+  }
+}
+
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  Future<String> _calculation = Future<String>.delayed(
-    Duration(seconds: 3),
-        () => 'Data Loaded',
-  );
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
         child: Center(
-          child: FutureBuilder<String>(
-          future: _calculation, // a previously-obtained Future<String> or null
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-      List<Widget> children;
-      if (snapshot.hasData) {
-          children = <Widget>[
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.green,
-              size: 60,
+          child: ClipOval(
+            child: Image.network('https://static01.nyt.com/images/2019/11/05/science/28TB-SUNSET1/merlin_163473282_fe17fc6b-78b6-4cdd-b301-6f63e6ebdd7a-superJumbo.jpg',
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: Text('Result: ${snapshot.data}'),
-            )
-          ];
-      } else if (snapshot.hasError) {
-          children = <Widget>[
-            Icon(
-              Icons.error_outline,
-              color: Colors.red,
-              size: 60,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: Text('Error: ${snapshot.error}'),
-            )
-          ];
-      } else {
-          children = <Widget>[
-            SizedBox(
-              child: CupertinoActivityIndicator(
-                radius: 40,
-              ),
-              width: 60,
-              height: 60,
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: Text('Awaiting result...'),
-            )
-          ];
-      }
-      return Center(
-            child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: children,
-      ),
-      );
-          },
-          ),
+            clipper: MyClipper(),
+          )
         ),
     );
   }
