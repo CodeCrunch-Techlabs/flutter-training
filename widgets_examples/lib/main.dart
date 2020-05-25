@@ -1,47 +1,92 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final europeanCountries = [
+      'Albania',
+      'Andorra',
+      'Armenia',
+      'Austria',
+      'Azerbaijan',
+      'Belarus',
+      'Belgium',
+      'Bosnia and Herzegovina',
+      'Bulgaria',
+      'Croatia',
+      'Cyprus',
+      'Czech Republic',
+      'Denmark',
+      'Estonia',
+      'Finland',
+      'France',
+      'Georgia',
+      'Germany',
+      'Greece',
+      'Hungary',
+      'Iceland',
+      'Ireland',
+      'Italy',
+      'Kazakhstan',
+      'Kosovo',
+      'Latvia',
+      'Liechtenstein',
+      'Lithuania',
+      'Luxembourg',
+      'Macedonia',
+      'Malta',
+      'Moldova',
+      'Monaco',
+      'Montenegro',
+      'Netherlands',
+      'Norway',
+      'Poland',
+      'Portugal',
+      'Romania',
+      'Russia',
+      'San Marino',
+      'Serbia',
+      'Slovakia',
+      'Slovenia',
+      'Spain',
+      'Sweden',
+      'Switzerland',
+      'Turkey',
+      'Ukraine',
+      'United Kingdom',
+      'Vatican City'
+    ];
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'ListViews',
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+      ),
       home: Scaffold(
-        appBar: AppBar(title: Text("ConstrainedBox Example"),),
-        body: Column(
-          children: <Widget>[
-            ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxHeight: 100.0,
-                maxWidth: 100.0
-              ),
-              child: const Card(child: Text('maxHeight: 100.0 and maxWidth: 100.0')),
-            ),
-            ConstrainedBox(
-              constraints: const BoxConstraints(
-                minHeight: 100.0,
-                minWidth: 100.0
-              ),
-              child: const Card(child: Text('minHeight: 100.0 and minWidth: 100.0')),
-            ),
-            ConstrainedBox(
-              constraints: const BoxConstraints(
-                minHeight: 100.0,
-              ),
-              child: const Card(child: Text('minHeight: 100.0')),
-            ),
-             ConstrainedBox(
-               constraints: const BoxConstraints(
-                 minWidth: 100.0,
-               ),
-               child: const Card(child: Text('minWidth: 100.0')),
-             ),
-          ],
-        ),
+        appBar: AppBar(title: Text('ListViews')),
+        body: ListView.builder(
+        itemCount: europeanCountries.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(europeanCountries[index]),
+          );
+        },
       )
+      ),
     );
   }
+}
+
+class BodyLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return _myListView(context);
+  }
+}
+
+// replace this function with the code in the examples
+Widget _myListView(BuildContext context) {
+  return ListView();
 }
