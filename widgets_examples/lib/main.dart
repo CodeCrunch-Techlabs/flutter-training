@@ -1,88 +1,76 @@
- 
+
 import 'package:flutter/material.dart';
 
-import 'package:flutter/widgets.dart';
+void main() => runApp(ClipPathApp());
 
-void main() => runApp(MyApp());
-
- 
-class MyApp extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
-        body: Center(
-          child: MyStatefulWidget(),
-        ),
-      ),
-    );
-  }
+class ClipPathApp extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+  return MaterialApp(
+   title: 'Sample Divider Widget',
+   home: ClipPathWidget(),
+  );
+ }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+class ClipPathWidget extends StatefulWidget {
+ ClipPathWidget({
+  Key key
+ }): super(key: key);
 
-  @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+ @override
+ _ClipPathWidgetState createState() => _ClipPathWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _downCounter = 0;
-  int _upCounter = 0;
-  double x = 0.0;
-  double y = 0.0;
+class _ClipPathWidgetState extends State {
 
-  void _incrementDown(PointerEvent details) {
-    _updateLocation(details);
-    setState(() {
-      _downCounter++;
-    });
-  }
+ @override
+ void initState() {
+  super.initState();
+ }
 
-  void _incrementUp(PointerEvent details) {
-    _updateLocation(details);
-    setState(() {
-      _upCounter++;
-    });
-  }
+ @override
+ Widget build(BuildContext context) {
+  return Scaffold(
+   appBar: AppBar(title: Text("Sample ClipPath Widget"), backgroundColor: Colors.black45, ),
+   body: Center(
+    child: Stack(
+     children: [
+      ClipPath( 
+       child: Container(
+        color: Colors.black,
+       ),
 
-  void _updateLocation(PointerEvent details) {
-    setState(() {
-      x = details.position.dx;
-      y = details.position.dy;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints.tight(Size(300.0, 200.0)),
-      child: Listener(
-        onPointerDown: _incrementDown,
-        onPointerMove: _updateLocation,
-        onPointerUp: _incrementUp,
-        child: Container(
-          color: Colors.lightBlueAccent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                  'You have pressed or released in this area this many times:'),
-              Text(
-                '$_downCounter presses\n$_upCounter releases',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-              Text(
-                'The cursor is here: (${x.toStringAsFixed(2)}, ${y.toStringAsFixed(2)})',
-              ),
-            ],
-          ),
-        ),
       ),
-    );
-  }
+      Container(
+       child: Column(
+        children: [
+         Image.network("https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_960_720.png", width: 100.0, height: 100.0, ),
+         Text("John Doe", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), )
+        ],
+       ),
+      )
+
+     ],
+    ),
+   )
+  );
+ }
+}
+
+class LinePathClass extends CustomClipper {
+ @override
+ Path getClip(Size size) {
+  var path = new Path();
+  path.lineTo(0, 300);
+  path.lineTo(325, 0);
+  path.lineTo(size.width - 300, size.height - 500);
+  return path;
+ }
+
+ @override
+ bool shouldReclip(CustomClipper oldClipper) { 
+  return false;
+ }
+
 }
