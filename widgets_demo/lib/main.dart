@@ -1,48 +1,67 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 void main() => runApp(MyApp());
 
+
+
 class MyApp extends StatelessWidget {
+  static const String _title = 'Flutter Code Sample';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      title: _title,
+      home: MyStatefulWidget(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class SpinningContainer extends AnimatedWidget {
+  const SpinningContainer({Key key, AnimationController controller})
+      : super(key: key, listenable: controller);
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class MyClipper extends CustomClipper<Rect>{
-  Rect getClip(Size size){
-    return Rect.fromLTWH(100, 100, 100, 100);
-  }
-
-  bool shouldReclip(oldClipper){
-    return false;
-  }
-}
-
-
-class _MyHomePageState extends State<MyHomePage> {
+  Animation<double> get _progress => listenable;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-        child: Center(
-          child: ClipOval(
-            child: Image.network('https://static01.nyt.com/images/2019/11/05/science/28TB-SUNSET1/merlin_163473282_fe17fc6b-78b6-4cdd-b301-6f63e6ebdd7a-superJumbo.jpg',
-            ),
-            clipper: MyClipper(),
-          )
-        ),
+    return Transform.rotate(
+      angle: _progress.value * 2.0 * math.pi,
+      child: Container(width: 100.0, height: 100.0, color: Colors.green),
     );
+  }
+}
+
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key}) : super(key: key);
+
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SpinningContainer(controller: _controller);
   }
 }
 
