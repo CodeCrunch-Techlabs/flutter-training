@@ -28,20 +28,12 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-          body: Home(),
+          body: MyHome(),
         ));
   }
 }
 
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: MyHome());
-  }
-}
-
-//check this https://flutter.dev/docs/catalog/samples/tabbed-app-bar.
+//check this https://api.flutter.dev/flutter/material/Drawer-class.html.
 
 class MyHome extends StatefulWidget {
   @override
@@ -50,32 +42,44 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
 
-  double targetValue = 24.0;
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-         appBar: AppBar(
-           bottom: TabBar(
-             tabs: <Widget>[
-               Tab(text: 'Cat'),
-               Tab(text: 'Dog'),
-               Tab(text: 'Rabbit')
-             ],
-           ),
-         ),
-          body: TabBarView(
-            children: <Widget>[
-              Image.network('https://cdn.pixabay.com/photo/2014/11/30/14/11/kitty-551554__340.jpg'),
-              Image.network('https://static.toiimg.com/thumb/msid-60132235,imgsize-169468,width-800,height-600,resizemode-75/60132235.jpg'),
-              Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQrQ8-nDluM0TMzcbJUHfM-UPZSgNBAjnEJSdjnJj941uowl-2f&usqp=CAU')
-            ],
-          ),
-       )
-      )
+    return  Scaffold(
+      appBar: AppBar(
+        title: const Text('Drawer Demo'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: const <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.message),
+              title: Text('Messages'),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Profile'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
