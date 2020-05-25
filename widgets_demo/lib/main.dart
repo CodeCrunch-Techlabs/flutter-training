@@ -1,10 +1,8 @@
 
-import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
-import 'package:fluttertoast/fluttertoast.dart';
+
 
 
 void main() => runApp(MyApp());
