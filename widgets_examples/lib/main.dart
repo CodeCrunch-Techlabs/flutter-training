@@ -1,52 +1,42 @@
 import 'package:flutter/material.dart';
-
-void main() => runApp(MyApp());
-
-
-class MyApp extends StatelessWidget {
-  final title = 'AnimatedCrossFade example';
-
+ 
+void main() {
+  runApp(MyApp());
+}
+ 
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+ 
+class _MyAppState extends State<MyApp> {
+  List<bool> _selections = List.generate(3, (_) => false);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: title,
-      home: MyHomePage(title: title,),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  final String title;
-  const MyHomePage({Key key, this.title}) : super(key: key);
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  bool _first = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+        home: Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Center(child: Text('Flutter Toggle')),
       ),
-      body: Center(
-        child: AnimatedCrossFade(
-          duration: const Duration(seconds: 1),
-          firstChild: const FlutterLogo(style: FlutterLogoStyle.horizontal, size: 100.0),
-          secondChild: const FlutterLogo(style: FlutterLogoStyle.stacked, size: 100.0),
-          crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-        )
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.transform),
-        onPressed: () {
-          setState(() {
-           _first = !_first; 
-          });
-        }
-      ),
-    );
+      body: ListView(children: <Widget>[
+        Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.all(10),
+            padding: EdgeInsets.all(20),
+            child: ToggleButtons(
+              children: <Widget>[
+                Icon(Icons.add_comment),
+                Icon(Icons.airline_seat_individual_suite),
+                Icon(Icons.add_location),
+              ],
+              isSelected: _selections,
+              onPressed: (int index) {
+                setState(() {
+                  _selections[index] = !_selections[index];
+                });
+              },
+            ))
+      ]),
+    ));
   }
 }
