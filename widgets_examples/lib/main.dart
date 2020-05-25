@@ -1,42 +1,71 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
- 
-void main() {
-  runApp(MyApp());
-}
- 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
- 
-class _MyAppState extends State<MyApp> {
-  List<bool> _selections = List.generate(3, (_) => false);
+void main() => runApp(MyApp());
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text('Flutter Toggle')),
+      title: 'Flutter Demo',
+      theme: ThemeData( 
+        primarySwatch: Colors.blue,
       ),
-      body: ListView(children: <Widget>[
-        Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(20),
-            child: ToggleButtons(
-              children: <Widget>[
-                Icon(Icons.add_comment),
-                Icon(Icons.airline_seat_individual_suite),
-                Icon(Icons.add_location),
+      home: MainPage(),
+    );
+  }
+}
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+class _MainPageState extends State<MainPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Cupertino Action sheet demo"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            final action = CupertinoActionSheet(
+              title: Text(
+                "Proto Coders Point",
+                style: TextStyle(fontSize: 30),
+              ),
+              message: Text(
+                "Select any action ",
+                style: TextStyle(fontSize: 15.0),
+              ),
+              actions: <Widget>[
+                CupertinoActionSheetAction(
+                  child: Text("Action 1"),
+                  isDefaultAction: true,
+                  onPressed: () {
+                    print("Action 1 is been clicked");
+                  },
+                ),
+                CupertinoActionSheetAction(
+                  child: Text("Action 2"),
+                  isDestructiveAction: true,
+                  onPressed: () {
+                    print("Action 2 is been clicked");
+                  },
+                )
               ],
-              isSelected: _selections,
-              onPressed: (int index) {
-                setState(() {
-                  _selections[index] = !_selections[index];
-                });
-              },
-            ))
-      ]),
-    ));
+              cancelButton: CupertinoActionSheetAction(
+                child: Text("Cancel"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            );
+            showCupertinoModalPopup(
+                context: context, builder: (context) => action);
+          },
+          child: Text("Click me "),
+        ),
+      ),
+    );
   }
 }
