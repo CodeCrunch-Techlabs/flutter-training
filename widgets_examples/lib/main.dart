@@ -1,48 +1,47 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
+void main() {
+  runApp(MyApp());
 }
 
-class _MyAppState extends State<MyApp> {
-  int i = 2;
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "IndexedStack Example",
       home: Scaffold(
-        appBar: AppBar(title: Text("IndexedStack Example")),
+        appBar: AppBar(title: Text("ConstrainedBox Example"),),
         body: Column(
           children: <Widget>[
-            Expanded(
-              child: IndexedStack(
-                index: i,
-                children: <Widget>[
-                  Container(color: Colors.red,),
-                  Container(color: Colors.green),
-                  Container(color: Colors.blue),
-                ],
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 100.0,
+                maxWidth: 100.0
               ),
+              child: const Card(child: Text('maxHeight: 100.0 and maxWidth: 100.0')),
             ),
-            RaisedButton(
-              onPressed: () {
-                setState(() {
-                  if(i < 2){
-                     i++; 
-                  } else{
-                    i = 0;
-                  }
-                });
-              },
-              child: Text('Show Next Widget'),
-            )
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                minHeight: 100.0,
+                minWidth: 100.0
+              ),
+              child: const Card(child: Text('minHeight: 100.0 and minWidth: 100.0')),
+            ),
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                minHeight: 100.0,
+              ),
+              child: const Card(child: Text('minHeight: 100.0')),
+            ),
+             ConstrainedBox(
+               constraints: const BoxConstraints(
+                 minWidth: 100.0,
+               ),
+               child: const Card(child: Text('minWidth: 100.0')),
+             ),
           ],
         ),
-      ),
+      )
     );
   }
 }
