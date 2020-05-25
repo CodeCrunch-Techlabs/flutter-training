@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//check this https://api.flutter.dev/flutter/material/Drawer-class.html.
+//check this https://www.youtube.com/watch?v=zpO6n_oZWw0&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=69.
 
 class MyHome extends StatefulWidget {
   @override
@@ -43,40 +43,18 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-        title: const Text('Drawer Demo'),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: const <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.message),
-              title: Text('Messages'),
-            ),
-            ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('Profile'),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-            ),
-          ],
-        ),
+    return  SafeArea(
+      child: Scaffold(
+           body: Builder(
+             builder: (context) => FlatButton(
+               child: Text('Show a SnackBar'),
+               onPressed: (){
+                 Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text("Hello !!"),
+                 ));
+               },
+             ),
+           ),
       ),
     );
   }
