@@ -1,60 +1,63 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';  
   
-  void main() => runApp(SliderExample());
+void main() => runApp(MyApp());  
   
-  class SliderExample extends StatefulWidget {
-    @override
-    _SliderExampleState createState() {
-      return _SliderExampleState();
-    }
-  }
+class MyApp extends StatelessWidget {  
+  @override  
+  Widget build(BuildContext context) {  
+    final appTitle = 'Flutter Basic Alert Demo';  
+    return MaterialApp(  
+      title: appTitle,  
+      home: Scaffold(  
+        appBar: AppBar(  
+          title: Text(appTitle),  
+        ),  
+        body: MyAlert(),  
+      ),  
+    );  
+  }  
+}  
   
-  class _SliderExampleState extends State {
-    int _value = 6;
+class MyAlert extends StatelessWidget {  
+  @override  
+  Widget build(BuildContext context) {  
+    return Padding(  
+      padding: const EdgeInsets.all(20.0),  
+      child: RaisedButton(  
+        child: Text('Show alert'),  
+        onPressed: () {  
+          showAlertDialog(context);  
+        },  
+      ),  
+    );  
+  }  
+}  
   
-    @override
-    Widget build(BuildContext context) {
-      return MaterialApp(
-        title: 'Slider Tutorial',
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Slider Tutorial'),
-          ),
-          body: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Icon(
-                    Icons.ac_unit,
-                    size: 30,
-                  ),
-                  new Expanded(
-                    child: Slider(
-                        value: _value.toDouble(),
-                        min: 1.0,
-                        max: 10.0,
-                        divisions: 10,
-                        activeColor: Colors.red,
-                        inactiveColor: Colors.black,
-                        label: 'Set a value',
-                        onChanged: (double newValue) {
-                          setState(() {
-                            _value = newValue.round();
-                          });
-                        },
-                        semanticFormatterCallback: (double newValue) {
-                          return '${newValue.round()} dollars';
-                        }
-                    )
-                  ),
-                ]
-              )
-            ),
-          )
-        ),
-      );
-    }
-  }
+showAlertDialog(BuildContext context) {  
+  // Create button  
+  Widget okButton = FlatButton(  
+    child: Text("OK"),  
+    onPressed: () {  
+      Navigator.of(context).pop();  
+    },  
+  );  
+  
+  // Create AlertDialog  
+  AlertDialog alert = AlertDialog(  
+    title: Text("Simple Alert"),  
+    content: Text("This is an alert message."),  
+    actions: [  
+      okButton,  
+    ], 
+    backgroundColor: Colors.pink, 
+    
+  );  
+  
+  // show the dialog  
+  showDialog(  
+    context: context,  
+    builder: (BuildContext context) {  
+      return alert;  
+    },  
+  );  
+}  
