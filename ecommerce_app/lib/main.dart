@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+      home: Container(
+    color: Colors.white,
+    child: Column(
+      children: <Widget>[
+        Icon(Icons.person),
+        Text('User'),
+        Icon(Icons.person),
+      ],
+    ),
+  )));
 }
-
-class MyApp extends StatelessWidget { 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData( 
-        primarySwatch: Colors.blue, 
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home:Scaffold(),
-    );
-  }
-} 
