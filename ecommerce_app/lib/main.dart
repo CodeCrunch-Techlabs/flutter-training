@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
+import 'home.dart';
 
 void main() {
-  runApp(MaterialApp(
-      home: Container(
-    color: Colors.white,
-    child: Column(
-      children: <Widget>[
-        Icon(Icons.person),
-        Text('User'),
-        Icon(Icons.person),
-      ],
-    ),
-  )));
+  runApp(
+    MaterialApp(home: HomePage()),
+  );
 }
