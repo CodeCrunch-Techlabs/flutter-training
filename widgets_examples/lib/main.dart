@@ -53,6 +53,24 @@ class _DividerWidgetState extends State<DividerWidget> {
               decoration: BoxDecoration(color: Colors.red),
             ),
           ),
+          Divider(
+            height: 10.0,
+            indent: 5.0,
+            color: Colors.black87,
+          ),
+          Card(
+            child: Container(
+              height: 200,
+              width: 900,
+              child: Center(
+                child: Text(
+                  "Sample 2",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              decoration: BoxDecoration(color: Colors.blue),
+            ),
+          )
         ],
       )),
     );
