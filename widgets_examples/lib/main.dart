@@ -22,8 +22,6 @@ class DividerWidget extends StatefulWidget {
 }
 
 class _DividerWidgetState extends State<DividerWidget> {
-
-
   @override
   void initState() {
     super.initState();
@@ -31,6 +29,32 @@ class _DividerWidgetState extends State<DividerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
-}
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sample Divider'),
+        backgroundColor: Colors.black87,
+        leading: BackButton(
+          color: Colors.white,
+        ),
+      ),
+      body: Center(
+          child: Column(
+        children: <Widget>[
+          Card(
+            child: Container(
+              height: 200,
+              width: 900,
+              child: Center(
+                child: Text(
+                  "Sample 1",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              decoration: BoxDecoration(color: Colors.red),
+            ),
+          ),
+        ],
+      )),
+    );
+  }
 }
