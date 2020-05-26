@@ -1,70 +1,52 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
+import 'dart:math' as Math;
 
 void main() => runApp(MyApp());
 
-
-
 class MyApp extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _title,
+      title: 'Smiley Face',
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Widgets"),
-        ),
-        body: MyStatefulWidget(),
-      ),
+          body: Container(
+            constraints: BoxConstraints.expand(),
+            child: Smiley(),
+          )),
     );
   }
 }
 
-
-
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
-
-  @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-
-  bool _isSelected = false;
-
+class Smiley extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        CheckboxListTile(
-          title: const Text('Animate Slowly'),
-          value: timeDilation != 1.0,
-          onChanged: (bool value) {
-            setState(() {
-              timeDilation = value ? 10.0 : 1.0;
-            });
-          },
-          secondary: const Icon(Icons.hourglass_empty),
-        ),
-        CheckboxListTile(
-          title: const Text('Item 1'),
-          value: _isSelected,
-          onChanged: (bool newvalue) {
-            setState(() {
-              _isSelected = newvalue;
-            });
-          },
-          secondary: const Icon(Icons.favorite),
-          activeColor: Colors.green,
-          checkColor: Colors.black,
-        ),
-      ],
+    return CustomPaint(
+      painter: SmileyPainter(),
     );
   }
 }
 
+class SmileyPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final radius = Math.min(size.width, size.height) / 2;
+    final center = Offset(size.width / 2, size.height / 2);
+    // Draw the body
+    final paint = Paint()..color = Colors.yellow;
+    canvas.drawCircle(center, radius, paint);
+    // Draw the mouth
+    final smilePaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 20;
+    canvas.drawArc(Rect.fromCircle(center: center, radius: radius / 2), 0,
+        Math.pi, false, smilePaint);
+    // Draw the eyes
+    canvas.drawCircle(
+        Offset(center.dx - radius / 2, center.dy - radius / 2), 20, Paint());
+    canvas.drawCircle(
+        Offset(center.dx + radius / 2, center.dy - radius / 2), 20, Paint());
+  }
 
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
