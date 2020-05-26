@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 
@@ -32,47 +31,19 @@ class _DividerWidgetState extends State<DividerWidget> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sample Divider'),
-        backgroundColor: Colors.black87,
-        leading: BackButton(
-          color: Colors.white,
+        backgroundColor: Colors.black87, 
+      ),
+      body: ClipRRect(
+        borderRadius: BorderRadius.circular(15.0),
+        child: Container(
+          child: Align(
+            alignment: Alignment.topLeft,
+            widthFactor: 0.75,
+            heightFactor: 0.75,
+            child: Image.network('https://www.woolha.com/media/2019/08/flutter-cliprect.jpg'),
+          ),
         ),
       ),
-      body: Center(
-          child: Column(
-        children: <Widget>[
-          Card(
-            child: Container(
-              height: 200,
-              width: 900,
-              child: Center(
-                child: Text(
-                  "Sample 1",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              decoration: BoxDecoration(color: Colors.red),
-            ),
-          ),
-          Divider(
-            height: 10.0,
-            indent: 5.0,
-            color: Colors.black87,
-          ),
-          Card(
-            child: Container(
-              height: 200,
-              width: 900,
-              child: Center(
-                child: Text(
-                  "Sample 2",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              decoration: BoxDecoration(color: Colors.blue),
-            ),
-          )
-        ],
-      )),
     );
   }
 }
