@@ -27,8 +27,8 @@ class TutorialHome extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child:  Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
               height: 100,
