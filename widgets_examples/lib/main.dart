@@ -1,54 +1,50 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
- 
- 
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget { 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Sementic',
-        theme: ThemeData( 
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-          body: Home(),
-        ));
-  }
+void main() {
+  runApp(MaterialApp(
+    title: 'Flutter Tutorial',
+    home: TutorialHome(),
+  ));
 }
 
-class Home extends StatelessWidget {
+class TutorialHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: new AppBar(
-            elevation: 0.0,
-            title: new Text(
-              "Flutter Sementics",
-              style: new TextStyle(
-                  color: Colors.white, 
-                  letterSpacing: 1.0),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          tooltip: 'Navigation menu',
+          onPressed: null,
+        ),
+        title: Text('Example title'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            tooltip: 'Search',
+            onPressed: null,
+          ),
+        ],
+      ),
+      body: Center(
+        child: GestureDetector(
+          onTap: () {
+            print('MyButton was tapped!');
+          },
+          child: Container(
+            height: 36.0,
+            padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.symmetric(horizontal: 8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.lightGreen[500],
             ),
-            backgroundColor: new Color(0xFF2979FF),
-            centerTitle: true),
-        body:SafeArea(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Semantics(
-                  child: Image.network(
-                      'https://dummyimage.com/600x400/000/fff'),
-                label: 'sementics image',
-                readOnly: true,
-              ),
+            child: Center(
+              child: Text('Engage'),
             ),
-          ],
+          ),
         ),
       ),
-    ),);
+    );
   }
 }
- 
