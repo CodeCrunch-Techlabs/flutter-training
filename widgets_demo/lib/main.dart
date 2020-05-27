@@ -87,23 +87,39 @@ class _DetailScreenState extends State<DetailScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      'A switch'
-                    ),
-                  ),
-                  CupertinoSwitch(
-                    value: switchValue,
-                    onChanged: (value){
-                      setState(() {
-                        switchValue = value;
-                      });
-                    },
-                  )
-                ],
-              )
+             CupertinoButton(
+               child: Text('Launch action sheet'),
+               onPressed: (){
+                 showCupertinoModalPopup(context: context, builder: (context) {
+                   return CupertinoActionSheet(
+                     title: Text('Some Choices'),
+                     actions: <Widget>[
+                       CupertinoActionSheetAction(
+                         child: Text("Yes"),
+                         onPressed: (){
+                           Navigator.pop(context, 1);
+                         },
+                         isDefaultAction: true,
+                       ),
+                       CupertinoActionSheetAction(
+                         child: Text("No"),
+                         onPressed: (){
+                           Navigator.pop(context, 2);
+                         },
+                         isDefaultAction: true,
+                       ),
+                       CupertinoActionSheetAction(
+                         child: Text("I am confused!!"),
+                         onPressed: (){
+                           Navigator.pop(context, 3);
+                         },
+                         isDefaultAction: true,
+                       )
+                     ],
+                   );
+                 });
+               },
+             )
             ],
           ),
         )
