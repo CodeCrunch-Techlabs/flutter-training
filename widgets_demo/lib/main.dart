@@ -62,10 +62,18 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   const DetailScreen(this.topic);
 
   final String topic;
+
+  @override
+  _DetailScreenState createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+
+  bool switchValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +82,31 @@ class DetailScreen extends StatelessWidget {
         middle: Text('Details'),
       ),
       child: Center(
-        child: Text(
-          'Details for $topic',
-          style: CupertinoTheme.of(context).textTheme.navLargeTitleTextStyle,
-        ),
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'A switch'
+                    ),
+                  ),
+                  CupertinoSwitch(
+                    value: switchValue,
+                    onChanged: (value){
+                      setState(() {
+                        switchValue = value;
+                      });
+                    },
+                  )
+                ],
+              )
+            ],
+          ),
+        )
       ),
     );
   }
