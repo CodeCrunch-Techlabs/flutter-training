@@ -1,66 +1,85 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter/widgets.dart';
+
 void main() => runApp(MyApp());
+
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  static const String _title = 'Flutter Code Sample';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: const Color(0xFF02BB9F),
-        primaryColorDark: const Color(0xFF167F67),
-        accentColor: const Color(0xFF02BB9F),
-      ),
-      home: MyHomePage(title: 'Flutter Clip Path'),
-    );
-  }
-}
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-
-    var screenSize = MediaQuery.of(context).size;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ClipPath'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: ClipPath(
-          child: Container(
-            width: screenSize.width,
-            height: 200,
-            color: Colors.blue,
-          ),
-          clipper: CustomClipPath(),
+      title: _title,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(_title)),
+        body: Center(
+          child: MyStatefulWidget(),
         ),
       ),
     );
   }
 }
 
-class CustomClipPath extends CustomClipper<Path> {
-  var radius=10.0;
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(0, size.height - 100);
-    path.quadraticBezierTo(
-        size.width / 2, size.height,
-        size.width, size.height - 100);
-    path.lineTo(size.width, 0);
-    path.close();
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key}) : super(key: key);
 
-    return path;
-  }
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int _downCounter = 0;
+  int _upCounter = 0;
+  double x = 0.0;
+  double y = 0.0;
+
+  void _incrementDown(PointerEvent details) {
+    _updateLocation(details);
+    setState(() {
+      _downCounter++;
+    });
+  }
+
+  void _incrementUp(PointerEvent details) {
+    _updateLocation(details);
+    setState(() {
+      _upCounter++;
+    });
+  }
+
+  void _updateLocation(PointerEvent details) {
+    setState(() {
+      x = details.position.dx;
+      y = details.position.dy;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints.tight(Size(300.0, 200.0)),
+      child: Listener(
+        onPointerDown: _incrementDown,
+        onPointerMove: _updateLocation,
+        onPointerUp: _incrementUp,
+        child: Container(
+          color: Colors.lightBlueAccent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                  'You have pressed or released in this area this many times:'),
+              Text(
+                '$_downCounter presses\n$_upCounter releases',
+              ),
+              Text(
+                'The cursor is here: (${x.toStringAsFixed(2)}, ${y.toStringAsFixed(2)})',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
