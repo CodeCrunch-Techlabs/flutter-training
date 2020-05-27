@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MyHomepage(),
     );
   }
@@ -25,7 +26,7 @@ class Kitten {
 
 final String server =
     defaultTargetPlatform == TargetPlatform.android ? "10.0.2.2" : "localhost";
-final List<Kitten> kittens = <Kitten>[
+final List<Kitten> _kittens = <Kitten>[
   Kitten(
     name: "Jaydip Patel",
     description: "web developer",
@@ -64,8 +65,21 @@ final List<Kitten> kittens = <Kitten>[
 ];
 
 class MyHomepage extends StatelessWidget {
+  Widget _listItemBuilder(BuildContext context, int index) {
+    return Text(_kittens[index].name);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Available Kittens"),
+      ),
+      body: ListView.builder(
+        itemBuilder: _listItemBuilder,
+        itemCount: _kittens.length,
+        itemExtent: 60.0,
+      ),
+    );
   }
 }
