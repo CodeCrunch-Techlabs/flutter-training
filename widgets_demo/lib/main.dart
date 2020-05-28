@@ -37,13 +37,15 @@ class HomeScreen extends StatelessWidget {
               title: Text(todos[index].title),
               onTap: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailScreen(
-                      todo: todos[index],
-                    ),
-                  ),
-                );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailScreen(),
+                      // Pass the arguments as part of the RouteSettings. The
+                      // DetailScreen reads the arguments from these settings.
+                      settings: RouteSettings(
+                        arguments: todos[index],
+                      ),
+                    ));
               },
             );
           },
@@ -54,12 +56,11 @@ class HomeScreen extends StatelessWidget {
 }
 
 class DetailScreen extends StatelessWidget {
-  final Todo todo;
 
-  DetailScreen({Key key, @required this.todo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Todo todo = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text(todo.title),
