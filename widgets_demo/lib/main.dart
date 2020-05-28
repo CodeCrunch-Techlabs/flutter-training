@@ -11,124 +11,103 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      home: HomeScreen(),
+      home: ParentWidget(),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
+//---------------------------- ParentWidget ----------------------------
+
+//---------------------------- ParentWidget ----------------------------
+
+class ParentWidget extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.book_solid),
-            title: Text('Articles'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.eye_solid),
-            title: Text('Views'),
-          ),
-        ],
-      ),
-      tabBuilder: (context, i){
-        return CupertinoTabView(
-          builder: (context){
-            return CupertinoPageScaffold(
-              navigationBar: CupertinoNavigationBar(
-                middle: (i == 0) ? Text('Articels') : Text('Views'),
-              ),
-              child: Center(
-                child: CupertinoButton(
-                  child: Text(
-                    'This is tab #$i',
-                    style: CupertinoTheme.of(context).textTheme.navLargeTitleTextStyle,
-                  ),
-                  onPressed: (){
-                    Navigator.of(context).push(
-                      CupertinoPageRoute(builder:  (context) {
-                        return DetailScreen(i == 0 ? 'Articels' : 'Views');
-                      })
-                    );
-                  },
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
+  _ParentWidgetState createState() => _ParentWidgetState();
+}
+
+class _ParentWidgetState extends State<ParentWidget> {
+  bool _active = false;
+
+  void _handleTapboxChanged(bool newValue) {
+    setState(() {
+      _active = newValue;
+    });
   }
-}
-
-class DetailScreen extends StatefulWidget {
-  const DetailScreen(this.topic);
-
-  final String topic;
-
-  @override
-  _DetailScreenState createState() => _DetailScreenState();
-}
-
-class _DetailScreenState extends State<DetailScreen> {
-
-  bool switchValue = false;
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Details'),
-      ),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-             CupertinoButton(
-               child: Text('Launch action sheet'),
-               onPressed: (){
-                 showCupertinoModalPopup(context: context, builder: (context) {
-                   return CupertinoActionSheet(
-                     title: Text('Some Choices'),
-                     actions: <Widget>[
-                       CupertinoActionSheetAction(
-                         child: Text("Yes"),
-                         onPressed: (){
-                           Navigator.pop(context, 1);
-                         },
-                         isDefaultAction: true,
-                       ),
-                       CupertinoActionSheetAction(
-                         child: Text("No"),
-                         onPressed: (){
-                           Navigator.pop(context, 2);
-                         },
-                         isDefaultAction: true,
-                       ),
-                       CupertinoActionSheetAction(
-                         child: Text("I am confused!!"),
-                         onPressed: (){
-                           Navigator.pop(context, 3);
-                         },
-                         isDefaultAction: true,
-                       )
-                     ],
-                   );
-                 });
-               },
-             )
-            ],
-          ),
-        )
+    return Container(
+      child: TapboxC(
+        active: _active,
+        onChanged: _handleTapboxChanged,
       ),
     );
   }
 }
 
+//----------------------------- TapboxC ------------------------------
 
+class TapboxC extends StatefulWidget {
+  TapboxC({Key key, this.active: false, @required this.onChanged})
+      : super(key: key);
 
+  final bool active;
+  final ValueChanged<bool> onChanged;
 
+  _TapboxCState createState() => _TapboxCState();
+}
 
+class _TapboxCState extends State<TapboxC> {
+  bool _highlight = false;
+
+  void _handleTapDown(TapDownDetails details) {
+    setState(() {
+      _highlight = true;
+    });
+  }
+
+  void _handleTapUp(TapUpDetails details) {
+    setState(() {
+      _highlight = false;
+    });
+  }
+
+  void _handleTapCancel() {
+    setState(() {
+      _highlight = false;
+    });
+  }
+
+  void _handleTap() {
+    widget.onChanged(!widget.active);
+  }
+
+  Widget build(BuildContext context) {
+    // This example adds a green border on tap down.
+    // On tap up, the square changes to the opposite state.
+    return GestureDetector(
+      onTapDown: _handleTapDown, // Handle the tap events in the order that
+      onTapUp: _handleTapUp, // they occur: down, up, tap, cancel
+      onTap: _handleTap,
+      onTapCancel: _handleTapCancel,
+      child: Container(
+        child: Center(
+          child: Text(widget.active ? 'Active' : 'Inactive',
+              style: TextStyle(fontSize: 32.0, color: Colors.white)),
+        ),
+        width: 200.0,
+        height: 200.0,
+        decoration: BoxDecoration(
+          color:
+          widget.active ? Colors.lightGreen[700] : Colors.grey[600],
+          border: _highlight
+              ? Border.all(
+            color: Colors.teal[700],
+            width: 20.0,
+          )
+              : null,
+        ),
+      ),
+    );
+  }
+}
