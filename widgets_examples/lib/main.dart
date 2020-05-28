@@ -28,39 +28,39 @@ final String server =
     defaultTargetPlatform == TargetPlatform.android ? "10.0.2.2" : "localhost";
 final List<Kitten> _kittens = <Kitten>[
   Kitten(
-    name: "Jaydip Patel",
-    description: "web developer",
-    age: 25,
+    name: "Mittens",
+    description: "The pinacle of cats. when Mittens sits in your lap, you feel like royalty.",
+    age: 11,
     imageUrl:
-         "images/abc5",
+         "images/kitty1.jpg",
   ),
   Kitten(
-    name: "Rinkesh Patel",
-    description: "web developer",
-    age: 25,
+    name: "Fluffy",
+    description: "World\'s cutest  kitten. Seriously. we dod the research.",
+    age: 6,
     imageUrl:
-        "images/abc1",
+        "images/kitty5.jpg",
   ),
   Kitten(
-    name: "Virendra Mehta",
-    description: "Ios developer",
-    age: 23,
+    name: "Scooter",
+    description: "Chases string faster then 9/10 competing kittens.",
+    age: 2,
     imageUrl:
-        "images/abc2",
+        "images/kitty2.jpg",
   ),
   Kitten(
-    name: "Hitesh Chavda",
-    description: "Android developer",
-    age: 24,
+    name: "Steve",
+    description: "Steave is cool and just kind of hangs out.",
+    age: 4,
     imageUrl:
-         "images/abc3",
+          "images/kitty3.jpg",
   ),
   Kitten(
-    name: "Kishan Jadav",
-    description: "Wordpress Developer",
+    name: "Flocky",
+    description: "Flocky is cute.",
     age: 26,
     imageUrl:
-        "images/abc4",
+        "images/kitty4.jpg",
   ),
 ];
 
@@ -68,7 +68,7 @@ class MyHomepage extends StatelessWidget {
   Widget _dialogBuilder(BuildContext context, Kitten kitten) {
     return SimpleDialog(
       children:[
-        Image.network(
+        Image.asset(
           kitten.imageUrl,
           fit: BoxFit.fill,
         ),
