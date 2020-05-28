@@ -11,7 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: FirstRoute(),
+      initialRoute: '/',
+      routes: {
+        '/' : (context) => FirstRoute(),
+        '/second' : (context) => SecondRoute()
+      },
     );
   }
 }
@@ -26,10 +30,9 @@ class FirstRoute extends StatelessWidget {
       ),
       body: Center(
         child: RaisedButton(
-          child: Text('Open route'),
+          child: Text('Goto Second Screen'),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder:  (context) => SecondRoute())
-            );
+            Navigator.pushNamed(context, '/second');
           },
         ),
       ),
