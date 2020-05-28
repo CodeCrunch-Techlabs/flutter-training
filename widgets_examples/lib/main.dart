@@ -11,6 +11,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          primarySwatch: Colors.blue,
+          buttonColor: Colors.blue,
+          buttonTheme: ButtonThemeData(
+            textTheme: ButtonTextTheme.primary,
+          )),
       home: MyHomepage(),
     );
   }
@@ -100,7 +106,9 @@ class MyHomepage extends StatelessWidget {
                 child: Wrap(
                   children: <Widget>[
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
                       child: Text("I\'M ALLERGIC"),
                     ),
                     RaisedButton(
