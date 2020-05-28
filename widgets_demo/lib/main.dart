@@ -7,7 +7,6 @@ void main() {
   ));
 }
 
-
 class Todo {
   final String title;
   final String description;
@@ -16,10 +15,9 @@ class Todo {
 }
 
 class HomeScreen extends StatelessWidget {
-
   final todos = List<Todo>.generate(
     20,
-        (i) => Todo(
+    (i) => Todo(
       'Todo $i',
       'A description of what needs to be done for Todo $i',
     ),
@@ -37,6 +35,16 @@ class HomeScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             return ListTile(
               title: Text(todos[index].title),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailScreen(
+                      todo: todos[index],
+                    ),
+                  ),
+                );
+              },
             );
           },
         ),
@@ -45,16 +53,13 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-
 class DetailScreen extends StatelessWidget {
-
   final Todo todo;
 
   DetailScreen({Key key, @required this.todo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(todo.title),
