@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "813709053136",
+    "firebase_url": "https://brandnamesurvey-157ef.firebaseio.com",
+    "project_id": "brandnamesurvey-157ef",
+    "storage_bucket": "brandnamesurvey-157ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813709053136:android:d0ebe36a9b7b8d6e26a2d5",
+        "android_client_info": {
+          "package_name": "com.example.firebasedemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813709053136-rjcs1hh3eobv9enm6ojm7q04242nj22s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFLImXyggnzI37GL327ZWuL37gCSC6fJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813709053136-rjcs1hh3eobv9enm6ojm7q04242nj22s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
