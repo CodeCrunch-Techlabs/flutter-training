@@ -64,6 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
            ],
          ),
          onTap: (){
+           document.reference.updateData({
+             'votes' : document['votes'] + 1
+           });
            print("Increase the votes");
          },
        );
