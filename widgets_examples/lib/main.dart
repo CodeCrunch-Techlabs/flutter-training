@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
           buttonTheme: ButtonThemeData(
             textTheme: ButtonTextTheme.primary,
           )),
-      home: MyHomepage(),
+      home: SpaslScreen(),
     );
   }
 }
@@ -150,6 +151,25 @@ class MyHomepage extends StatelessWidget {
         itemCount: _kittens.length,
         itemExtent: 60.0,
       ),
+    );
+  }
+}
+
+class SpaslScreen extends StatefulWidget {
+  @override
+  _SpaslScreenState createState() => _SpaslScreenState();
+}
+
+class _SpaslScreenState extends State<SpaslScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return SplashScreen(
+      seconds: 10,
+      backgroundColor: Colors.black87,
+      image: Image.asset("images/kitty1.jpg"),
+      loaderColor: Colors.white,
+       photoSize: 150.0,
+       navigateAfterSeconds: MyHomepage(),
     );
   }
 }
