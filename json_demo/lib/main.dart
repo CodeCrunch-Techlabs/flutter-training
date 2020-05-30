@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
+import 'package:jsondemo/Screens/cat_breeds.dart';
 
 
 void main() => runApp(MyApp());
@@ -38,7 +38,12 @@ class CatBreedsPage extends StatefulWidget {
   _CatBreedsPageState createState() => _CatBreedsPageState();
 }
 class _CatBreedsPageState extends State<CatBreedsPage> {
-  
+
+  @override
+  void initState(){
+    super.initState();
+    getCatData();
+  }
 
   @override
   Widget build(BuildContext context) {
