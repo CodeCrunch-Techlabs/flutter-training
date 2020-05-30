@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jsondemo/Screens/cat_breeds.dart';
+import 'package:jsondemo/Models/cats.dart';
+import 'package:jsondemo/api/cats_api.dart';
+import 'dart:convert';
 
 
 void main() => runApp(MyApp());
@@ -39,9 +41,25 @@ class CatBreedsPage extends StatefulWidget {
 }
 class _CatBreedsPageState extends State<CatBreedsPage> {
 
+  BreedList breedList = BreedList();
+
   @override
   void initState(){
     super.initState();
+    void getCatData() async {
+      var result = await CatAPI().getCatBreeds();
+
+
+      var catMap = json.decode(result);
+
+      setState(() {
+
+        breedList = BreedList.fromJson(catMap);
+      });
+
+
+    }
+
     getCatData();
   }
 
@@ -55,7 +73,25 @@ class _CatBreedsPageState extends State<CatBreedsPage> {
       ),
       // 3
       body: Container(
-        child: Text("Hello"),
+        child: ListView.builder(
+          // 4
+            itemCount: (breedList == null || breedList.breeds == null || breedList.breeds.length == 0) ? 0 : breedList.breeds.length,
+            itemBuilder: (context, index) {
+              // 5
+              return GestureDetector(
+                // 6
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    // 7
+                    child: ListTile(
+                      title: Text(breedList.breeds[index].name),
+                      subtitle: Text(breedList.breeds[index].description),
+                    ),
+                  ),
+                ),
+              );
+            }),
       )
     );
   }
