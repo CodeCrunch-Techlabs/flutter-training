@@ -1,16 +1,15 @@
-class User {
-  final String name;
-  final String email;
+class Photo {
+  final int id;
+  final String title;
+  final String thumbnailUrl;
 
-  User(this.name, this.email);
+  Photo({this.id, this.title, this.thumbnailUrl});
 
-  User.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        email = json['email'];
-
-  Map<String, dynamic> toJson() =>
-    {
-      'name': name,
-      'email': email,
-    };
+  factory Photo.fromJson(Map<String, dynamic> json) {
+    return Photo(
+      id: json['id'] as int,
+      title: json['title'] as String,
+      thumbnailUrl: json['thumbnailUrl'] as String,
+    );
+  }
 }
