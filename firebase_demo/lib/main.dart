@@ -23,45 +23,55 @@ class MyHomepage extends StatelessWidget {
   const MyHomepage({Key key, this.title}) : super(key: key);
   final String title;
   @override
-  Widget build(BuildContext context ,MockBandInfo bandInfo) {
-    return  ListTile(
+  Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
+    return ListTile(
       title: Row(
         children: <Widget>[
-          Expanded(  
-            child: Text( 
-              bandInfo.name,
+          Expanded(
+            child: Text(
+              document['name'],
               style: Theme.of(context).textTheme.headline,
             ),
           ),
-          Container(  
-            decoration: BoxDecoration(  
+          Container(
+            decoration: BoxDecoration(
               color: Color(0xffddddff),
-
             ),
             padding: EdgeInsets.all(10.0),
-            child: Text(bandInfo.votes.toString(),
-            style: Theme.of(context).textTheme.display1,),
+            child: Text(
+              document['votes'].toString(),
+              style: Theme.of(context).textTheme.display1,
+            ),
           )
         ],
       ),
-      onTap: (){
-        print("Should increase vote here");
+      onTap: () {
+        Firestore.instance.runTransaction((transaction) async {
+          DocumentSnapshot freshSnap =
+              await transaction.get(document.reference);
+          await transaction
+              .update(freshSnap.reference, {'votes': freshSnap['votes'] + 1});
+        });
       },
     );
   }
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(  
-      appBar: AppBar(  
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
         title: Text(title),
       ),
-      body:  StreamBuilder(
+      body: StreamBuilder(
         stream: Firestore.instance.collection('bandnames').snapshots(),
-              child: ListView.builder(
-          itemExtent: 80.0,
-          itemCount: _buildList.lenght,
-          itemBuilder: (context ,_buidList[index]),
-        ),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return Text("Loading...!");
+          return ListView.builder(
+            itemExtent: 80.0,
+            itemCount: snapshot.data.documents.lenght,
+            itemBuilder: (context, index) =>
+                _buildListItem(context, snapshot.data.documents[index]),
+          );
+        },
       ),
     );
   }
