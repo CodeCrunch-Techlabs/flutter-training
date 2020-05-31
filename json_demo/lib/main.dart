@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appTitle = 'JSON Demo'; 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: appTitle,
       home: MyHomePage(title: appTitle),
     );
@@ -69,15 +70,13 @@ class MyHomePage extends StatelessWidget {
 }
 
 class PhotosList extends StatelessWidget {
-  final List<Photo> photos;
-
-  PhotosList({Key key, this.photos}) : super(key: key);
-
+  final List<Photo> photos; 
+  PhotosList({Key key, this.photos}) : super(key: key); 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: 3,
       ),
       itemCount: photos.length,
       itemBuilder: (context, index) {
