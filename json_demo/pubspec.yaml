@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: <latest_version>
+  http: ^0.12.1
   cupertino_icons: ^0.1.3
 
 dev_dependencies:

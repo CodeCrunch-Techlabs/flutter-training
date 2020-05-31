@@ -1,4 +1,7 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -19,5 +22,31 @@ class Photo {
     );
   }
 }
+ 
+List<Photo> parsePhotos(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
+}
+
+Future<List<Photo>> fetchPhotos(http.Client client) async {
+  final response =
+      await client.get('https://jsonplaceholder.typicode.com/photos');
+
+  return parsePhotos(response.body);
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final appTitle = 'JSON Demo';
+
+    return MaterialApp(
+      title: appTitle,
+      home: MyHomePage(title: appTitle),
+    );
+  }
+}
+
 
  
