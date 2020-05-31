@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "173701062244",
+    "firebase_url": "https://flutterdemo-45525.firebaseio.com",
+    "project_id": "flutterdemo-45525",
+    "storage_bucket": "flutterdemo-45525.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:173701062244:android:d98f9f3cba7306932f0971",
+        "android_client_info": {
+          "package_name": "jaydippatel83.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "173701062244-c1o23c450asdjr4j8ct5t90tfojp1qo3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMIUZRq9-XyzciiMTBqRnvDA58xWj6F4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "173701062244-c1o23c450asdjr4j8ct5t90tfojp1qo3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
