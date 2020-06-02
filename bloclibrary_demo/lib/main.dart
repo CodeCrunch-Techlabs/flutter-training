@@ -34,13 +34,15 @@ class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final CounterBloc counterBloc = BlocProvider.of<CounterBloc>(context);
+
     return Scaffold(
       appBar: AppBar(title: Text('Counter')),
       body: BlocBuilder<CounterBloc, int>(
         builder: (context, count) {
           return Center(
             child: Text(
-              'value',
+              '$count',
               style: TextStyle(fontSize: 24.0),
             ),
           );
@@ -56,6 +58,7 @@ class CounterPage extends StatelessWidget {
               child: Icon(Icons.add),
               onPressed: () {
                 //Increment the value
+                counterBloc.add(CounterEvent.increment);
               },
             ),
           ),
@@ -65,6 +68,7 @@ class CounterPage extends StatelessWidget {
               child: Icon(Icons.remove),
               onPressed: () {
                 //decrement the value
+                counterBloc.add(CounterEvent.decrement);
               },
             ),
           ),
