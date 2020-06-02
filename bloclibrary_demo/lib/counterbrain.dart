@@ -8,10 +8,10 @@ class CounterBloc extends Bloc<CounterEvent, int> {
   int get initialState => 0;
 
   @override
-  Stream<int> mapEventToState(CounterEvent event) async* {
+  Stream<int> mapEventToState(CounterEvent event) async* {//async* is used for calling continually
     switch (event) {
       case CounterEvent.decrement:
-        yield state - 1;
+        yield state - 1; //Return is terminated after returning and yield is not terminated after giving value.
         break;
       case CounterEvent.increment:
         yield state + 1;
