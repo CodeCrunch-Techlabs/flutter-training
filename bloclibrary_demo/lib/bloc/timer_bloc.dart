@@ -30,6 +30,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       yield* _mapPauseToState(event);
     }else if (event is Resume) {
       yield* _mapResumeToState(event);
+    }else if (event is Reset) {
+      yield* _mapResetToState(event);
     }else if (event is Tick) {
       yield* _mapTickToState(event);
     }
@@ -63,6 +65,11 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       _tickerSubscription?.resume();
       yield Running(state.duration);
     }
+  }
+
+  Stream<TimerState> _mapResetToState(Reset reset) async* {
+    _tickerSubscription?.cancel();
+    yield Ready(_duration);
   }
 
 
