@@ -58,6 +58,11 @@ class Timer extends StatelessWidget {
               ),
             ),
           ),
+          BlocBuilder<TimerBloc, TimerState>(
+            condition: (previousState, state) =>
+            state.runtimeType != previousState.runtimeType,
+            builder: (context, state) => Actions(),
+          ),
         ],
       ),
     );
@@ -123,3 +128,4 @@ class Actions extends StatelessWidget {
     return [];
   }
 }
+
