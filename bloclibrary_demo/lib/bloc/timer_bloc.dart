@@ -2,6 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_timer/bloc/bloc.dart';
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
+
+  final int _duration = 60;
+
   @override
   TimerState get initialState => // TODO: implement initialState;
 
