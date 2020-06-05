@@ -11,4 +11,13 @@ class WeatherModal {
 
   WeatherModal(
       this.temp, this.pressure, this.humidity, this.temp_max, this.temp_min);
+  factory WeatherModal.formJson(Map<String, dynamic> json) {
+    return WeatherModal(
+      json["temp"],
+      json["pressure"],
+      json["humidity"],
+      json["temp_max"],
+      json["temp_min"],
+    );
+  }
 }
