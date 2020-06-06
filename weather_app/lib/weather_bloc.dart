@@ -15,7 +15,7 @@ class FetchWeather extends WeatherEvent {
   List<Object> get props => [_city];
 }
 
-class Resetweather extends WeatherEvent {}
+class ResetWeather extends WeatherEvent {}
 
 class WeatherState extends Equatable {
   @override
@@ -52,7 +52,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       } catch (_) {
         yield WeatherIsNotLoaded();
       }
-    } else if (event is Resetweather) {
+    } else if (event is ResetWeather) {
       yield WeatherIsNotSearched();
     }
   }
