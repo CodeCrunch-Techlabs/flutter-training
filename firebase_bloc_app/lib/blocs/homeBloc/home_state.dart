@@ -9,6 +9,6 @@ class LogOutInitial extends HomePageState {
 }
 
 class LogOutSuccess extends HomePageState {
-  @override
+  @override 
   List<Object> get props => null;
 }
