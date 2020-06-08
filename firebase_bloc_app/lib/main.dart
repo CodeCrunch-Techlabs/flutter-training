@@ -1,4 +1,6 @@
 import 'package:firebase_bloc_app/blocs/authbloc/auth_state.dart';
+import 'package:firebase_bloc_app/pages/homepage.dart';
+import 'package:firebase_bloc_app/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_bloc_app/blocs/authbloc/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider(
         create: (context) => AuthBloc(),
+        child: App(),
       ),
     );
   }
@@ -28,8 +31,12 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
       if (state is AuthenticatedState) {
+        return SplashScreen();
       } else if (state is AuthenticatedState) {
-      } else if (state is UnAuthenticatedState) {}
+        return HomePage(state.user);
+      } else if (state is UnAuthenticatedState) {
+        return SignUpPage();
+      }
     });
   }
 }
