@@ -8,6 +8,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'homepage.dart';
 import 'package:flutter/material.dart';
 
+class SignUpPageParent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => UserRegBloc(),
+      child: SignUpPage(),
+    );
+  }
+}
+
 class SignUpPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -15,87 +25,84 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     userRegBloc = BlocProvider.of<UserRegBloc>(context);
-    return BlocProvider(
-      create: (context) => UserRegBloc(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("SignUp"),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              BlocListener<UserRegBloc, UserRegState>(
-                listener: (context, state) {
-                  if (state is UserRegSuccessfull) {
-                    navigateToHomePage(context, state.user);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("SignUp"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            BlocListener<UserRegBloc, UserRegState>(
+              listener: (context, state) {
+                if (state is UserRegSuccessfull) {
+                  navigateToHomePage(context, state.user);
+                }
+              },
+              child: BlocBuilder<UserRegBloc, UserRegState>(
+                builder: (context, state) {
+                  if (state is UserRegInitial) {
+                    return buildInitialUi();
+                  } else if (state is UserLoadingState) {
+                    return buildLoadingUi();
+                  } else if (state is UserRegSuccessfull) {
+                    return Container();
+                  } else if (state is UserRegFailure) {
+                    return buildFailureUi(state.massege);
                   }
                 },
-                child: BlocBuilder<UserRegBloc, UserRegState>(
-                  builder: (context, state) {
-                    if (state is UserRegInitial) {
-                      return buildInitialUi();
-                    } else if (state is UserLoadingState) {
-                      return buildLoadingUi();
-                    } else if (state is UserRegSuccessfull) {
-                      return Container();
-                    } else if (state is UserRegFailure) {
-                      return buildFailureUi(state.massege);
-                    }
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5.0),
+              child: TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  errorStyle: TextStyle(color: Colors.white),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(),
+                  labelText: "Email",
+                  hintText: "Email",
+                ),
+                keyboardType: TextInputType.emailAddress,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(5.0),
+              child: TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  errorStyle: TextStyle(color: Colors.white),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(),
+                  labelText: "Password",
+                  hintText: "Password",
+                ),
+                keyboardType: TextInputType.visiblePassword,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RaisedButton(
+                  child: Text("Sign Up"),
+                  onPressed: () async {
+                    userRegBloc.add(
+                      SignupButtonPressedEvent(
+                          email: emailController.text,
+                          password: passwordController.text),
+                    );
                   },
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.all(5.0),
-                child: TextField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    errorStyle: TextStyle(color: Colors.white),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(),
-                    labelText: "Email",
-                    hintText: "Email",
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(5.0),
-                child: TextField(
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                    errorStyle: TextStyle(color: Colors.white),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(),
-                    labelText: "Password",
-                    hintText: "Password",
-                  ),
-                  keyboardType: TextInputType.visiblePassword,
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RaisedButton(
-                    child: Text("Sign Up"),
-                    onPressed: () async {
-                      userRegBloc.add(
-                        SignupButtonPressedEvent(
-                            email: emailController.text,
-                            password: passwordController.text),
-                      );
-                    },
-                  ),
-                  RaisedButton(
-                    child: Text("Login Now"),
-                    onPressed: () async {},
-                  )
-                ],
-              )
-            ],
-          ),
+                RaisedButton(
+                  child: Text("Login Now"),
+                  onPressed: () async {},
+                )
+              ],
+            )
+          ],
         ),
       ),
     );

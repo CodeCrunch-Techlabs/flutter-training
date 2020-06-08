@@ -1,3 +1,4 @@
+import 'package:firebase_bloc_app/blocs/authbloc/auth_event.dart';
 import 'package:firebase_bloc_app/blocs/authbloc/auth_state.dart';
 import 'package:firebase_bloc_app/pages/homepage.dart';
 import 'package:firebase_bloc_app/pages/signup.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: BlocProvider(
-        create: (context) => AuthBloc(),
+        create: (context) => AuthBloc()..add(AppStartedEvent()),
         child: App(),
       ),
     );
@@ -35,7 +36,7 @@ class App extends StatelessWidget {
       } else if (state is AuthenticatedState) {
         return HomePage(state.user);
       } else if (state is UnAuthenticatedState) {
-        return SignUpPage();
+        return SignUpPageParent();
       }
     });
   }
