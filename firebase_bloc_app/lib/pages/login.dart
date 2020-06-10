@@ -12,7 +12,7 @@ class LoginPageParent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:  (context)=>LoginBloc(),
+      create: (context) => LoginBloc(),
       child: LoginPage(),
     );
   }
@@ -129,7 +129,7 @@ class LoginPage extends StatelessWidget {
 
   void navigateToHomePage(BuildContext context, FirebaseUser user) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return HomePage(user);
+      return HomePageParent(user: user);
     }));
   }
 

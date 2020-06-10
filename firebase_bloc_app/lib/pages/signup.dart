@@ -129,13 +129,13 @@ class SignUpPage extends StatelessWidget {
 
   void navigateToHomePage(BuildContext context, FirebaseUser user) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return HomePage(user);
+      return HomePageParent(user: user);
     }));
   }
 
   void navigateToLoginPage(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return LoginPage();
+      return LoginPageParent();
     }));
   }
 }
