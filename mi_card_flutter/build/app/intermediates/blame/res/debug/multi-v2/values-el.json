@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/thinkpad/Dropbox/Flutter_Projects/mi_card_flutter/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-el/values-el.xml",
+            "outputFile": "/home/thinkpad/Dropbox/Flutter_Projects/demo_apps/mi_card_flutter/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-el/values-el.xml",
             "map": [
                 {
-                    "source": "/home/thinkpad/.gradle/caches/transforms-2/files-2.1/246153fc0686d4ff78c8961ca91329b7/core-1.0.0/res/values-el/values-el.xml",
+                    "source": "/home/thinkpad/.gradle/caches/transforms-2/files-2.1/e9dab9c67c1ee3668e0bbf86c6d8cbd8/core-1.1.0/res/values-el/values-el.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
