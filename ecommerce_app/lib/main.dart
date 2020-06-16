@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'categoriestabbar.dart';
+import 'Categories.dart';
+import 'ItemList.dart';
+import 'BottomNavigation.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -40,6 +43,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      bottomNavigationBar: new Theme(
+        data: Theme.of(context).copyWith(
+          // sets the background color of the `BottomNavigationBar`
+            canvasColor: Theme.of(context).primaryColor,
+            textTheme: Theme
+                .of(context)
+                .textTheme
+                .copyWith(caption: new TextStyle(color: Colors.orange[200]))), // sets the inactive color of the `BottomNavigationBar`
+        child: new BottomNavigation()
+      ),
       body: SafeArea(
         child: Container(
           child: Column(
@@ -49,14 +62,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    FaIcon(FontAwesomeIcons.bars,  color: Theme.of(context).primaryColor),
+                    GestureDetector(
+                      child: FaIcon(FontAwesomeIcons.bars,
+                          color: Theme.of(context).primaryColor),
+                    ),
                     Row(
                       children: [
-                        FaIcon(FontAwesomeIcons.search,   color: Theme.of(context).primaryColor),
+                        GestureDetector(
+                          child: FaIcon(FontAwesomeIcons.search,
+                              color: Theme.of(context).primaryColor),
+                        ),
                         SizedBox(
                           width: 10,
                         ),
-                        FaIcon(FontAwesomeIcons.shoppingBag,   color: Theme.of(context).primaryColor)
+                        GestureDetector(
+                          child: FaIcon(FontAwesomeIcons.shoppingBag,
+                              color: Theme.of(context).primaryColor),
+                        )
                       ],
                     )
                   ],
@@ -72,14 +94,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 35,
-                    color: Theme.of(context).primaryColor
-                  ),
+                      color: Theme.of(context).primaryColor),
                 ),
               ),
               SizedBox(
                 height: 10,
               ),
               CategoriesTabs(),
+              SizedBox(
+                height: 10,
+              ),
+              ItemList(),
             ],
           ),
         ),
@@ -87,3 +112,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
