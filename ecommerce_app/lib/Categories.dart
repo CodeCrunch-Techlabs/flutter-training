@@ -18,7 +18,7 @@ class _CategoriesTabsState extends State<CategoriesTabs> {
           unselectedLabelColor: Theme.of(context).primaryColor,
           indicatorColor: Colors.transparent,
           isScrollable: true,
-          labelColor: Colors.orange[200],
+          labelColor: Theme.of(context).secondaryHeaderColor,
           tabs: const <Tab>[
             const Tab(text: 'All'),
             const Tab(text: 'Chair'),

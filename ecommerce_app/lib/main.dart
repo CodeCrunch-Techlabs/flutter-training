@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ecommerceapp/Screens/Home.dart';
+import 'Screens/ItemDetails.dart';
 
 
 
@@ -16,9 +17,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: Colors.indigo[400],
+        secondaryHeaderColor: Colors.orange[200],
+        fontFamily: 'Montserrat',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: MyDetailsPage(),
       debugShowCheckedModeBanner: false,
     );
   }

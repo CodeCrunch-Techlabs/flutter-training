@@ -74,7 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 35,
-                      color: Theme.of(context).primaryColor),
+                      color: Theme.of(context).primaryColor,
+                 ),
                 ),
               ),
               SizedBox(
