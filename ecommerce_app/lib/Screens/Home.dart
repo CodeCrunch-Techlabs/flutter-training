@@ -36,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Container(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -82,9 +83,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 10,
               ),
               CategoriesTabs(),
-              SizedBox(
-                height: 10,
-              ),
               ItemList(),
             ],
           ),

@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Montserrat',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyDetailsPage(),
+      home: MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
