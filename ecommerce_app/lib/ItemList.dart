@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ecommerceapp/Screens/ItemDetails.dart';
 
 class ItemList extends StatefulWidget {
   @override
@@ -20,6 +21,12 @@ class _ItemListState extends State<ItemList> {
           children: List.generate(10, (index) {
             return InkWell(
               splashColor: Colors.blue.withAlpha(30),
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyDetailsPage()),
+                );
+              },
               child: Flexible(
                 child: Container(
                   margin: EdgeInsets.all(10),

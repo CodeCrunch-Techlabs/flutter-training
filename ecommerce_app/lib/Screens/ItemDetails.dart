@@ -35,6 +35,9 @@ class _MyDetailsPageState extends State<MyDetailsPage> {
                       GestureDetector(
                         child: FaIcon(FontAwesomeIcons.chevronLeft,
                             color: Theme.of(context).primaryColor),
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
                       ),
                       GestureDetector(
                         child: Text('Morden',
@@ -228,7 +231,7 @@ class _MyDetailsPageState extends State<MyDetailsPage> {
                                 topLeft: const Radius.circular(30.0),
                               )
                           ),
-                          padding: EdgeInsets.all(15),
+                          padding: EdgeInsets.fromLTRB(40, 20, 40, 15),
                           child: Text("Add to Cart", style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.bold
