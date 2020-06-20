@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MyDetailsPage extends StatefulWidget {
   MyDetailsPage({Key key}) : super(key: key);
