@@ -2,6 +2,7 @@ import 'package:ecommerceapp/Screens/SignIn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ecommerceapp/Screens/AddCart.dart';
 
 class MyDetailsPage extends StatefulWidget {
   MyDetailsPage({Key key}) : super(key: key);
@@ -48,6 +49,9 @@ class _MyDetailsPageState extends State<MyDetailsPage> {
                                 fontFamily: 'Montserrat')),
                       ),
                       GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AddCartPage()));
+                        },
                         child: FaIcon(FontAwesomeIcons.shoppingBag,
                             color: Theme.of(context).primaryColor),
                       )

@@ -48,6 +48,9 @@ class _AddCartPageState extends State<AddCartPage> {
                                       fontFamily: 'Montserrat')),
                             ),
                             GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
                               child: FaIcon(FontAwesomeIcons.times,
                                   color: Theme.of(context).primaryColor),
                             )

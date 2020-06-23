@@ -2,7 +2,6 @@ import 'package:ecommerceapp/Screens/SignUp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ecommerceapp/Screens/SignUp.dart';
 import 'package:ecommerceapp/Screens/AddCart.dart';
 
 class SignIn extends StatefulWidget {

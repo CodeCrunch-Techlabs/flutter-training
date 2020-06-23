@@ -80,6 +80,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                       fontFamily: 'Montserrat')),
                             ),
                             GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
                               child: FaIcon(FontAwesomeIcons.times,
                                   color: Theme.of(context).primaryColor),
                             )

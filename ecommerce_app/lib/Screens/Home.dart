@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Categories.dart';
 import '../ItemList.dart';
 import '../BottomNavigation.dart';
+import 'package:ecommerceapp/Screens/AddCart.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -57,6 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           width: 10,
                         ),
                         GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => AddCartPage()));
+                          },
                           child: FaIcon(FontAwesomeIcons.shoppingBag,
                               color: Theme.of(context).primaryColor),
                         )
