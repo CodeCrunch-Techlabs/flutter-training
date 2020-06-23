@@ -1,3 +1,4 @@
+import 'package:ecommerceapp/Screens/SignIn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -221,20 +222,25 @@ class _MyDetailsPageState extends State<MyDetailsPage> {
                       SizedBox(
                         height: 10,
                       ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                          decoration: new BoxDecoration(
-                              color: Theme.of(context).secondaryHeaderColor,
-                              borderRadius: new BorderRadius.only(
-                                topLeft: const Radius.circular(30.0),
-                              )
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder:  (context) => SignIn()));
+                        },
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Container(
+                            decoration: new BoxDecoration(
+                                color: Theme.of(context).secondaryHeaderColor,
+                                borderRadius: new BorderRadius.only(
+                                  topLeft: const Radius.circular(30.0),
+                                )
+                            ),
+                            padding: EdgeInsets.fromLTRB(40, 20, 40, 15),
+                            child: Text("Add to Cart", style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold
+                            ),),
                           ),
-                          padding: EdgeInsets.fromLTRB(40, 20, 40, 15),
-                          child: Text("Add to Cart", style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold
-                          ),),
                         ),
                       )
                     ],

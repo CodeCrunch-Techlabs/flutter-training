@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ecommerceapp/Screens/Home.dart';
-import 'package:ecommerceapp/Screens/AddCart.dart';
+import 'package:ecommerceapp/Screens/CheckoutPage.dart';
 
 
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Montserrat',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: AddCartPage(),
+      home: CheckoutPage(),
       debugShowCheckedModeBanner: false, //hide debug banner from screen
     );
   }
