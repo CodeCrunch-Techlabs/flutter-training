@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ecommerceapp/Screens/CheckoutPage.dart';
 
 class AddCartPage extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class _AddCartPageState extends State<AddCartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
         child: Container(
           child: SingleChildScrollView(
@@ -101,16 +102,21 @@ class _AddCartPageState extends State<AddCartPage> {
                                   fontWeight: FontWeight.bold))
                         ],
                       ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        color: Theme.of(context).primaryColor,),
-                        child: Text(
-                          "Buy Now",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CheckoutPage()));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          color: Theme.of(context).secondaryHeaderColor,),
+                          child: Text(
+                            "Buy Now",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       )
                     ],
