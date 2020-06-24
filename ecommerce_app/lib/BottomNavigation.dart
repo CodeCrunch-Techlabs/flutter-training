@@ -20,11 +20,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
       style: optionStyle,
     ),
     Text(
-      'Index 1: Business',
+      'Index 1: Like',
       style: optionStyle,
     ),
     Text(
-      'Index 2: School',
+      'Index 2: Bag',
       style: optionStyle,
     ),
   ];
@@ -48,11 +48,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.heart),
-            title: Text('Business'),
+            title: Text('Like'),
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.shoppingBag,),
-            title: Text('School'),
+            title: Text('Bag'),
           ),
         ],
         currentIndex: _selectedIndex,

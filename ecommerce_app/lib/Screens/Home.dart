@@ -15,6 +15,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -24,6 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      key: _scaffoldKey,
       bottomNavigationBar: new Theme(
           data: Theme.of(context).copyWith(
             // sets the background color of the `BottomNavigationBar`
@@ -47,6 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     GestureDetector(
                       child: FaIcon(FontAwesomeIcons.bars,
                           color: Theme.of(context).primaryColor),
+                      onTap: (){
+                        _scaffoldKey.currentState.openDrawer();
+                      },
                     ),
                     Row(
                       children: [
@@ -92,6 +99,82 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
+      drawer: Drawer(
+        child: ProfieDrawer()
+      )
+    );
+  }
+}
+
+
+class ProfieDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.85,
+            child: DrawerHeader(
+              child: Text("Header"),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: ListView(children: [
+            ListTile(
+              title: Text("Home"),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: Text("Home"),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: Text("Home"),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: Text("Home"),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: Text("Home"),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: Text("Home"),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: Text("Home"),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: Text("Home"),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ]),
+        )
+      ],
     );
   }
 }
