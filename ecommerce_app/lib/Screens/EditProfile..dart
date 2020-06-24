@@ -64,43 +64,41 @@ class _EditProfileState extends State<EditProfile> {
                         height: 30,
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                        child:Container(
-                            child :new Stack(fit: StackFit.loose, children: <Widget>[
-                              new Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  new Container(
-                                      width: 100.0,
-                                      height: 100.0,
-                                      decoration: new BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: new DecorationImage(
-                                          image: new ExactAssetImage(
-                                              'assets/images/as.png'),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )),
-                                ],
-                              ),
-                              Padding(
-                                  padding: EdgeInsets.only(top: 70.0, right:  1.0),
-                                  child: new Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new CircleAvatar(
-                                        backgroundColor: Colors.red,
-                                        radius: 25.0,
-                                        child: new Icon(
-                                          Icons.camera_alt,
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                            ])
-                      ),
+                          padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                          child :new Stack(fit: StackFit.loose, children: <Widget>[
+                            new Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: new BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: new DecorationImage(
+                                        image: new ExactAssetImage(
+                                            'assets/images/as.png'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )),
+                              ],
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(top: 70.0, right:  1.0),
+                                child: new Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new CircleAvatar(
+                                      backgroundColor: Colors.red,
+                                      radius: 25.0,
+                                      child: new Icon(
+                                        Icons.camera_alt,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ])
                       )
                     ],
                   ),

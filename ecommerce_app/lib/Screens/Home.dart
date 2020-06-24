@@ -5,6 +5,8 @@ import '../Categories.dart';
 import '../ItemList.dart';
 import '../BottomNavigation.dart';
 import 'package:ecommerceapp/Screens/AddCart.dart';
+import 'package:ecommerceapp/Screens/EditProfile..dart';
+import 'package:ecommerceapp/Screens/SignIn.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -112,12 +114,41 @@ class ProfieDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.85,
-            child: DrawerHeader(
-              child: Text("Header"),
+        Container(
+          color:  Theme.of(context).primaryColor,
+          height: 200,
+          child: DrawerHeader(
+            child: Center(
+                child : Column(
+                  children: [
+                    Container(
+                        width: 100.0,
+                        height: 100.0,
+                        decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: new DecorationImage(
+                            image: new ExactAssetImage(
+                                'assets/images/as.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        )),
+                    Container(
+                      child: Text("Mansi Joshi",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                      ),),
+                    ),
+                    Container(
+                      child: Text("mansijoshi17799@gmail.com",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                        ),),
+                    )
+                  ],
+                )
             ),
           ),
         ),
@@ -125,53 +156,36 @@ class ProfieDrawer extends StatelessWidget {
           flex: 2,
           child: ListView(children: [
             ListTile(
-              title: Text("Home"),
+              title: Text("My Cart" ),
+              leading: FaIcon(FontAwesomeIcons.shoppingBag),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AddCartPage()));
+              },
+            ),
+            ListTile(
+              title: Text("Edit Profile"),
+              leading: FaIcon(FontAwesomeIcons.user),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfile()));
+              },
+            ),
+            ListTile(
+              title: Text("Sign In"),
+              leading: FaIcon(FontAwesomeIcons.signInAlt),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
+              },
+            ),
+            ListTile(
+              title: Text("Sign Out"),
+              leading: FaIcon(FontAwesomeIcons.signOutAlt),
               onTap: () {
                 Navigator.of(context).pop();
               },
             ),
-            ListTile(
-              title: Text("Home"),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              title: Text("Home"),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              title: Text("Home"),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              title: Text("Home"),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              title: Text("Home"),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              title: Text("Home"),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              title: Text("Home"),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            )
           ]),
         )
       ],
