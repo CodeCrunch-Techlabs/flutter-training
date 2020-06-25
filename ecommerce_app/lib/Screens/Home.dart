@@ -95,8 +95,8 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                 height: 10,
               ),
-              CategoriesTabs(),
-              ItemList(),
+              Container(child: CategoriesTabs()),
+//              ItemList(),
             ],
           ),
         ),
