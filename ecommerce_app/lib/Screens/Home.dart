@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Categories.dart';
-import '../ItemList.dart';
+import 'ItemList.dart';
 import '../BottomNavigation.dart';
 import 'package:ecommerceapp/Screens/AddCart.dart';
 import 'package:ecommerceapp/Screens/EditProfile..dart';
@@ -30,16 +30,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       key: _scaffoldKey,
-      bottomNavigationBar: new Theme(
-          data: Theme.of(context).copyWith(
-            // sets the background color of the `BottomNavigationBar`
-              canvasColor: Theme.of(context).primaryColor,
-              textTheme: Theme
-                  .of(context)
-                  .textTheme
-                  .copyWith(caption: new TextStyle(color: Colors.orange[200]))), // sets the inactive color of the `BottomNavigationBar`
-          child: new BottomNavigation()
-      ),
+//      bottomNavigationBar: new Theme(
+//          data: Theme.of(context).copyWith(
+//            // sets the background color of the `BottomNavigationBar`
+//              canvasColor: Theme.of(context).primaryColor,
+//              textTheme: Theme
+//                  .of(context)
+//                  .textTheme
+//                  .copyWith(caption: new TextStyle(color: Colors.orange[200]))), // sets the inactive color of the `BottomNavigationBar`
+//          child: new BottomNavigation()
+//      ),
       body: SafeArea(
         child: Container(
           child: Column(

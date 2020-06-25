@@ -1,7 +1,10 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ecommerceapp/Screens/CheckoutPage.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class AddCartPage extends StatefulWidget {
   @override
@@ -62,19 +65,23 @@ class _AddCartPageState extends State<AddCartPage> {
                       ),
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: <Widget>[
-                            CartItem(),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            CartItem(),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            CartItem()
-                          ],
+                        child: AnimationLimiter(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 3  ,
+                            itemBuilder: (BuildContext context, int index) {
+                              return AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: const Duration(milliseconds: 375),
+                                child: SlideAnimation(
+                                  verticalOffset: 50.0,
+                                  child: FadeInAnimation(
+                                    child: CartItem(),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(
