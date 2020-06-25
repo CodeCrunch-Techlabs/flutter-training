@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EditProfile extends StatefulWidget {
@@ -109,7 +108,7 @@ class _EditProfileState extends State<EditProfile> {
                   },
                   child: Container(
                       margin: EdgeInsets.all(10),
-                      child: PaymentForm()
+                      child: PersonalInfo()
                   ),
                 )
               ],
@@ -122,12 +121,12 @@ class _EditProfileState extends State<EditProfile> {
 }
 
 
-class PaymentForm extends StatefulWidget {
+class PersonalInfo extends StatefulWidget {
   @override
-  _PaymentFormState createState() => _PaymentFormState();
+  _PersonalInfoState createState() => _PersonalInfoState();
 }
 
-class _PaymentFormState extends State<PaymentForm> {
+class _PersonalInfoState extends State<PersonalInfo> {
 
 
   TextEditingController firstnameController = new TextEditingController(text: "Mansi");

@@ -12,7 +12,7 @@ class MyDetailsPage extends StatefulWidget {
 }
 
 class _MyDetailsPageState extends State<MyDetailsPage> {
-  final value = 4;
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,195 +65,211 @@ class _MyDetailsPageState extends State<MyDetailsPage> {
                     fit: BoxFit.fill,
                   ),
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30.0),
-                        topRight: Radius.circular(30.0)),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Beko Slim Chair",
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: Theme.of(context)
-                                                .secondaryHeaderColor,
-                                            fontWeight: FontWeight.bold)),
-                                    Text('By Fred H Haque',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          color: Colors.blueGrey[50],
-                                        ))
-                                  ],
-                                ),
-                                Text(
-                                  "\$1625",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  '4',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                IconTheme(
-                                  data: IconThemeData(
-                                    color: Theme.of(context).secondaryHeaderColor,
-                                    size: 20,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: List.generate(5, (index) {
-                                      return Icon(
-                                        index < value
-                                            ? Icons.star
-                                            : Icons.star_border,
-                                      );
-                                    }),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Fabric Color',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Off WHite',
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .secondaryHeaderColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Style',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text('Modern',
-                                        style: TextStyle(
-                                          color: Theme.of(context)
-                                              .secondaryHeaderColor,
-                                          fontWeight: FontWeight.bold,
-                                        ))
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Made In',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text('Malaysia',
-                                        style: TextStyle(
-                                          color: Theme.of(context)
-                                              .secondaryHeaderColor,
-                                          fontWeight: FontWeight.bold,
-                                        ))
-                                  ],
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              child: Text(
-                                "It is a long established fact that a reader will be  distracted by the readable content of a page when looking at its layout",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                Details()
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class Details extends StatefulWidget {
+  @override
+  _DetailsState createState() => _DetailsState();
+}
+
+class _DetailsState extends State<Details> {
+
+  final value = 4;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0)),
+        color: Theme.of(context).primaryColor,
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Beko Slim Chair",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Theme.of(context)
+                                    .secondaryHeaderColor,
+                                fontWeight: FontWeight.bold)),
+                        Text('By Fred H Haque',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: Colors.blueGrey[50],
+                            ))
+                      ],
+                    ),
+                    Text(
+                      "\$1625",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      '4',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(
-                        height: 10,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    IconTheme(
+                      data: IconThemeData(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        size: 20,
                       ),
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder:  (context) => SignIn()));
-                        },
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: Container(
-                            decoration: new BoxDecoration(
-                                color: Theme.of(context).secondaryHeaderColor,
-                                borderRadius: new BorderRadius.only(
-                                  topLeft: const Radius.circular(30.0),
-                                )
-                            ),
-                            padding: EdgeInsets.fromLTRB(40, 20, 40, 15),
-                            child: Text("Add to Cart", style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.bold
-                            ),),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: List.generate(5, (index) {
+                          return Icon(
+                            index < value
+                                ? Icons.star
+                                : Icons.star_border,
+                          );
+                        }),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Fabric Color',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      )
-                    ],
+                        Text(
+                          'Off WHite',
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .secondaryHeaderColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Style',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text('Modern',
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .secondaryHeaderColor,
+                              fontWeight: FontWeight.bold,
+                            ))
+                      ],
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Made In',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text('Malaysia',
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .secondaryHeaderColor,
+                              fontWeight: FontWeight.bold,
+                            ))
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  child: Text(
+                    "It is a long established fact that a reader will be  distracted by the readable content of a page when looking at its layout",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                 )
               ],
             ),
           ),
-        ),
+          SizedBox(
+            height: 10,
+          ),
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder:  (context) => SignIn()));
+            },
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                decoration: new BoxDecoration(
+                    color: Theme.of(context).secondaryHeaderColor,
+                    borderRadius: new BorderRadius.only(
+                      topLeft: const Radius.circular(30.0),
+                    )
+                ),
+                padding: EdgeInsets.fromLTRB(40, 20, 40, 15),
+                child: Text("Add to Cart", style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold
+                ),),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
