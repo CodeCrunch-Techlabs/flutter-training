@@ -76,7 +76,10 @@ class _AddCartPageState extends State<AddCartPage> {
                                 child: SlideAnimation(
                                   verticalOffset: 50.0,
                                   child: FadeInAnimation(
-                                    child: CartItem(),
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                        child: CartItem()
+                                    ),
                                   ),
                                 ),
                               );
@@ -84,9 +87,6 @@ class _AddCartPageState extends State<AddCartPage> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      )
                     ],
                   ),
                 ),

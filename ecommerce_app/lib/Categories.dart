@@ -8,24 +8,23 @@ class CategoriesTabs extends StatefulWidget {
 }
 
 class _CategoriesTabsState extends State<CategoriesTabs> {
+
+  var _tabsname = ['All','Chair','Table','Bed','Sofas','Stools'];
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(0),
       child: DefaultTabController(
-        length: 6,
+        length: _tabsname.length,
         child: TabBar(
           unselectedLabelColor: Theme.of(context).primaryColor,
           indicatorColor: Colors.transparent,
           isScrollable: true,
           labelColor: Theme.of(context).secondaryHeaderColor,
-          tabs: const <Tab>[
-            const Tab(text: 'All'),
-            const Tab(text: 'Chair'),
-            const Tab(text: 'Table'),
-            const Tab(text: 'Bed'),
-            const Tab(text: 'Sofas'),
-            const Tab(text: 'Stools'),
+          tabs:  <Tab>[
+            for(var tab in _tabsname) Tab(text: tab )
           ],
         ),
       ),
