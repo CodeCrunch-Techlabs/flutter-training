@@ -85,6 +85,9 @@ class _AddCartPageState extends State<AddCartPage> {
                           ),
                         ),
                       ),
+                      SizedBox(
+                        height: 30,
+                      )
                     ],
                   ),
                 ),
@@ -160,7 +163,7 @@ class CartItem extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+//              padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

@@ -113,39 +113,41 @@ class ProfieDrawer extends StatelessWidget {
       children: [
         Container(
           color:  Theme.of(context).primaryColor,
-          height: 200,
+          height: 250,
           child: DrawerHeader(
-            child: Center(
-                child : Column(
-                  children: [
-                    Container(
-                        width: 100.0,
-                        height: 100.0,
-                        decoration: new BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: new DecorationImage(
-                            image: new ExactAssetImage(
-                                'assets/images/as.png'),
-                            fit: BoxFit.cover,
-                          ),
-                        )),
-                    Container(
-                      child: Text("Mansi Joshi",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                      ),),
-                    ),
-                    Container(
-                      child: Text("mansijoshi17799@gmail.com",
+            child: Expanded(
+              child: Center(
+                  child : Column(
+                    children: [
+                      Container(
+                          width: 100.0,
+                          height: 100.0,
+                          decoration: new BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: new DecorationImage(
+                              image: new ExactAssetImage(
+                                  'assets/images/as.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          )),
+                      Container(
+                        child: Text("Mansi Joshi",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white
                         ),),
-                    )
-                  ],
-                )
+                      ),
+                      Container(
+                        child: Text("mansijoshi17799@gmail.com",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                          ),),
+                      )
+                    ],
+                  )
+              ),
             ),
           ),
         ),
