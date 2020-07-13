@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../Categories.dart';
+import 'Categories.dart';
 import 'package:ecommerceapp/Screens/AddCart.dart';
 import 'package:ecommerceapp/Screens/EditProfile..dart';
 import 'package:ecommerceapp/Screens/SignIn.dart';

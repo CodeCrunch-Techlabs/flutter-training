@@ -28,6 +28,33 @@
       });
     }
   </script>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script>
+
+  <script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyC9ZcdQ6qFw9jFpdEboGBdWGbpiK433FzQ",
+    authDomain: "furniture-app-3ea61.firebaseapp.com",
+    databaseURL: "https://furniture-app-3ea61.firebaseio.com",
+    projectId: "furniture-app-3ea61",
+    storageBucket: "furniture-app-3ea61.appspot.com",
+    messagingSenderId: "929266321219",
+    appId: "1:929266321219:web:8104b8e8bfd98b6f1b11f6",
+    measurementId: "G-09NGL686CX"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
