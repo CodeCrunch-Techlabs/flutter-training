@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "220962601538",
+    "firebase_url": "https://studentdesk-app.firebaseio.com",
+    "project_id": "studentdesk-app",
+    "storage_bucket": "studentdesk-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220962601538:android:3a8a1fae77815ce5970bdb",
+        "android_client_info": {
+          "package_name": "com.example.studentdesk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220962601538-dh1uraeptdbof4b1du99kvooj82a4hlf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.studentdesk",
+            "certificate_hash": "482a00abfdd64dfebd7c4a144f5da21647f9b3c8"
+          }
+        },
+        {
+          "client_id": "220962601538-bhnaldo0ko5l4ltui77slthku70231fc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH4Nx8_fs0e60nby7sg8MXUkbSF0KzQD8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220962601538-bhnaldo0ko5l4ltui77slthku70231fc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
