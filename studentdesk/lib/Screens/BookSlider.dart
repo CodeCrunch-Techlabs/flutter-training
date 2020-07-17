@@ -10,7 +10,6 @@ class BookSlider extends StatefulWidget {
 
 class _BookSliderState extends State<BookSlider> {
   List books;
-  int index = 1;
 
   Future<void> loadJsonData() async {
     var response = await http
@@ -71,14 +70,26 @@ class _BookSliderState extends State<BookSlider> {
                                   ),
                                   padding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 20.0),
-                                  child: Text(
-                                    it["name"],
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        it["name"],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        it["author"],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ),
                               ),
                             ],
