@@ -69,7 +69,9 @@ class _SignInState extends State<SignIn> {
                 Center(
                   child: GestureDetector(
                     onTap: () {
-//                      signInWithFacebook();
+                      signInWithFacebook().whenComplete(() {
+                        print("facebook Success");
+                      });
                     },
                     child: Container(
                       height: 40.0,

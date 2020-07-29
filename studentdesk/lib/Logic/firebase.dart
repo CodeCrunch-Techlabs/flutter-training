@@ -35,23 +35,23 @@ void signOutGoogle() async{
   print("User Sign Out");
 }
 
-//Future<FirebaseUser> signInWithFacebook() async {
-//
-//  var facebookLogin = new FacebookLogin();
-//  var result = await facebookLogin.logIn(['email']);
-//  AuthCredential authCredential = FacebookAuthProvider.getCredential(accessToken: result.accessToken.token);
-//
-//  if(result.status == FacebookLoginStatus.loggedIn){
-//    final FirebaseUser user = (await _auth.signInWithCredential(authCredential)).user;
-//    return user;
-//  }
-//
-//  return null;
-//
-//}
-//
-//void signOutFacebook() async{
-//  await _auth.signOut();
-//}
+Future<FirebaseUser> signInWithFacebook() async {
+
+  var facebookLogin = new FacebookLogin();
+  var result = await facebookLogin.logIn(['email']);
+  AuthCredential authCredential = FacebookAuthProvider.getCredential(accessToken: result.accessToken.token);
+
+  if(result.status == FacebookLoginStatus.loggedIn){
+    final FirebaseUser user = (await _auth.signInWithCredential(authCredential)).user;
+    return user;
+  }
+
+  return null;
+
+}
+
+void signOutFacebook() async{
+  await _auth.signOut();
+}
 
 

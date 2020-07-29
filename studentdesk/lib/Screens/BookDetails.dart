@@ -31,19 +31,19 @@ class _BookDetailsState extends State<BookDetails> {
   void initState() {
     super.initState();
     loadJsonData();
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).primaryColor,
       body: bookdetails == null
           ? Center(
               child: CircularProgressIndicator(),
             )
           : SafeArea(
               child: Container(
-//                padding: EdgeInsets.all(10),
                 child: Column(
                   children: [
                     GestureDetector(
@@ -53,7 +53,9 @@ class _BookDetailsState extends State<BookDetails> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Container(
-                          child: Icon(Icons.arrow_back),
+                          padding: EdgeInsets.all(10),
+                          child: Icon(Icons.arrow_back,
+                          color: Colors.white,),
                         ),
                       ),
                     ),
@@ -83,36 +85,39 @@ class _BookDetailsState extends State<BookDetails> {
                             padding: EdgeInsets.all(5),
                             margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
                             decoration: new BoxDecoration(
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.white,
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
                               Icons.favorite,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
+                              size: 22,
                             ),
                           ),
                           Container(
                             decoration: new BoxDecoration(
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.white,
                               shape: BoxShape.circle,
                             ),
                             padding: EdgeInsets.all(5),
                             margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
                             child: Icon(
                               Icons.chat,
-                              color: Colors.white,
+                              color:Theme.of(context).primaryColor,
+                              size: 22,
                             ),
                           ),
                           Container(
                             decoration: new BoxDecoration(
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.white,
                               shape: BoxShape.circle,
                             ),
                             padding: EdgeInsets.all(5),
                             margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
                             child: Icon(
                               Icons.share,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
+                              size: 22,
                             ),
                           )
                         ],
@@ -123,18 +128,98 @@ class _BookDetailsState extends State<BookDetails> {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30.0),
                             topRight: Radius.circular(30.0)),
                         color: Colors.white,
                       ),
-                      child: Text("Details"),
+                      child: Column(
+                        children: [
+                          Center(
+                            child:Container(
+                              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              height: 5.0,
+                              width: 30.0,
+                              color: Colors.grey[200],
+                            )
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Center(
+                            child: Container(
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Container(
+                                        child: Text(bookdetails["name"],
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Center(
+                                      child: Container(
+                                        child: bookdetails["author"] != "" ? Text("By ${bookdetails["author"]}") : null,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                   Container(
+                                     child: Column(
+                                       mainAxisAlignment: MainAxisAlignment.start,
+                                       children: [
+                                         Text("Category :"),
+                                         Text(bookdetails["category"]["category_name"])
+                                       ],
+                                     ),
+                                   ),
+                                    Container(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Text("Price :"),
+                                         Row(
+                                           children: [
+                                             Icon(Icons.attach_money),
+                                             Text(bookdetails["price"].toString())
+                                           ],
+                                         )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
               ),
-
             ),
     );
   }

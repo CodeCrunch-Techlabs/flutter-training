@@ -36,68 +36,73 @@ class _BookListState extends State<BookList> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-            padding: EdgeInsets.all(10),
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Text(
-                          "Explore",
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "JosefinSans"),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                        child: GestureDetector(
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
                           child: Text(
-                            "Login",
+                            "Explore",
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 25,
+                                color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "JosefinSans"),
                           ),
                         ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Theme.of(context).primaryColor,
-                          boxShadow: [
-                            BoxShadow(color: Colors.green, spreadRadius: 1),
-                          ],
-                        ),
-                      )
-                    ],
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                          child: GestureDetector(
+                            child: Text(
+                              "Login",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "JosefinSans"),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Theme.of(context).primaryColor,
+                            boxShadow: [
+                              BoxShadow(color: Colors.green, spreadRadius: 1),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(color: Colors.grey[100], spreadRadius: 1),
-                      ],
-                    ),
-                    height: 40,
-                    child: SimpleAutoCompleteTextField(
-                      key: key,
-                      suggestions: books,
-                      decoration: InputDecoration(
-                        hintText: 'Search by author, book name',
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(vertical: 13),
-                        prefixIcon: Icon(Icons.search),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(color: Colors.grey[100], spreadRadius: 1),
+                        ],
                       ),
-                      textChanged: (text) {
-                        getSuggestions(text);
-                      },
+                      height: 40,
+                      child: SimpleAutoCompleteTextField(
+                        key: key,
+                        suggestions: books,
+                        decoration: InputDecoration(
+                          hintText: 'Search by author, book name',
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 13),
+                          prefixIcon: Icon(Icons.search),
+                        ),
+                        textChanged: (text) {
+                          getSuggestions(text);
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -110,6 +115,7 @@ class _BookListState extends State<BookList> {
                     height: 10,
                   ),
                   Container(
+                    padding: EdgeInsets.all(10),
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
@@ -126,6 +132,7 @@ class _BookListState extends State<BookList> {
                     height: 10,
                   ),
                   Container(
+                    padding: EdgeInsets.all(10),
                     child: BookGrid(),
                   )
                 ],

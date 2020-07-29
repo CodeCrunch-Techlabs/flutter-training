@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "JosefinSans",
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: BookList(),
+      home: SignIn(),
     );
   }
 }
