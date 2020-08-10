@@ -25,13 +25,13 @@ class _BookDetailsState extends State<BookDetails> {
     setState(() {
       bookdetails = jsonDecode(response.body)["data"][0];
     });
+    print(bookdetails);
   }
 
   @override
   void initState() {
     super.initState();
     loadJsonData();
-
   }
 
   @override
@@ -44,122 +44,128 @@ class _BookDetailsState extends State<BookDetails> {
             )
           : SafeArea(
               child: Container(
-                child: Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          child: Icon(Icons.arrow_back,
-                          color: Colors.white,),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: 200,
-                      width: 500,
-                      child: Center(
-                          child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.network(
-                          bookdetails["photo"],
-                          fit: BoxFit.fill,
-                        ),
-                      )),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(5),
-                            margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            decoration: new BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            padding: EdgeInsets.all(10),
                             child: Icon(
-                              Icons.favorite,
-                              color: Theme.of(context).primaryColor,
-                              size: 22,
+                              Icons.arrow_back,
+                              color: Colors.white,
                             ),
                           ),
-                          Container(
-                            decoration: new BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            padding: EdgeInsets.all(5),
-                            margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Icon(
-                              Icons.chat,
-                              color:Theme.of(context).primaryColor,
-                              size: 22,
-                            ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        height: 200,
+                        width: 500,
+                        child: Center(
+                            child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.network(
+                            bookdetails["photo"],
+                            fit: BoxFit.fill,
                           ),
-                          Container(
-                            decoration: new BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            padding: EdgeInsets.all(5),
-                            margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Icon(
-                              Icons.share,
-                              color: Theme.of(context).primaryColor,
-                              size: 22,
-                            ),
-                          )
-                        ],
+                        )),
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30.0),
-                            topRight: Radius.circular(30.0)),
-                        color: Colors.white,
+                      SizedBox(
+                        height: 20,
                       ),
-                      child: Column(
-                        children: [
-                          Center(
-                            child:Container(
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              decoration: new BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.favorite,
+                                color: Theme.of(context).primaryColor,
+                                size: 22,
+                              ),
+                            ),
+                            Container(
+                              decoration: new BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: Icon(
+                                Icons.chat,
+                                color: Theme.of(context).primaryColor,
+                                size: 22,
+                              ),
+                            ),
+                            Container(
+                              decoration: new BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: Icon(
+                                Icons.share,
+                                color: Theme.of(context).primaryColor,
+                                size: 22,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30.0),
+                              topRight: Radius.circular(30.0)),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Center(
+                                child: Container(
                               margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                               height: 5.0,
                               width: 30.0,
                               color: Colors.grey[200],
-                            )
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Center(
-                            child: Container(
+                            )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Center(
+                              child: Container(
                                 child: Column(
                                   children: [
                                     Center(
                                       child: Container(
-                                        child: Text(bookdetails["name"],
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
+                                        child: Center(
+                                          child: Text(
+                                            bookdetails["name"],
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
@@ -167,57 +173,141 @@ class _BookDetailsState extends State<BookDetails> {
                                     ),
                                     Center(
                                       child: Container(
-                                        child: bookdetails["author"] != "" ? Text("By ${bookdetails["author"]}") : null,
+                                        child: bookdetails["author"] != ""
+                                            ? Text(
+                                                "By ${bookdetails["author"]}")
+                                            : null,
                                       ),
                                     )
                                   ],
                                 ),
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                   Container(
-                                     child: Column(
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       children: [
-                                         Text("Category :"),
-                                         Text(bookdetails["category"]["category_name"])
-                                       ],
-                                     ),
-                                   ),
-                                    Container(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Text("Price :"),
-                                         Row(
-                                           children: [
-                                             Icon(Icons.attach_money),
-                                             Text(bookdetails["price"].toString())
-                                           ],
-                                         )
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ],
+                            SizedBox(
+                              height: 10,
                             ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                            Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text("Category :"),
+                                        Text(bookdetails["category"]
+                                            ["category_name"])
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text("Price :"),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.attach_money),
+                                            Text(
+                                                bookdetails["price"].toString())
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text("Posted By :"),
+                                        Text(bookdetails["user"]["name"])
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text("From :"),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.home),
+                                            Text(bookdetails["city"]
+                                                ["city_name"])
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              height: 40.0,
+                              child: Material(
+                                borderRadius: BorderRadius.circular(20.0),
+                                color: Colors.green,
+                                elevation: 7.0,
+                                shadowColor: Colors.greenAccent,
+                                child: Center(
+                                  child: Text(
+                                    'Buy this Book',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Jost"),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 40.0,
+                              child: Material(
+                                borderRadius: BorderRadius.circular(20.0),
+                                color: Colors.green,
+                                elevation: 7.0,
+                                shadowColor: Colors.greenAccent,
+                                child: Center(
+                                  child: Text(
+                                    'Get for Exchange',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Jost"),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

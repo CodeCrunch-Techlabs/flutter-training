@@ -76,6 +76,7 @@ class _BookSliderState extends State<BookSlider> {
                                     padding: EdgeInsets.symmetric(
                                         vertical: 10.0, horizontal: 20.0),
                                     child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         Text(
                                           it["name"],
