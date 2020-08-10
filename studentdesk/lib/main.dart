@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
+import 'login/google.dart';
+
 void main() {
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -21,28 +23,17 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return new SplashScreen(
-        seconds: 14,
-        navigateAfterSeconds: new HomePage(),
+        seconds: 10,
+        navigateAfterSeconds: new GoogleLogin(),
         title: new Text(
-          'Welcome To BookExchange App',
+          'Welcome To Studentdesk',
           style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
         ),
-        // image: new Image.asset('images/splash.png'),
+        image: new Image.asset('assets/logo.png'),
         backgroundColor: Colors.white,
-        styleTextUnderTheLoader: new TextStyle(
-            color: Colors.amberAccent[200], fontWeight: FontWeight.bold),
+        styleTextUnderTheLoader:
+            new TextStyle(color: Colors.blue[300], fontWeight: FontWeight.bold),
         photoSize: 100.0,
-        loaderColor: Colors.amberAccent[200]);
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Text("Welcome"),
-      ),
-    );
+        loaderColor: Colors.green);
   }
 }
