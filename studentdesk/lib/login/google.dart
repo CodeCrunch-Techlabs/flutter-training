@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -27,7 +27,7 @@ class _GoogleLoginState extends State<GoogleLogin> {
         final graphResponse = await http.get(
             'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=$token');
         final profile = JSON.jsonDecode(graphResponse.body);
-        print(profile);
+        print(JSON.jsonDecode(graphResponse.body));
         setState(() {
           userProfile = profile;
           _isLoggedIn = true;
@@ -63,12 +63,12 @@ class _GoogleLoginState extends State<GoogleLogin> {
     }
   }
 
-  _logout() {
-    _googleSignIn.signOut();
-    setState(() {
-      _isLoggedIn = false;
-    });
-  }
+  // _logout() {
+  //   _googleSignIn.signOut();
+  //   setState(() {
+  //     _isLoggedIn = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -139,17 +139,20 @@ class _GoogleLoginState extends State<GoogleLogin> {
                             EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                         color: Colors.blueAccent[200],
                         onPressed: () {
-                          _loginWithFB();
+                          _loginWithFB().whenComplete(() {
+                           Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => Home(userProfile),
+                            ),
+                          );
+                          });
+                          
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(builder: (context) {
                           //     return Home(userProfile : userProfile);
                           //   }),
                           // );
-                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>  Home(userProfile)));
                         },
                         child: Row(
                           children: [
@@ -219,4 +222,3 @@ class _GoogleLoginState extends State<GoogleLogin> {
     );
   }
 }
- 

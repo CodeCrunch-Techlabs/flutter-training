@@ -30,7 +30,7 @@ class _DetailsState extends State<Details> {
   void initState() {
     super.initState();
     apiData();
-    print(user);
+    // print(user);
   }
 
   @override

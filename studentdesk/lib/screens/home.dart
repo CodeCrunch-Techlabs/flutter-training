@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     loadJsonData();
-    print(user);
+    // print("user" + "$user");
   }
 
   @override
@@ -67,91 +67,97 @@ class _HomeState extends State<Home> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.grey[850],
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                _customeAppBar(context),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      body: books == null
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SafeArea(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Column(
                     children: [
-                      Text(
-                        "Home",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  width: size.width * 0.9,
-                  decoration: BoxDecoration(
-                      color: Colors.grey[900],
-                      borderRadius: BorderRadius.circular(29)),
-                  // child: TextField(
-                  //   controller: _search,
-                  //   onChanged: (value) {},
-                  //   decoration: InputDecoration(
-                  //       icon: Icon(
-                  //         Icons.search,
-                  //         color: Colors.white,
-                  //       ),
-                  //       hintText: "Search for a book name, Auther",
-                  //       hintStyle: TextStyle(color: Colors.white, fontSize: 12),
-                  //       border: InputBorder.none),
-                  // ),
-                  child: SimpleAutoCompleteTextField(
-                    key: key,
-                    suggestions: bookslist,
-                    controller: _search,
-                    decoration: InputDecoration(
-                        icon: Icon(
-                          Icons.search,
-                          color: Colors.white,
+                      _customeAppBar(context),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Home",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30),
+                            ),
+                          ],
                         ),
-                        hintText: "Search for a book name, Auther",
-                        fillColor: Colors.white,
-                        hintStyle: TextStyle(color: Colors.white, fontSize: 12),
-                        border: InputBorder.none),
-                    textChanged: (text) {
-                      getSuggestions(text);
-                    },
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: _sliderbuild(context),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Most Popular",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30),
                       ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        width: size.width * 0.9,
+                        decoration: BoxDecoration(
+                            color: Colors.grey[900],
+                            borderRadius: BorderRadius.circular(29)),
+                        // child: TextField(
+                        //   controller: _search,
+                        //   onChanged: (value) {},
+                        //   decoration: InputDecoration(
+                        //       icon: Icon(
+                        //         Icons.search,
+                        //         color: Colors.white,
+                        //       ),
+                        //       hintText: "Search for a book name, Auther",
+                        //       hintStyle: TextStyle(color: Colors.white, fontSize: 12),
+                        //       border: InputBorder.none),
+                        // ),
+                        child: SimpleAutoCompleteTextField(
+                          key: key,
+                          suggestions: bookslist,
+                          controller: _search,
+                          decoration: InputDecoration(
+                              icon: Icon(
+                                Icons.search,
+                                color: Colors.white,
+                              ),
+                              hintText: "Search for a book name, Auther",
+                              fillColor: Colors.white,
+                              hintStyle:
+                                  TextStyle(color: Colors.white, fontSize: 12),
+                              border: InputBorder.none),
+                          textChanged: (text) {
+                            getSuggestions(text);
+                          },
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        child: books == null ? null : _sliderbuild(context),
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Most Popular",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30),
+                            ),
+                          ],
+                        ),
+                      ),
+                      _buildCard(context),
                     ],
                   ),
                 ),
-                _buildCard(context),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 
