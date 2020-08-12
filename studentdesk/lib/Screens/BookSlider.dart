@@ -32,7 +32,7 @@ class _BookSliderState extends State<BookSlider> {
         ? CircularProgressIndicator()
         : CarouselSlider(
             options: CarouselOptions(
-              height: 300,
+              height: 350,
               autoPlay: true,
               aspectRatio: 2.0,
               enlargeCenterPage: true,
@@ -54,7 +54,7 @@ class _BookSliderState extends State<BookSlider> {
                               children: <Widget>[
                                 Image.network(
                                   it["photo"],
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fill,
                                   width: 1000.0,
                                   height: 1000.0,
                                 ),
@@ -80,6 +80,7 @@ class _BookSliderState extends State<BookSlider> {
                                       children: [
                                         Text(
                                           it["name"],
+                                          textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 20.0,
@@ -88,6 +89,7 @@ class _BookSliderState extends State<BookSlider> {
                                         ),
                                         Text(
                                           it["author"],
+                                          textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 15.0,

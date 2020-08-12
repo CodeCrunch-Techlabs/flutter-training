@@ -34,10 +34,11 @@ class _BookGridState extends State<BookGrid> {
       child: books == null ? CircularProgressIndicator() : GridView.count(
         shrinkWrap: true,
         crossAxisCount: 2,
-        childAspectRatio: 1.0,
         padding: const EdgeInsets.all(4.0),
         mainAxisSpacing: 4.0,
         crossAxisSpacing: 4.0,
+//          childAspectRatio: MediaQuery.of(context).size.width /
+//              (MediaQuery.of(context).size.height / 1.5),
         children: books.map((item) {
           return GestureDetector(
             onTap: (){
@@ -50,11 +51,11 @@ class _BookGridState extends State<BookGrid> {
                 children: [
                   Expanded(
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(20.0),
                       child: Image.network(
                         item["photo"],
                         fit: BoxFit.fill,
-                        height: 1000,
+                        height: 500,
                         width: 100,
                       ),
                     ),

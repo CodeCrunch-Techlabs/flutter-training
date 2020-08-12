@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studentdesk/Logic/firebase.dart';
+import 'package:studentdesk/Screens/BookList.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -15,19 +16,20 @@ class _SignInState extends State<SignIn> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/Bookbg.jpg"),
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
               alignment: FractionalOffset.center,
             ),
           ),
           child: Container(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
                   child: GestureDetector(
                     onTap: () {
                       signInWithGoogle().whenComplete(() {
                         print("Success");
+                        Navigator.push(context, MaterialPageRoute( builder: (context) => BookList()) );
                       });
                     },
                     child: Container(
@@ -53,8 +55,9 @@ class _SignInState extends State<SignIn> {
                                 'Login with Google',
                                 style: TextStyle(
                                     color: Colors.white,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: "Jost"),
+                                    ),
                               ),
                             )
                           ],
@@ -71,6 +74,7 @@ class _SignInState extends State<SignIn> {
                     onTap: () {
                       signInWithFacebook().whenComplete(() {
                         print("facebook Success");
+                        Navigator.push(context, MaterialPageRoute( builder: (context) => BookList()) );
                       });
                     },
                     child: Container(
@@ -97,8 +101,9 @@ class _SignInState extends State<SignIn> {
                                   'Login with Facebook',
                                   style: TextStyle(
                                       color: Colors.white,
+                                    fontSize: 20,
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: "Jost"),
+                                  ),
                                 ),
                               )
                             ],

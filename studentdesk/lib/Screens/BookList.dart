@@ -5,6 +5,7 @@ import 'package:studentdesk/Screens/BookGrid.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
+import 'package:studentdesk/Screens/SignIn.dart';
 
 class BookList extends StatefulWidget {
   @override
@@ -57,6 +58,9 @@ class _BookListState extends State<BookList> {
                         Container(
                           padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
                           child: GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute( builder: (context) => SignIn()) );
+                            },
                             child: Text(
                               "Login",
                               style: TextStyle(
