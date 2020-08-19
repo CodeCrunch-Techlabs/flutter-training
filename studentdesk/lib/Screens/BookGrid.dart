@@ -1,32 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:studentdesk/Screens/BookDetails.dart';
 
+
+
+
 class BookGrid extends StatefulWidget {
+  final books;
+
+  BookGrid(this.books);
+
   @override
-  _BookGridState createState() => _BookGridState();
+  _BookGridState createState() => _BookGridState(this.books);
 }
 
 
 class _BookGridState extends State<BookGrid> {
+  final books;
 
-  List books;
-
-
-  Future<void> loadJsonData() async {
-    var response = await http
-        .get("http://studentdesk.in/api/v1/newarrivals?&apiname=newArrivals");
-    setState(() {
-      books = jsonDecode(response.body)["data"];
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    loadJsonData();
-  }
+  _BookGridState(this.books);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +30,7 @@ class _BookGridState extends State<BookGrid> {
         crossAxisSpacing: 4.0,
 //          childAspectRatio: MediaQuery.of(context).size.width /
 //              (MediaQuery.of(context).size.height / 1.5),
-        children: books.map((item) {
+        children: books.map<Widget>((item) {
           return GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute( builder: (context) => BookDetails(item["id"])) );

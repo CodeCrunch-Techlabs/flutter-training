@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class LoginState{
   final user;
   LoginState(this.user);

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studentdesk/Books_Cubit/Books_state.dart';
 import 'package:studentdesk/Screens/BookSlider.dart';
 import 'package:studentdesk/Screens/BookGrid.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +10,8 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:studentdesk/Screens/SignIn.dart';
 import 'package:studentdesk/Login_Cubit/Login_Cubit.dart';
 import 'package:studentdesk/Login_Cubit/Login_state.dart';
+
+import 'package:studentdesk/Books_Cubit/Book_Cubit.dart';
 
 class BookList extends StatefulWidget {
   @override
@@ -34,18 +37,29 @@ class _BookListState extends State<BookList> {
     });
   }
 
+  void loadBookList(BuildContext context) {
+    final cubit = context.bloc<BooksCubit>();
+    cubit.getBookList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadBookList(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: BlocConsumer<LoginCubit, LoginState>(
+        body: BlocConsumer<BooksCubit, BooksState>(
           listener: (context, state) {
-              return Text(state.user != null ? "Done" : "null" );
+              return Text(state.bookList != null ? "Done" : "null" );
             },
           builder: (context, state) {
-            if (state is Loading) {
+            if (state is LoadingBooks) {
               return Center( child: CircularProgressIndicator());
-            } else if (state is LoginWithGoogle || state is LoginWithFacebook || state is Initial) {
+            } else if (state is LoadedBookList) {
               return SafeArea(
                 child: Container(
                     child: SingleChildScrollView(
@@ -76,6 +90,7 @@ class _BookListState extends State<BookList> {
                                           builder: (context) => SignIn()));
                                 },
                                 child: Text(
+//                                 state.user != null ? "Login" : "Login",
                                   "Login",
                                   style: TextStyle(
                                       color: Colors.white,
@@ -96,15 +111,6 @@ class _BookListState extends State<BookList> {
                           ],
                         ),
                       ),
-                      BlocBuilder<LoginCubit, LoginState>(
-                          builder: (context, state) {
-                        return RaisedButton(
-                          child: Text("Click"),
-                          onPressed: () {
-                            print(state.user);
-                          },
-                        );
-                      }),
                       SizedBox(
                         height: 10,
                       ),
@@ -163,7 +169,10 @@ class _BookListState extends State<BookList> {
                       ),
                       Container(
                         padding: EdgeInsets.all(10),
-                        child: BookGrid(),
+                        child:  BlocBuilder<BooksCubit, BooksState>(
+                            builder: (context, state) {
+                              return BookGrid(state.bookList);
+                            }),
                       )
                     ],
                   ),

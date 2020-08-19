@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:studentdesk/Logic/firebase.dart';
 import 'package:studentdesk/Screens/BookList.dart';
 import 'package:studentdesk/Login_Cubit/Login_Cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studentdesk/Login_Cubit/Login_state.dart';
-
-
 
 
 class SignIn extends StatefulWidget {
@@ -85,10 +81,8 @@ class _SignInState extends State<SignIn> {
                 Center(
                   child: GestureDetector(
                     onTap: () {
-                      signInWithFacebook().whenComplete(() {
-                        print("facebook Success");
-                        Navigator.push(context, MaterialPageRoute( builder: (context) => BookList()) );
-                      });
+                      cubit.loginWithFacebook();
+                      Navigator.push(context, MaterialPageRoute( builder: (context) => BookList()) );
                     },
                     child: Container(
                       height: 40.0,
