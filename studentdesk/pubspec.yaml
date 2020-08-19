@@ -35,9 +35,11 @@ dependencies:
   http: ^0.12.1
   flutter_staggered_animations: ^0.1.2
   autocomplete_textfield: ^1.7.3
-  bloc: ^6.0.0
-  flutter_bloc: ^6.0.0
+  bloc: ^6.0.1
+  flutter_bloc: ^6.0.1
   equatable: ^1.2.3
+  cubit: ^0.0.6
+
 
 
 dev_dependencies:

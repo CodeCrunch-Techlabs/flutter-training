@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-@immutable abstract class LoginState{
+class LoginState{
   final user;
   LoginState(this.user);
 }

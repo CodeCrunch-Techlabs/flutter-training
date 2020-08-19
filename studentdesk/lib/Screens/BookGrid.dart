@@ -31,7 +31,7 @@ class _BookGridState extends State<BookGrid> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: books == null ? CircularProgressIndicator() : GridView.count(
+      child: books == null ? Container() : GridView.count(
         shrinkWrap: true,
         crossAxisCount: 2,
         padding: const EdgeInsets.all(4.0),

@@ -29,7 +29,7 @@ class _BookSliderState extends State<BookSlider> {
   @override
   Widget build(BuildContext context) {
     Widget carousel = books == null
-        ? CircularProgressIndicator()
+        ? Container()
         : CarouselSlider(
             options: CarouselOptions(
               height: 350,

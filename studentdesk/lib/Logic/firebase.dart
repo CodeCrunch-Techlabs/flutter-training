@@ -6,7 +6,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 
 
-Future<String> signInWithGoogle() async {
+Future<dynamic> signInWithGoogle() async {
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAuthentication googleSignInAuthentication =
   await googleSignInAccount.authentication;
@@ -25,7 +25,7 @@ Future<String> signInWithGoogle() async {
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
 
-   print(user);
+   return user.displayName;
   return 'signInWithGoogle succeeded: $user';
 }
 
@@ -35,7 +35,7 @@ void signOutGoogle() async{
   print("User Sign Out");
 }
 
-Future<FirebaseUser> signInWithFacebook() async {
+Future<dynamic> signInWithFacebook() async {
 
   var facebookLogin = new FacebookLogin();
   var result = await facebookLogin.logIn(['email']);
@@ -43,7 +43,7 @@ Future<FirebaseUser> signInWithFacebook() async {
 
   if(result.status == FacebookLoginStatus.loggedIn){
     final FirebaseUser user = (await _auth.signInWithCredential(authCredential)).user;
-    return user;
+    return user.displayName;
   }
 
   return null;

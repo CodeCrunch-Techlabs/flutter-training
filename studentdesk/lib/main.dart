@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:studentdesk/Screens/BookList.dart';
+import 'package:studentdesk/Login_Cubit/Login_Cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cubit/cubit.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    BlocProvider(
+      create: (context) => LoginCubit(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

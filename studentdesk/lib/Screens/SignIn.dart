@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:studentdesk/Logic/firebase.dart';
 import 'package:studentdesk/Screens/BookList.dart';
+import 'package:studentdesk/Login_Cubit/Login_Cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studentdesk/Login_Cubit/Login_state.dart';
+
+
+
 
 class SignIn extends StatefulWidget {
   @override
@@ -10,6 +17,10 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
+
+
+    final cubit = context.bloc<LoginCubit>();
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -27,10 +38,12 @@ class _SignInState extends State<SignIn> {
                 Center(
                   child: GestureDetector(
                     onTap: () {
-                      signInWithGoogle().whenComplete(() {
-                        print("Success");
-                        Navigator.push(context, MaterialPageRoute( builder: (context) => BookList()) );
-                      });
+                     cubit.loginWithGoogle();
+                     Navigator.push(context, MaterialPageRoute( builder: (context) => BookList()) );
+//                      signInWithGoogle().whenComplete(() {
+//                        print("Success");
+//                        Navigator.push(context, MaterialPageRoute( builder: (context) => BookList()) );
+//                      });
                     },
                     child: Container(
                       height: 40.0,
@@ -115,7 +128,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 SizedBox(
                   height: 20,
-                )
+                ),
               ],
             ),
           ),

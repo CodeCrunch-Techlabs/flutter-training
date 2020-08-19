@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studentdesk/Screens/BookSlider.dart';
 import 'package:studentdesk/Screens/BookGrid.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:studentdesk/Screens/SignIn.dart';
+import 'package:studentdesk/Login_Cubit/Login_Cubit.dart';
+import 'package:studentdesk/Login_Cubit/Login_state.dart';
 
 class BookList extends StatefulWidget {
   @override
@@ -24,9 +27,9 @@ class _BookListState extends State<BookList> {
     setState(() {
       suggestions = jsonDecode(response.body)["data"];
       suggestions.map((e) {
-           setState(() {
-             books.add(e["name"]);
-           });
+        setState(() {
+          books.add(e["name"]);
+        });
       }).toList();
     });
   }
@@ -34,20 +37,119 @@ class _BookListState extends State<BookList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Container(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
+        backgroundColor: Colors.white,
+        body: BlocConsumer<LoginCubit, LoginState>(
+          listener: (context, state) {
+              return Text(state.user != null ? "Done" : "null" );
+            },
+          builder: (context, state) {
+            if (state is Loading) {
+              return Center( child: CircularProgressIndicator());
+            } else if (state is LoginWithGoogle || state is LoginWithFacebook || state is Initial) {
+              return SafeArea(
+                child: Container(
+                    child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: Text(
+                                "Explore",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "JosefinSans"),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SignIn()));
+                                },
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "JosefinSans"),
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Theme.of(context).primaryColor,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.green, spreadRadius: 1),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      BlocBuilder<LoginCubit, LoginState>(
+                          builder: (context, state) {
+                        return RaisedButton(
+                          child: Text("Click"),
+                          onPressed: () {
+                            print(state.user);
+                          },
+                        );
+                      }),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey[100], spreadRadius: 1),
+                            ],
+                          ),
+                          height: 40,
+                          child: SimpleAutoCompleteTextField(
+                            key: key,
+                            suggestions: books,
+                            decoration: InputDecoration(
+                              hintText: 'Search by author, book name',
+                              border: InputBorder.none,
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 13),
+                              prefixIcon: Icon(Icons.search),
+                            ),
+                            textChanged: (text) {
+                              getSuggestions(text);
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        child: BookSlider(),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Align(
+                          alignment: Alignment.topLeft,
                           child: Text(
-                            "Explore",
+                            "Recommended",
                             style: TextStyle(
                                 fontSize: 25,
                                 color: Theme.of(context).primaryColor,
@@ -55,94 +157,23 @@ class _BookListState extends State<BookList> {
                                 fontFamily: "JosefinSans"),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                          child: GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute( builder: (context) => SignIn()) );
-                            },
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "JosefinSans"),
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Theme.of(context).primaryColor,
-                            boxShadow: [
-                              BoxShadow(color: Colors.green, spreadRadius: 1),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(color: Colors.grey[100], spreadRadius: 1),
-                        ],
                       ),
-                      height: 40,
-                      child: SimpleAutoCompleteTextField(
-                        key: key,
-                        suggestions: books,
-                        decoration: InputDecoration(
-                          hintText: 'Search by author, book name',
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 13),
-                          prefixIcon: Icon(Icons.search),
-                        ),
-                        textChanged: (text) {
-                          getSuggestions(text);
-                        },
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: BookGrid(),
+                      )
+                    ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    child: BookSlider(),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "Recommended",
-                        style: TextStyle(
-                            fontSize: 25,
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "JosefinSans"),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: BookGrid(),
-                  )
-                ],
-              ),
-            )),
-      ),
-    );
+                )),
+              );
+            } else {
+              // (state is WeatherError)
+              return Container();
+            }
+          },
+        ));
   }
 }
