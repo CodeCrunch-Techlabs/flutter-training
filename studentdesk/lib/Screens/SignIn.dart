@@ -36,10 +36,6 @@ class _SignInState extends State<SignIn> {
                     onTap: () {
                      cubit.loginWithGoogle();
                      Navigator.push(context, MaterialPageRoute( builder: (context) => BookList()) );
-//                      signInWithGoogle().whenComplete(() {
-//                        print("Success");
-//                        Navigator.push(context, MaterialPageRoute( builder: (context) => BookList()) );
-//                      });
                     },
                     child: Container(
                       height: 40.0,

@@ -5,25 +5,22 @@ import 'dart:convert';
 import 'package:studentdesk/Screens/BookDetails.dart';
 
 class BookSlider extends StatefulWidget {
+  final books;
+
+  BookSlider(this.books);
+
   @override
-  _BookSliderState createState() => _BookSliderState();
+  _BookSliderState createState() => _BookSliderState(this.books);
 }
 
 class _BookSliderState extends State<BookSlider> {
-  List books;
+  final books;
 
-  Future<void> loadJsonData() async {
-    var response = await http
-        .get("http://studentdesk.in/api/v1/newarrivals?&apiname=newArrivals");
-    setState(() {
-      books = jsonDecode(response.body)["data"];
-    });
-  }
+  _BookSliderState(this.books);
 
   @override
   void initState() {
     super.initState();
-    loadJsonData();
   }
 
   @override
@@ -37,7 +34,7 @@ class _BookSliderState extends State<BookSlider> {
               aspectRatio: 2.0,
               enlargeCenterPage: true,
             ),
-            items: books.map((it) {
+            items: books.map<Widget>((it) {
               return GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute( builder: (context) => BookDetails(it["id"])) );
@@ -116,17 +113,3 @@ class _BookSliderState extends State<BookSlider> {
     );
   }
 }
-
-//Column(children: <Widget>[
-//CarouselSlider(
-//options: CarouselOptions(
-//height: 300,
-//autoPlay: true,
-//aspectRatio: 2.0,
-//enlargeCenterPage: true,
-//),
-//items:books.map((it) {
-//print(it);
-//}).toList(),
-//),
-//],),

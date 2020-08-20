@@ -89,15 +89,18 @@ class _BookListState extends State<BookList> {
                                       MaterialPageRoute(
                                           builder: (context) => SignIn()));
                                 },
-                                child: Text(
-//                                 state.user != null ? "Login" : "Login",
-                                  "Login",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "JosefinSans"),
-                                ),
+                                child: BlocBuilder<LoginCubit, LoginState>(
+                                  builder: (context, state){
+                                    return Text(
+                                 state.user != null ? "Logout" : "Login",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "JosefinSans"),
+                                    );
+                                  },
+                                )
                               ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
@@ -145,7 +148,10 @@ class _BookListState extends State<BookList> {
                         height: 10,
                       ),
                       Container(
-                        child: BookSlider(),
+                        child: BlocBuilder<BooksCubit, BooksState>(
+                            builder: (context, state) {
+                              return BookSlider(state.bookList);
+                            }),
                       ),
                       SizedBox(
                         height: 10,
