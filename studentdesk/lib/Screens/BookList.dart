@@ -21,25 +21,23 @@ class BookList extends StatefulWidget {
 class _BookListState extends State<BookList> {
   final key = new GlobalKey<AutoCompleteTextFieldState<String>>();
 
-  List suggestions;
   List<String> books = List<String>();
 
   Future<void> getSuggestions(term) async {
     var response = await http.get(
         "http://studentdesk.in/api/v1/text-search?apiname=textSearch&text=$term");
     setState(() {
-      suggestions = jsonDecode(response.body)["data"];
-      suggestions.map((e) {
+      jsonDecode(response.body)["data"].map((e) {
         setState(() {
           books.add(e["name"]);
-        });
+        });// Stored only books name from list of books for slider.
       }).toList();
     });
   }
 
   void loadBookList(BuildContext context) {
     final cubit = context.bloc<BooksCubit>();
-    cubit.getBookList();
+    cubit.getBookList(); //Call getbooklist to get the list of books from cubit.
   }
 
   @override
@@ -92,7 +90,7 @@ class _BookListState extends State<BookList> {
                                 child: BlocBuilder<LoginCubit, LoginState>(
                                   builder: (context, state){
                                     return Text(
-                                 state.user != null ? "Logout" : "Login",
+                                 state.user != null ? "" : "Login",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -150,7 +148,7 @@ class _BookListState extends State<BookList> {
                       Container(
                         child: BlocBuilder<BooksCubit, BooksState>(
                             builder: (context, state) {
-                              return BookSlider(state.bookList);
+                              return BookSlider(state.bookList); //Pass bookList as argument.
                             }),
                       ),
                       SizedBox(
@@ -177,7 +175,7 @@ class _BookListState extends State<BookList> {
                         padding: EdgeInsets.all(10),
                         child:  BlocBuilder<BooksCubit, BooksState>(
                             builder: (context, state) {
-                              return BookGrid(state.bookList);
+                              return BookGrid(state.bookList); //Pass bookList as argument.
                             }),
                       )
                     ],

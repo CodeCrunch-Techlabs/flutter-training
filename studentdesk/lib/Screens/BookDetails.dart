@@ -23,13 +23,13 @@ class _BookDetailsState extends State<BookDetails> {
 
   void loadBookDetails(BuildContext context) {
     final cubit = context.bloc<BooksCubit>();
-    cubit.getBookDetails(bookid);
+    cubit.getBookDetails(bookid);//Call function for get the bookdetails from cubit.
   }
 
   @override
   void initState() {
     super.initState();
-    loadBookDetails(context);
+    loadBookDetails(context);// Call the function when screen load.
   }
 
   @override
@@ -40,10 +40,10 @@ class _BookDetailsState extends State<BookDetails> {
           return Text(state.bookDetails != null ? "" : "" );
         },
         builder: (context, state){
-          if(state is LoadingBooks){
+          if(state is LoadingBooks){//Check state if it's loading the show loader.
            return Center(child: CircularProgressIndicator(),);
           }
-          else if(state is LoadedBookdetails){
+          else if(state is LoadedBookdetails){//Check if data loaded then it will show this.
             return SafeArea(
               child: Container(
                 color: Theme.of(context).primaryColor,

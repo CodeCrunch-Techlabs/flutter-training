@@ -16,7 +16,7 @@ class BookSlider extends StatefulWidget {
 class _BookSliderState extends State<BookSlider> {
   final books;
 
-  _BookSliderState(this.books);
+  _BookSliderState(this.books); // List of books
 
   @override
   void initState() {

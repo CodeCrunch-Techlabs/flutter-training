@@ -3,6 +3,8 @@ import 'package:studentdesk/Firebase/firebase.dart';
 
 import 'package:studentdesk/Login_Cubit/Login_state.dart';
 
+// Cubit for Login.
+
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(Initial(null));
 
@@ -26,5 +28,5 @@ class LoginCubit extends Cubit<LoginState> {
   void onChange(Change<dynamic> change) {
     print(change);
     super.onChange(change);
-  }
+  }//This will print state change.
 }

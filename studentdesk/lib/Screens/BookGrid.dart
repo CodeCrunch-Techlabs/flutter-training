@@ -17,7 +17,7 @@ class BookGrid extends StatefulWidget {
 class _BookGridState extends State<BookGrid> {
   final books;
 
-  _BookGridState(this.books);
+  _BookGridState(this.books); // BookList
 
   @override
   Widget build(BuildContext context) {
