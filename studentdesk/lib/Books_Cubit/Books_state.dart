@@ -1,16 +1,22 @@
 class BooksState {
   final bookList;
-  BooksState(this.bookList);
+  final bookDetails;
+  BooksState(this.bookList, this.bookDetails);
 }
 
 class BooksInitial extends BooksState{
-  BooksInitial(bookList) : super(bookList);
+  BooksInitial(bookList, bookDetails) : super(bookList, bookDetails);
 }
 
 class LoadingBooks extends BooksState{
-  LoadingBooks(bookList) : super(bookList);
+  LoadingBooks(bookList, bookDetails) : super(bookList, bookDetails);
 }
 
 class LoadedBookList extends BooksState{
-  LoadedBookList(bookList) : super(bookList);
+  LoadedBookList(bookList, bookDetails) : super(bookList, bookDetails);
 }
+
+class LoadedBookdetails extends BooksState{
+  LoadedBookdetails(bookList, bookDetails) : super(bookList, bookDetails);
+}
+

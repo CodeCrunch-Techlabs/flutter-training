@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studentdesk/Books_Cubit/Books_state.dart';
 import 'package:studentdesk/Screens/BookSlider.dart';
 import 'package:studentdesk/Screens/BookGrid.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +10,7 @@ import 'package:studentdesk/Screens/SignIn.dart';
 import 'package:studentdesk/Login_Cubit/Login_Cubit.dart';
 import 'package:studentdesk/Login_Cubit/Login_state.dart';
 
+import 'package:studentdesk/Books_Cubit/Books_state.dart';
 import 'package:studentdesk/Books_Cubit/Book_Cubit.dart';
 
 class BookList extends StatefulWidget {
@@ -54,7 +54,7 @@ class _BookListState extends State<BookList> {
         backgroundColor: Colors.white,
         body: BlocConsumer<BooksCubit, BooksState>(
           listener: (context, state) {
-              return Text(state.bookList != null ? "Done" : "null" );
+              return Text(state.bookList != null ? "" : "" );
             },
           builder: (context, state) {
             if (state is LoadingBooks) {

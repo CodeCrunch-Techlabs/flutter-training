@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:studentdesk/Screens/BookList.dart';
+
+
+import 'package:studentdesk/Books_Cubit/Books_state.dart';
+import 'package:studentdesk/Books_Cubit/Book_Cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookDetails extends StatefulWidget {
   final bookid;
@@ -17,31 +21,30 @@ class _BookDetailsState extends State<BookDetails> {
 
   _BookDetailsState(this.bookid);
 
-  var bookdetails;
-
-  Future<void> loadJsonData() async {
-    var response =
-        await http.get("http://studentdesk.in/api/v1/book-details/$bookid");
-    setState(() {
-      bookdetails = jsonDecode(response.body)["data"][0];
-    });
-    print(bookdetails);
+  void loadBookDetails(BuildContext context) {
+    final cubit = context.bloc<BooksCubit>();
+    cubit.getBookDetails(bookid);
   }
 
   @override
   void initState() {
     super.initState();
-    loadJsonData();
+    loadBookDetails(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: bookdetails == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : SafeArea(
+      body: BlocConsumer<BooksCubit, BooksState>(
+        listener: (context, state) {
+          return Text(state.bookDetails != null ? "" : "" );
+        },
+        builder: (context, state){
+          if(state is LoadingBooks){
+           return Center(child: CircularProgressIndicator(),);
+          }
+          else if(state is LoadedBookdetails){
+            return SafeArea(
               child: Container(
                 color: Theme.of(context).primaryColor,
                 child: SingleChildScrollView(
@@ -49,7 +52,7 @@ class _BookDetailsState extends State<BookDetails> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.push(context, MaterialPageRoute( builder: (context) => BookList()) );
                         },
                         child: Align(
                           alignment: Alignment.topLeft,
@@ -58,6 +61,7 @@ class _BookDetailsState extends State<BookDetails> {
                             child: Icon(
                               Icons.arrow_back,
                               color: Colors.white,
+                              size: 35,
                             ),
                           ),
                         ),
@@ -69,14 +73,14 @@ class _BookDetailsState extends State<BookDetails> {
                         alignment: Alignment.center, // This is needed
                         child: Center(
                             child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
-                            bookdetails["photo"],
-                            fit: BoxFit.fill,
-                            height: 300,
-                            width: 200,
-                          ),
-                        )),
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.network(
+                                state.bookDetails["photo"],
+                                fit: BoxFit.fill,
+                                height: 300,
+                                width: 200,
+                              ),
+                            )),
                       ),
                       SizedBox(
                         height: 20,
@@ -143,11 +147,11 @@ class _BookDetailsState extends State<BookDetails> {
                           children: [
                             Center(
                                 child: Container(
-                              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              height: 5.0,
-                              width: 30.0,
-                              color: Colors.grey[200],
-                            )),
+                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  height: 5.0,
+                                  width: 30.0,
+                                  color: Colors.grey[200],
+                                )),
                             SizedBox(
                               height: 10,
                             ),
@@ -158,7 +162,7 @@ class _BookDetailsState extends State<BookDetails> {
                                     Container(
                                       child: Center(
                                         child: Text(
-                                          bookdetails["name"],
+                                          state.bookDetails["name"],
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Theme.of(context).primaryColor,
@@ -172,9 +176,9 @@ class _BookDetailsState extends State<BookDetails> {
                                       height: 5,
                                     ),
                                     Container(
-                                      child: bookdetails["author"] != ""
+                                      child: state.bookDetails["author"] != ""
                                           ? Text(
-                                              "By ${bookdetails["author"]}",
+                                        "By ${state.bookDetails["author"]}",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: Colors.black,
@@ -193,12 +197,12 @@ class _BookDetailsState extends State<BookDetails> {
                             Container(
                               child: Column(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       children: [
                                         Text("Category: ",
                                           style: TextStyle(
@@ -206,8 +210,8 @@ class _BookDetailsState extends State<BookDetails> {
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
                                           ),),
-                                        Text(bookdetails["category"]
-                                            ["category_name"],
+                                        Text(state.bookDetails["category"]
+                                        ["category_name"],
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 15,
@@ -222,7 +226,7 @@ class _BookDetailsState extends State<BookDetails> {
                                   Container(
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       children: [
                                         Text("Price: ",
                                           style: TextStyle(
@@ -234,7 +238,7 @@ class _BookDetailsState extends State<BookDetails> {
                                           children: [
                                             Icon(Icons.attach_money,size: 20,),
                                             Text(
-                                                bookdetails["price"].toString(), style: TextStyle(
+                                              state.bookDetails["price"].toString(), style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,
@@ -245,7 +249,7 @@ class _BookDetailsState extends State<BookDetails> {
                                               fontWeight: FontWeight.bold,
                                             ),),
                                             Icon(Icons.attach_money,size: 20,),
-                                            Text(bookdetails["mrp"].toString(),
+                                            Text(state.bookDetails["mrp"].toString(),
                                               style: TextStyle(decoration: TextDecoration.lineThrough,
                                                 color: Colors.black,
                                                 fontSize: 15,
@@ -265,20 +269,20 @@ class _BookDetailsState extends State<BookDetails> {
                             Container(
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       children: [
                                         Text("Posted By: ",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),),
-                                        Text(bookdetails["user"]["name"],
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),),
+                                        Text(state.bookDetails["user"]["name"],
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 15,
@@ -290,7 +294,7 @@ class _BookDetailsState extends State<BookDetails> {
                                   Container(
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       children: [
                                         Text("From: ",
                                           style: TextStyle(
@@ -301,8 +305,8 @@ class _BookDetailsState extends State<BookDetails> {
                                         Row(
                                           children: [
                                             Icon(Icons.home,size: 20,),
-                                            Text(bookdetails["city"]
-                                                ["city_name"],
+                                            Text(state.bookDetails["city"]
+                                            ["city_name"],
                                               style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 15,
@@ -333,7 +337,7 @@ class _BookDetailsState extends State<BookDetails> {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                       fontSize: 20
+                                        fontSize: 20
                                     ),
                                   ),
                                 ),
@@ -370,7 +374,15 @@ class _BookDetailsState extends State<BookDetails> {
                   ),
                 ),
               ),
-            ),
+            );
+          }
+          else{
+            return Container();
+          }
+        },
+      )
     );
   }
 }
+
+
