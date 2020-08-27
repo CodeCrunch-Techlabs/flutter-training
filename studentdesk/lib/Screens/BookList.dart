@@ -78,36 +78,45 @@ class _BookListState extends State<BookList> {
                                     fontFamily: "JosefinSans"),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => SignIn()));
-                                },
-                                child: BlocBuilder<LoginCubit, LoginState>(
-                                  builder: (context, state){
-                                    return Text(
-                                 state.user != null ? "" : "Login",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: "JosefinSans"),
-                                    );
-                                  },
-                                )
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Theme.of(context).primaryColor,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.green, spreadRadius: 1),
-                                ],
-                              ),
+                            BlocBuilder<LoginCubit, LoginState>(
+                              builder: (context, state){
+                                return state.user == null ? Container(
+                                  padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => SignIn()));
+                                      },
+                                      child: BlocBuilder<LoginCubit, LoginState>(
+                                        builder: (context, state){
+                                          return Text(
+                                            "Login",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: "JosefinSans"),
+                                          );
+                                        },
+                                      )
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Theme.of(context).primaryColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.green, spreadRadius: 1),
+                                    ],
+                                  ),
+                                ) : CircleAvatar(
+                                  radius: 25.0,
+                                  backgroundImage:
+                                  NetworkImage(state.user.toString()),
+                                  backgroundColor: Colors.transparent,
+                                );
+                              },
                             ),
                           ],
                         ),

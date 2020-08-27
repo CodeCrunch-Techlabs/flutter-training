@@ -28,7 +28,7 @@ Future<dynamic> signInWithGoogle() async {
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
 
-   return user.displayName;
+   return user.photoUrl;
   return 'signInWithGoogle succeeded: $user';
 }
 
@@ -46,7 +46,7 @@ Future<dynamic> signInWithFacebook() async {
 
   if(result.status == FacebookLoginStatus.loggedIn){
     final FirebaseUser user = (await _auth.signInWithCredential(authCredential)).user;
-    return user.displayName;
+    return user.photoUrl;
   }
 
   return null;
