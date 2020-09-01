@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:foodapp/Screens/Tabs_Screen.dart';
 import 'package:foodapp/Screens/Settings_Screen.dart';
 
+
 class MainDrawer extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -23,7 +25,7 @@ class MainDrawer extends StatelessWidget {
             title: Text('Meals', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, fontFamily: 'Architects'),),
             onTap: (){
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_){
-                return TabsScreen();
+                return TabsScreen(null);
               }));
             },
           ),

@@ -3,34 +3,60 @@ import 'package:foodapp/dummy_data.dart';
 
 import 'package:foodapp/Widgets/Meal_Item.dart';
 
-class CategoryMealsScreen extends StatelessWidget {
+import 'package:foodapp/model/meal.dart';
+
+class CategoryMealsScreen extends StatefulWidget {
   final String categoryId;
   final String categoryTitle;
 
   CategoryMealsScreen(this.categoryId, this.categoryTitle);
 
   @override
-  Widget build(BuildContext context) {
-    final categoryMeals = DUMMY_MEALS.where((meal) {
-      return meal.categories.contains(categoryId);
+  _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
+}
+
+class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
+
+  String categoryTitle;
+  List<Meal> displayedMeals;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    displayedMeals = DUMMY_MEALS.where((meal) {
+      return meal.categories.contains(widget.categoryId);
     }).toList();
+  }
+
+
+  void removeMeal(String mealId){
+      setState(() {
+        displayedMeals.removeWhere((meal) => meal.id  == mealId );
+      });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(categoryTitle),
+          title: Text(widget.categoryTitle),
         ),
         body: ListView.builder(
           itemBuilder: (ctx, index) {
             return MealItem(
-              id: categoryMeals[index].id,
-              title: categoryMeals[index].title,
-              imageUrl: categoryMeals[index].imageUrl,
-              duration: categoryMeals[index].duration,
-              complexity: categoryMeals[index].complexity,
-              affordability: categoryMeals[index].affordability,
+              id: displayedMeals[index].id,
+              title: displayedMeals[index].title,
+              imageUrl: displayedMeals[index].imageUrl,
+              duration: displayedMeals[index].duration,
+              complexity: displayedMeals[index].complexity,
+              affordability: displayedMeals[index].affordability,
+              removeItem: removeMeal,
             );
           },
-          itemCount: categoryMeals.length,
+          itemCount: displayedMeals.length,
         ));
   }
 }

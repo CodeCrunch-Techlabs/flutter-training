@@ -1,14 +1,43 @@
 import 'package:flutter/material.dart';
 
-import 'package:foodapp/Screens/Categories_Screen.dart';
 import 'package:foodapp/Screens/Tabs_Screen.dart';
+import 'package:foodapp/dummy_data.dart';
+import 'package:foodapp/model/meal.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  Map<String, bool> _filters = {
+    'vegetarian' : false,
+    'vegan' : false
+  };
+
+  List<Meal> _favoritedMeals = [];
+
+  void _toggleFavorite(String mealId){
+      final existingIndex = _favoritedMeals.indexWhere((meal) => meal.id == mealId );
+
+      if(existingIndex >= 0){
+        setState(() {
+          _favoritedMeals.removeAt(existingIndex);
+        });
+      }
+      else{
+        setState(() {
+          _favoritedMeals.add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
+        });
+      }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,21 +52,8 @@ class MyApp extends StatelessWidget {
           body1: TextStyle(fontSize: 14)
         )
       ),
-      home: MyHomePage(),
+      home: TabsScreen(_favoritedMeals),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: TabsScreen(),
-    );
-  }
-}

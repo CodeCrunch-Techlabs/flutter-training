@@ -12,14 +12,16 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function removeItem;
 
-  MealItem({
-      @required this.id,
+  MealItem(
+      {@required this.id,
       @required this.title,
       @required this.imageUrl,
       @required this.duration,
       @required this.complexity,
-      @required this.affordability});
+      @required this.affordability,
+      @required this.removeItem});
 
   String get complexityText {
     switch (complexity) {
@@ -57,9 +59,13 @@ class MealItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder:  (_){
-          return  MealDetailScreen(id);
-        }));
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+          return MealDetailScreen(id);
+        })).then((value) {
+          if (value != null) {
+            removeItem(value);
+          }
+        });
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
