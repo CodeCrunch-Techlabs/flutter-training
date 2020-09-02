@@ -22,7 +22,14 @@ class ProductOverviewScreen extends StatelessWidget {
         padding: EdgeInsets.all(10.0),
         itemCount: products.length,
         itemBuilder: (ctx, index){
-          return ProductItem(products[index].id, products[index].title, products[index].imageUrl);
+          return ChangeNotifierProvider(
+            create: (c) => products[index] ,
+              child : ProductItem(
+//                  products[index].id,
+//                  products[index].title,
+//                  products[index].imageUrl);
+          )
+          );
         },
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           crossAxisSpacing: 10,
