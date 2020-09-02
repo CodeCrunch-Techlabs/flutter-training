@@ -4,7 +4,6 @@ import 'models/transaction.dart';
 import 'widgets/chart.dart';
 import 'widgets/new_trans.dart';
 import 'widgets/transaction_list.dart';
- 
 
 void main() {
   runApp(MyApp());
@@ -21,6 +20,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'OpenSans',
+        textTheme: ThemeData.light()
+            .textTheme
+            .copyWith(button: TextStyle(color: Colors.white)),
       ),
       home: MyHomePage(),
     );
@@ -51,11 +53,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransactions(String txTitle, double txAmmount) {
+  void _addNewTransactions(
+      String txTitle, double txAmmount, DateTime choosenDate) {
     final newTx = Transaction(
       title: txTitle,
       ammount: txAmmount,
-      date: DateTime.now(),
+      date: choosenDate,
       id: DateTime.now().toString(),
     );
     setState(() {
