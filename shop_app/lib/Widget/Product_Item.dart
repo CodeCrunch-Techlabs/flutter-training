@@ -14,7 +14,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-final product  = Provider.of<Product>(context, listen: false);
+final product  = Provider.of<Product>(context, listen: false);//When write listen false that's means that this will not rebuild whole widget when something chnage everytime.
 
     return  ClipRRect(
         borderRadius: BorderRadius.circular(10),

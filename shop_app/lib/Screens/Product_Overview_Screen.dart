@@ -5,6 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:shopapp/Widget/Product_Item.dart';
 import 'package:shopapp/Provider/Product_Provider.dart';
 
+enum FilterOptions{
+  Favorites,
+  All
+}
+
 class ProductOverviewScreen extends StatelessWidget {
 
   @override
@@ -12,11 +17,28 @@ class ProductOverviewScreen extends StatelessWidget {
 
    final productsData = Provider.of<Products>(context);
 
-   final products  = productsData.items;
+   final products  = productsData.getItems;
 
     return Scaffold(
       appBar: AppBar(
         title: Text('MyShop'),
+        actions: <Widget>[
+          PopupMenuButton(
+            onSelected: (FilterOptions selectedValue){
+             if(selectedValue == FilterOptions.Favorites){
+              productsData.showFavorites();
+             }
+             else{
+              productsData.showAll();
+             }
+            },
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (_)  => [
+              PopupMenuItem(child: Text('Only Favorites'), value: FilterOptions.Favorites,),
+              PopupMenuItem(child: Text('Show All'), value: FilterOptions.All,)
+            ],
+          )
+        ],
       ),
       body: GridView.builder(
         padding: EdgeInsets.all(10.0),
