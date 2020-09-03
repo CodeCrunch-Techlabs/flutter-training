@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'models/transaction.dart';
 import 'widgets/chart.dart';
@@ -6,6 +7,11 @@ import 'widgets/new_trans.dart';
 import 'widgets/transaction_list.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(MyApp());
 }
 
@@ -39,12 +45,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransaction = [
-    Transaction(
-        id: 't1', title: 'New Shirt', ammount: 59.99, date: DateTime.now()),
-    Transaction(
-        id: 't2', title: 'New Jeans', ammount: 33.99, date: DateTime.now()),
-    Transaction(
-        id: 't1', title: 'New Shoes', ammount: 34.99, date: DateTime.now())
+    // Transaction(
+    //     id: 't1', title: 'New Shirt', ammount: 59.99, date: DateTime.now()),
+    // Transaction(
+    //     id: 't2', title: 'New Jeans', ammount: 33.99, date: DateTime.now()),
+    // Transaction(
+    //     id: 't1', title: 'New Shoes', ammount: 34.99, date: DateTime.now())
   ];
 
   List<Transaction> get _recentTransactions {
@@ -52,6 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
       return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
     }).toList();
   }
+
+  bool _showChart = false;
 
   void _addNewTransactions(
       String txTitle, double txAmmount, DateTime choosenDate) {
@@ -86,22 +94,64 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscap =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    final appBar = AppBar(
+      title: Text("My App"),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
+        )
+      ],
+    );
+    final txListWidget = Container(
+      height: (MediaQuery.of(context).size.height -
+              appBar.preferredSize.height -
+              MediaQuery.of(context).padding.top) *
+          0.7,
+      child: TransactionList(_userTransaction, _deleteTransaction),
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text("My App"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _startAddNewTransaction(context),
-          )
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(_recentTransactions),
-            TransactionList(_userTransaction,_deleteTransaction),
+            if (isLandscap)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Show Chart'),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChart = val;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            if (!isLandscap)
+              Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.3,
+                child: Chart(_recentTransactions),
+              ),
+            if (!isLandscap) txListWidget,
+            if (isLandscap)
+              _showChart
+                  ? Container(
+                      height: (MediaQuery.of(context).size.height -
+                              appBar.preferredSize.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.7,
+                      child: Chart(_recentTransactions),
+                    )
+                  : txListWidget
           ],
         ),
       ),
