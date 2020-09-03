@@ -29,7 +29,9 @@ final product  = Provider.of<Product>(context);
           ),
         ),
         footer: GridTileBar(
-          leading: IconButton(icon: Icon(Icons.favorite,color: Theme.of(context).accentColor,), onPressed: (){}),
+          leading: IconButton(icon: Icon(product.isFavorite ? Icons.favorite : Icons.favorite_border,color: Theme.of(context).accentColor,), onPressed: (){
+            product.toggleFavoriteStatus();
+          }),
           backgroundColor: Colors.black87,
           title: Text(
             product.title,
