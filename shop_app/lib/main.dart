@@ -5,6 +5,7 @@ import 'package:shopapp/Screens/Product_Overview_Screen.dart';
 import 'package:shopapp/Screens/Product_Details.dart';
 import 'package:shopapp/Provider/Product_Provider.dart';
 import 'package:shopapp/Provider/Cart_Provider.dart';
+import 'package:shopapp/Screens/Cart_Screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: ProductOverviewScreen(),
         routes: {
-          ProductDetails.routeName: (ctx) => ProductDetails()
+          ProductDetails.routeName: (ctx) => ProductDetails(),
+          CartScreen.routeName : (ctx) => CartScreen()
         },
       ),
     );

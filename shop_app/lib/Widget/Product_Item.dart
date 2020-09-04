@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:shopapp/Screens/Product_Details.dart';
 import 'package:shopapp/model/Product.dart';
+import 'package:shopapp/Provider/Cart_Provider.dart';
 
 class ProductItem extends StatelessWidget {
 //  final String id;
@@ -15,7 +16,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
 
 final product  = Provider.of<Product>(context, listen: false);//When write listen false that's means that this will not rebuild whole widget when something chnage everytime.
-
+final cart = Provider.of<Cart>(context);
     return  ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: GridTile(
@@ -39,7 +40,9 @@ final product  = Provider.of<Product>(context, listen: false);//When write liste
               product.title,
               textAlign: TextAlign.center,
             ),
-            trailing: IconButton(icon: Icon(Icons.shopping_cart,color: Theme.of(context).accentColor), onPressed: (){}),
+            trailing: IconButton(icon: Icon(Icons.shopping_cart,color: Theme.of(context).accentColor), onPressed: (){
+              cart.addItem(product.id, product.price, product.title);
+            }),
           ),
         ),
       ) ;
