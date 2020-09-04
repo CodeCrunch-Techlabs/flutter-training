@@ -7,6 +7,7 @@ import 'package:shopapp/Widget/Product_Item.dart';
 import 'package:shopapp/Provider/Product_Provider.dart';
 import 'package:shopapp/Widget/badge.dart';
 import 'package:shopapp/Screens/Cart_Screen.dart';
+import 'package:shopapp/Widget/App_Drawer.dart';
 
 enum FilterOptions { Favorites, All }
 
@@ -86,6 +87,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
             mainAxisSpacing: 10,
             maxCrossAxisExtent: 300),
       ),
+      drawer: AppDrawer(),
     );
   }
 }
