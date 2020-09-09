@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -7,8 +8,16 @@ import 'package:shopapp/Widget/Cart_Item.dart';
 import 'package:shopapp/Provider/Order_Provider.dart';
 
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   static const routeName = '/cart';
+
+  @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+
+  var isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +52,14 @@ class CartScreen extends StatelessWidget {
                   ),
                   FlatButton(
                     child: Text('ORDER NOW'),
-                    onPressed: () {
-                      Provider.of<Orders>(context, listen: false).addItem( cart.getitems.values.toList(), cart.totalAmount);
+                    onPressed: cart.totalAmount <= 0  || isLoading ? null : () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                     await Provider.of<Orders>(context, listen: false).addItem( cart.getitems.values.toList(), cart.totalAmount);
+                     setState(() {
+                       isLoading = false;
+                     });
                       cart.clear();
                     },
                     textColor: Theme.of(context).primaryColor,

@@ -18,6 +18,23 @@ class ProductOverviewScreen extends StatefulWidget {
 
 class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   var showFavoritesOnly = false;
+  var isLoading = false;
+
+
+  @override
+  void initState() {
+    setState(() {
+      isLoading = true;
+    });
+    Future.delayed(Duration.zero).then((_){
+      Provider.of<Products>(context, listen: false).fetchAndSetProducts().then((_) {
+        setState(() {
+          isLoading = false;
+        });
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +86,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
           )
         ],
       ),
-      body: GridView.builder(
+      body: isLoading ? Center(child: CircularProgressIndicator(),)  : GridView.builder(
         padding: EdgeInsets.all(10.0),
         itemCount: products.length,
         itemBuilder: (ctx, index) {

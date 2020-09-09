@@ -9,6 +9,10 @@ import 'package:shopapp/Widget/App_Drawer.dart';
 class UserProductsScreen extends StatelessWidget {
   static const routeName = '/user−products';
 
+  Future<void> refreshProducts(BuildContext context) async{
+   await Provider.of<Products>(context).fetchAndSetProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     final productData = Provider.of<Products>(context);
@@ -25,23 +29,26 @@ class UserProductsScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.all(8),
-        child: ListView.builder(
-            itemCount: productData.getItems.length,
-            itemBuilder: (ctx, index) => productData.getItems == null
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Column(
-                    children: [
-                      UserProductItem(
-                          productData.getItems[index].id,
-                          productData.getItems[index].title,
-                          productData.getItems[index].imageUrl),
-                      Divider()
-                    ],
-                  )),
+      body: RefreshIndicator(
+        onRefresh: () => refreshProducts(context),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: ListView.builder(
+              itemCount: productData.getItems.length,
+              itemBuilder: (ctx, index) => productData.getItems == null
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Column(
+                      children: [
+                        UserProductItem(
+                            productData.getItems[index].id,
+                            productData.getItems[index].title,
+                            productData.getItems[index].imageUrl),
+                        Divider()
+                      ],
+                    )),
+        ),
       ),
       drawer: AppDrawer(),
     );
