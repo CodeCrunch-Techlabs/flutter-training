@@ -10,6 +10,8 @@ import 'package:shopapp/Provider/Order_Provider.dart';
 import 'package:shopapp/Screens/Orders_Screen.dart';
 import 'package:shopapp/Screens/User_Product_Screen.dart';
 import 'package:shopapp/Screens/Edit_Product_Screen.dart';
+import 'package:shopapp/Screens/auth_screen.dart';
+import 'package:shopapp/Provider/Auth.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,6 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => Auth() ,
+        ),
         ChangeNotifierProvider(
           create: (ctx) => Products(),
         ),
@@ -38,7 +43,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         debugShowCheckedModeBanner: false,
-        home: ProductOverviewScreen(),
+        home: AuthScreen(),
         routes: {
           ProductDetails.routeName: (ctx) => ProductDetails(),
           CartScreen.routeName : (ctx) => CartScreen(),
