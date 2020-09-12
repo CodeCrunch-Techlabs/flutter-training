@@ -11,7 +11,6 @@ class OrderItem {
   final List<CartItem> products;
   final DateTime dateTime;
 
-
   OrderItem(
       {@required this.id,
       @required this.amount,
@@ -22,36 +21,46 @@ class OrderItem {
 class Orders with ChangeNotifier {
   List<OrderItem> orders = [];
   final String authToken;
+  final String userId;
 
-  Orders(this.authToken, this.orders);
+  Orders(this.authToken, this.userId, this.orders);
 
   List<OrderItem> get getOrders {
     return [...orders];
   }
 
   Future<void> fetchAndSetOrders() async {
-    final url = 'https://shoppingapp-b6675.firebaseio.com/orders.json?auth=$authToken';
+    final url =
+        'https://shoppingapp-b6675.firebaseio.com/orders/$userId.json?auth=$authToken';
     final response = await http.get(url);
     final List<OrderItem> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
-    if(extractedData == null){
-      return ;
+    if (extractedData == null) {
+      return;
     }
     extractedData.forEach((orderId, orderData) {
       loadedOrders.add(OrderItem(
           id: orderId,
           amount: orderData['amount'],
           dateTime: DateTime.parse(orderData['dateTime']),
-          products: (orderData['products'] as List<dynamic>).map((item) {
-            CartItem(id: item['id'], price: item['price'], quantity: item['quantity'], title: item['title']);
-          }).toList()));
+          products: (orderData['products'] as List<dynamic>)
+              .map((item) => CartItem(
+                  id: item['id'],
+                  price: item['price'],
+                  quantity: item['quantity'],
+                  title: item['title']))
+              .toList()));
     });
-   orders = loadedOrders.reversed.toList();
-   notifyListeners();
+    orders = loadedOrders.reversed.toList();
+    orders.forEach((element) {
+      print(element.products);
+    });
+    notifyListeners();
   }
 
   Future<void> addItem(List<CartItem> cartProducts, double total) async {
-    final url = 'https://shoppingapp-b6675.firebaseio.com/orders.json?auth=$authToken';
+    final url =
+        'https://shoppingapp-b6675.firebaseio.com/orders/$userId.json?auth=$authToken';
     final timeStamp = DateTime.now();
     final response = await http.post(url,
         body: json.encode({
