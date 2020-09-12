@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,6 +9,21 @@ class Auth with ChangeNotifier {
   String token;
   DateTime expiryDate;
   String userId;
+
+  bool get isAuth{
+     return token != null;
+  }
+
+  String get gettoken{
+    if(expiryDate != null && expiryDate.isAfter(DateTime.now()) && token != null){
+      return token;
+    }
+    return null;
+  }
+
+  String get getuserId{
+    return userId;
+  }
 
   Future<void> authenticate(String email, String password, String urlSegment) async {
     final url =
@@ -22,6 +38,10 @@ class Auth with ChangeNotifier {
       if(responseData['error'] != null){
          throw HttpException(responseData['error']['message']);
       }
+      token = responseData['idToken'];
+      userId = responseData['localId'];
+      expiryDate = DateTime.now().add(Duration(seconds: int.parse(responseData['expiresIn'])));
+      notifyListeners();
     }
     catch(error){
       throw error;

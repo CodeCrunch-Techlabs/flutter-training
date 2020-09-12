@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
 
 import 'package:shopapp/Provider/Order_Provider.dart' as ord;
 
@@ -30,6 +31,7 @@ class _OrderItemState extends State<OrderItem> {
               icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),
               onPressed: () {
                 setState(() {
+                  print(widget.order.toString());
                   expanded = !expanded;
                 });
               },
@@ -43,7 +45,7 @@ class _OrderItemState extends State<OrderItem> {
                   children: widget.order.products.map((prod) => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(prod.title,style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                      Text(prod.title ,style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                       Text('${prod.quantity}x \$${prod.price}',style: TextStyle(fontSize: 18, color: Colors.grey),)
                     ],
                   )).toList(),

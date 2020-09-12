@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shopapp/Screens/Product_Details.dart';
 import 'package:shopapp/model/Product.dart';
 import 'package:shopapp/Provider/Cart_Provider.dart';
+import 'package:shopapp/Provider/Auth.dart';
 
 class ProductItem extends StatelessWidget {
 //  final String id;
@@ -18,6 +19,7 @@ class ProductItem extends StatelessWidget {
         listen:
             false); //When write listen false that's means that this will not rebuild whole widget when something chnage everytime.
     final cart = Provider.of<Cart>(context);
+    final authData = Provider.of<Auth>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -39,7 +41,7 @@ class ProductItem extends StatelessWidget {
                   color: Theme.of(context).accentColor,
                 ),
                 onPressed: () {
-                  product.toggleFavoriteStatus();
+                  product.toggleFavoriteStatus(authData.gettoken, authData.getuserId);
                 }),
           ),
           backgroundColor: Colors.black87,
