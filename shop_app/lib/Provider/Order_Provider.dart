@@ -53,7 +53,6 @@ class Orders with ChangeNotifier {
     });
     orders = loadedOrders.reversed.toList();
     orders.forEach((element) {
-      print(element.products);
     });
     notifyListeners();
   }
