@@ -13,6 +13,7 @@ import 'package:shopapp/Screens/User_Product_Screen.dart';
 import 'package:shopapp/Screens/Edit_Product_Screen.dart';
 import 'package:shopapp/Screens/auth_screen.dart';
 import 'package:shopapp/Provider/Auth.dart';
+import 'package:shopapp/helpers/Custom_route.dart';
 
 void main() {
   runApp(MyApp());
@@ -42,6 +43,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.purple,
           accentColor: Colors.deepOrange,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          pageTransitionsTheme: PageTransitionsTheme(builders: {
+            TargetPlatform.android: CustomPageTransitionBuilder(),
+            TargetPlatform.iOS: CustomPageTransitionBuilder(),
+          })
         ),
         debugShowCheckedModeBanner: false,
         home: auth.isAuth ? ProductOverviewScreen() : FutureBuilder(future: auth.tryAutoLogin(), builder: (ctx, authResultSnapshot)  => authResultSnapshot.connectionState == ConnectionState.waiting ? SplashScreen()  :  AuthScreen(),) ,
