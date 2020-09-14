@@ -118,6 +118,13 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
     });
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _controller.dispose();
+  }
+
   void showErrorDialog(String message) {
      showDialog(
         context: context,
@@ -196,13 +203,13 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
         borderRadius: BorderRadius.circular(10.0),
       ),
       elevation: 8.0,
-      child: Container(
+      child:AnimatedBuilder(animation: _heightanimation,builder: (ctx, ch) => Container(
 //        height: _authMode == AuthMode.Signup ? 320 : 260,
-      height: _heightanimation.value.height,
-        constraints:
-            BoxConstraints(minHeight: _heightanimation.value.height),
-        width: deviceSize.width * 0.75,
-        padding: EdgeInsets.all(16.0),
+          height: _heightanimation.value.height,
+          constraints: BoxConstraints(minHeight: _heightanimation.value.height),
+          width: deviceSize.width * 0.75,
+          padding: EdgeInsets.all(16.0),
+      child: ch,),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
