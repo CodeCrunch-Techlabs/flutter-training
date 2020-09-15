@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:traveldairy/Screens/Places_List_Screen.dart';
 import 'package:traveldairy/Provider/Places_Provider.dart';
+import 'package:traveldairy/Screens/Add_Place_Screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: PlacesListScreen(),
+        routes: {
+         AddPlaceScreen.routeName: (ctx) => AddPlaceScreen(),
+        },
       ),
     );
   }
