@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:traveldairy/Screens/Add_Place_Screen.dart';
 import 'package:traveldairy/Provider/Places_Provider.dart';
+import 'package:traveldairy/Screens/Place_Details_Screen.dart';
 
 class PlacesListScreen extends StatelessWidget {
   @override
@@ -41,7 +42,7 @@ class PlacesListScreen extends StatelessWidget {
                               ),
                               title: Text(greatPlaces.getitems[index].title),
                               onTap: () {
-                                //Go to details page....
+                                 Navigator.pushNamed(context, PlaceDetails.routeName);
                               },
                             ),
                           ),

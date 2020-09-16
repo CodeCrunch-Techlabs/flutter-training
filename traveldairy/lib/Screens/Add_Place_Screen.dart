@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'package:traveldairy/Widget/Image_Input.dart';
 import 'package:traveldairy/Provider/Places_Provider.dart';
+import 'package:traveldairy/Widget/Location_Input.dart';
 
 class AddPlaceScreen extends StatefulWidget {
 
@@ -54,6 +55,8 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                   ),
                   SizedBox(height: 10,),
                   ImageInput(selectImage),
+                  SizedBox(height: 10,),
+                  LocationInput(),
                 ],
               ),
             ),
