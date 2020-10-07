@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/widgets/chat/messages.dart';
+import 'package:flutter_chat_app/widgets/chat/new_message.dart';
 
 class ChatScreen extends StatelessWidget {
   @override
@@ -30,40 +32,21 @@ class ChatScreen extends StatelessWidget {
                 value: 'logout',
               ),
             ],
-            onChanged: (itemIdentifire){
-              if(itemIdentifire == 'logout'){
+            onChanged: (itemIdentifire) {
+              if (itemIdentifire == 'logout') {
                 FirebaseAuth.instance.signOut();
               }
             },
           )
         ],
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('chats/kf5tlSLJSiI1GkAjvVBZ/messages')
-            .snapshots(),
-        builder: (ctx, stremSnapshots) {
-          if (stremSnapshots.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          final documents = stremSnapshots.data.documents;
-          return ListView.builder(
-            itemCount: documents.length,
-            itemBuilder: (ctx, index) => Container(
-              padding: EdgeInsets.all(8),
-              child: Text(documents[index]['text']),
-            ),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          //  FirebaseFirestore.instance
-          //   .collection('chats/kf5tlSLJSiI1GkAjvVBZ/messages').add({'text' : 'How are you?'});
-        },
+      body: Container(
+        child: Column(
+          children: [
+            Expanded(child: Messages()),
+            NewMessage(),
+          ],
+        ),
       ),
     );
   }
