@@ -13,7 +13,7 @@ class _NewMessageState extends State<NewMessage> {
 
   void _sendMessage() async {
     FocusScope.of(context).unfocus();
-    final user =  FirebaseAuth.instance.currentUser;
+    final user = FirebaseAuth.instance.currentUser;
     final userData = await FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
@@ -38,6 +38,9 @@ class _NewMessageState extends State<NewMessage> {
           Expanded(
             child: TextField(
               controller: _controller,
+              autocorrect: true,
+              textCapitalization: TextCapitalization.sentences,
+              enableSuggestions: true,
               decoration: InputDecoration(
                 labelText: 'Send a message...',
               ),
