@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 
-// Represent the data about screen.
 class DataModel {
   final String title;
   final String description;
@@ -26,24 +25,24 @@ class WelcomeScreenData {
       buttonColor: Colors.green,
     ),
     DataModel(
-      title: "Anonymity and privacy",
+      title: "Find out more about yourself (while contributing to science)",
       description:
-          "Your privacy is very important to us. Participations in our studies is anonymous. which means we don't collect your email and personally identifiable information",
-      image: 'images/QC_app_Welcome2.png',
+      "What are you interested in learning more about? Join an array of studies, related to health and wellbeing.",
+      image: 'images/QC_app_Welcome4.png',
       buttonColor: Colors.white,
     ),
     DataModel(
       title: "Validated research methods",
       description:
-          "We use study methods traditionally used in in-person clinical setting and bring it to the comfort of your home.",
+      "We use study methods traditionally used in in-person clinical setting and bring it to the comfort of your home.",
       image: 'images/QC_app_Welcome3.png',
       buttonColor: Colors.white,
     ),
     DataModel(
-      title: "Find out more about yourself (while contributing to science)",
+      title: "Anonymity and privacy",
       description:
-          "What are you interested in learning more about? Join an array of studies, related to health and wellbeing.",
-      image: 'images/QC_app_Welcome4.png',
+          "Your privacy is very important to us. Participations in our studies is anonymous. which means we don't collect your email and personally identifiable information",
+      image: 'images/QC_app_Welcome2.png',
       buttonColor: Colors.green,
     ),
   ];

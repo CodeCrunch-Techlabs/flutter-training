@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qcitizen/Screens/Welcome_Screen.dart';
+import 'package:qcitizen/screens/welcome_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.green,
           textTheme: TextTheme(
               headline5: TextStyle(
-                  fontSize: 22.0,
+                  fontSize: 20.0,
                   color: Colors.black,
                   fontWeight: FontWeight.bold),
               bodyText1: TextStyle(fontSize: 15.0, color: Colors.black),

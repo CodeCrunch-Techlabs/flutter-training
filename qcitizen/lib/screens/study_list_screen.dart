@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qcitizen/Api/Study_List_Data.dart';
-import 'package:qcitizen/Widgets/Bottom_Infor.dart';
-import 'package:qcitizen/Widgets/Study_Item.dart';
+import 'package:qcitizen/api/study_list_data.dart';
+import 'package:qcitizen/widgets/bottom_infor.dart';
+import 'package:qcitizen/widgets/study_item.dart';
 
 class StudyList extends StatefulWidget {
   @override
