@@ -25,7 +25,7 @@ class Product with ChangeNotifier {
     notifyListeners();
     final url = 'https://shoppingapp-b6675.firebaseio.com/userFavorites/$userId/$id.json?auth=$token';
    try{
-   final response =  await http.put(url, body: json.encode(
+   final response =  await http.put(  url, body: json.encode(
         isFavorite
      ));
      if(response.statusCode >= 400){

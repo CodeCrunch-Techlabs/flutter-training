@@ -8,9 +8,10 @@ class RandomWords extends StatefulWidget {
   RandomWordsState createState() => RandomWordsState();
 }
 
-class RandomWordsState extends State<RandomWords> {   // Add from this line ...
+class RandomWordsState extends State<RandomWords> {
+  // Add from this line ...
   final List<WordPair> _suggestions = <WordPair>[];
-  final Set<WordPair> _saved = Set<WordPair>();   // Add this line.
+  final Set<WordPair> _saved = Set<WordPair>(); // Add this line.
   final TextStyle _biggerFont = TextStyle(fontSize: 18.0);
 
   Widget _buildSuggestions() {
@@ -43,8 +44,7 @@ class RandomWordsState extends State<RandomWords> {   // Add from this line ...
             _suggestions.addAll(generateWordPairs().take(10));
           }
           return _buildRow(_suggestions[index]);
-        }
-    );
+        });
   }
 
   Widget _buildRow(WordPair pair) {
@@ -58,7 +58,8 @@ class RandomWordsState extends State<RandomWords> {   // Add from this line ...
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved ? Colors.red : null,
       ),
-      onTap: () {      // Add 9 lines from here...
+      onTap: () {
+        // Add 9 lines from here...
         setState(() {
           if (alreadySaved) {
             _saved.remove(pair);
@@ -66,7 +67,7 @@ class RandomWordsState extends State<RandomWords> {   // Add from this line ...
             _saved.add(pair);
           }
         });
-      },               // ... to here.
+      }, // ... to here.
     );
   }
 
@@ -75,7 +76,7 @@ class RandomWordsState extends State<RandomWords> {   // Add from this line ...
       MaterialPageRoute<void>(
         builder: (BuildContext context) {
           final Iterable<ListTile> tiles = _saved.map(
-                (WordPair pair) {
+            (WordPair pair) {
               return ListTile(
                 title: Text(
                   pair.asPascalCase,
@@ -84,19 +85,18 @@ class RandomWordsState extends State<RandomWords> {   // Add from this line ...
               );
             },
           );
-          final List<Widget> divided = ListTile
-              .divideTiles(
+          final List<Widget> divided = ListTile.divideTiles(
             context: context,
             tiles: tiles,
-          )
-              .toList();
+          ).toList();
 
-          return Scaffold(         // Add 6 lines from here...
+          return Scaffold(
+            // Add 6 lines from here...
             appBar: AppBar(
               title: Text('Saved Suggestions'),
             ),
             body: ListView(children: divided),
-          );                       // ... to here.
+          ); // ... to here.
         },
       ),
     );
@@ -107,25 +107,25 @@ class RandomWordsState extends State<RandomWords> {   // Add from this line ...
     return Scaffold(
       appBar: AppBar(
         title: Text('Startup Name Generator'),
-        actions: <Widget>[      // Add 3 lines from here...
+        actions: <Widget>[
+          // Add 3 lines from here...
           IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
-        ],                      // ... to here.
+        ], // ... to here.
       ),
       body: _buildSuggestions(),
     );
   }
-
 }
-
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Startup Name Generator',
-      theme: ThemeData(          // Add the 3 lines from here...
+      theme: ThemeData(
+        // Add the 3 lines from here...
         primaryColor: Colors.red,
-      ),                         // ... to here.
+      ), // ... to here.
       home: RandomWords(),
     );
   }
