@@ -14,15 +14,20 @@ class WelcomePage extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.only(top: 10, right: 0, bottom: 0, left: 0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Image.asset(screenData.image),
-          SizedBox(
-            height: 10,
-          ),
-          Flexible(
-            child: Container(
+      child: Flexible(
+        child: Column(
+          children: [
+            Flexible(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                width: double.infinity,
+                  child: Image.asset(screenData.image,fit: BoxFit.fill,)),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+
               padding: EdgeInsets.only(left: 10, right: 10),
               child: Text(
                 screenData.title,
@@ -30,15 +35,13 @@ class WelcomePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Flexible(
-            child: Padding(  
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
               padding: EdgeInsets.only(left: 20, top: 4, right: 20, bottom: 4),
               child: Text(
                 screenData.description,
@@ -46,11 +49,8 @@ class WelcomePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
