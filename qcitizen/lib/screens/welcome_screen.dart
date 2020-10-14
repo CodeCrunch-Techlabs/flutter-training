@@ -26,7 +26,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
-
           children: [
             Expanded(
               flex: 5,

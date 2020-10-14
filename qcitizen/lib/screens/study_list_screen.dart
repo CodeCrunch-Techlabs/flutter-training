@@ -15,11 +15,9 @@ class _StudyListState extends State<StudyList> {
   @override
   void initState() {
     super.initState();
-    Studies().fetchStudies().then((value) {
-      setState(() {
-        studyList = value;
-      });
-    }); // Stored return value into the studyList array.
+    Studies().fetchStudies().then((value) => setState((){
+      studyList = value;
+    }));
   }
 
   @override
