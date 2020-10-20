@@ -37,7 +37,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
   }
 
   @override
-  Widget build(BuildContext cont  ext) {
+  Widget build(BuildContext context) {
 
 
     return Scaffold(

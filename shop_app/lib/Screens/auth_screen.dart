@@ -221,7 +221,6 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
                       return 'Invalid email!';
                     }
                     return null;
-                    return null;
                   },
                   onSaved: (value) {
                     _authData['email'] = value;
@@ -248,7 +247,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
                     child: FadeTransition(
                       opacity: _opacityAnimation,
                       child: TextFormField(
-                        enabled: _authMode == AuthMode.Signup,
+//                        enabled: _authMode == AuthMode.Signup,
                         decoration: InputDecoration(labelText: 'Confirm Password'),
                         obscureText: true,
                         validator: _authMode == AuthMode.Signup
