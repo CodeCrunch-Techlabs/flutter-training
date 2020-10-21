@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cointopper/widgets/top_coin.dart';
 
 class CoinCard extends StatefulWidget {
   @override
@@ -6,7 +7,6 @@ class CoinCard extends StatefulWidget {
 }
 
 class _CoinCardState extends State<CoinCard> {
-  
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,6 +48,7 @@ class _CoinCardState extends State<CoinCard> {
 
         Container(
           height: 110.0,
+          margin: EdgeInsets.symmetric(horizontal: 10),
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
@@ -61,6 +62,39 @@ class _CoinCardState extends State<CoinCard> {
                   0xFF689898, 0xFF08F880),
               _cardSlider(context, "Tether", "1.00", "0.44", "tether.png",
                   0xFFF86800, 0xFF404040),
+              Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.blue[800],
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => TopCoin(),
+                        ),
+                      );
+                    },
+                    child: Center(
+                      child: Text(
+                        "View All",
+                        style: TextStyle(
+                          color: Colors.blue[800],
+                          fontSize: 22,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
@@ -76,7 +110,7 @@ Widget _cardSlider(BuildContext context, String coin, String rate, String price,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     child: Container(
       padding: EdgeInsets.all(10),
-      width: MediaQuery.of(context).size.width * 0.5,
+      width: MediaQuery.of(context).size.width * 0.4,
       decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.centerLeft,

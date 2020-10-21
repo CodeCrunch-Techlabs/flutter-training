@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cointopper/widgets/coincard.dart';
+import 'package:flutter_cointopper/widgets/coin_list.dart';
+import 'package:flutter_cointopper/widgets/coincard.dart'; 
 
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: 180,
@@ -123,6 +125,14 @@ class Dashboard extends StatelessWidget {
             ),
           ),
           CoinCard(),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Divider(
+              color: Colors.blue[800],
+              thickness: 2,
+            ),
+          ),
+          CoinList(),
         ],
       ),
     );
