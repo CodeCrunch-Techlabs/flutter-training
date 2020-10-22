@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cointopper/widgets/coin_list.dart';
-import 'package:flutter_cointopper/widgets/coincard.dart';
 
-class Dashboard extends StatelessWidget {
+class CoinDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +14,7 @@ class Dashboard extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: [Colors.blue[800], Colors.blue[400]],
+                colors: [Color(0xFFF8A008), Color(0xFFF8A040)],
               ),
             ),
             child: Column(
@@ -25,30 +23,71 @@ class Dashboard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Welcome to Cointopper",
-                      style: TextStyle(fontSize: 18, color: Colors.white60),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                    Row(
                       children: [
-                        Text("Crypto M.CAP",
-                            style:
-                                TextStyle(fontSize: 16, color: Colors.white60)),
-                        Text("\$207.00 B",
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.white)),
+                        Container(
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.white30,
+                          ),
+                          child: Image(
+                            image: AssetImage("assets/images/bitcoin.png"),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text(
+                          "Bitcoin / BTC",
+                          style: TextStyle(fontSize: 18, color: Colors.white60),
+                        ),
                       ],
                     ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.white30,
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white60,
+                        ),
+                      ),
+                    )
                   ],
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Cryptocurrencies",
+                      "\$${9120.78}",
                       style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 40,
                           color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Image(
+                      height: 10,
+                      width: 10,
+                      image: AssetImage("assets/images/up_arrow.png"),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "4.46%",
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white60,
                           fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -124,33 +163,6 @@ class Dashboard extends StatelessWidget {
               ],
             ),
           ),
-          CoinCard(),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: Divider(
-              color: Colors.blue[800],
-              thickness: 2,
-            ),
-          ),
-          CoinList(),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0, // this will be set when a new tab is tapped
-        items: [
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.home),
-            title: new Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.pages),
-            title: new Text('News'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            title: Text('Account'),
-          ),
-          
         ],
       ),
     );
