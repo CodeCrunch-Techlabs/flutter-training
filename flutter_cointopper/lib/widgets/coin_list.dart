@@ -35,8 +35,9 @@ class CoinList extends StatelessWidget {
                       ))),
             ],
             rows: [
+              
               DataRow(cells: [
-                DataCell(
+                DataCell( 
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(

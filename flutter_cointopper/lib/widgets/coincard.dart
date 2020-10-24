@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cointopper/widgets/coin_detail.dart';
 import 'package:flutter_cointopper/widgets/top_coin.dart';
 
 class CoinCard extends StatefulWidget {
@@ -47,13 +48,19 @@ class _CoinCardState extends State<CoinCard> {
         // )
 
         Container(
-          height: 110.0,
+          height: 80.0,
           margin: EdgeInsets.symmetric(horizontal: 10),
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
-              _cardSlider(context, "Bitcoin", "9120.78", "4.46", "bitcoin.png",
-                  0xFFF0B028, 0xFFF0B028),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => CoinDetails()));
+                },
+                child: _cardSlider(context, "Bitcoin", "9120.78", "4.46",
+                    "bitcoin.png", 0xFFF0B028, 0xFFF0B028),
+              ),
               _cardSlider(context, "Ethereum", "230.91", "3.49", "eth.png",
                   0xFF505050, 0xFF282828),
               _cardSlider(context, "Litecoin", "62.19", "3.34", "ltc.png",
@@ -62,27 +69,27 @@ class _CoinCardState extends State<CoinCard> {
                   0xFF689898, 0xFF08F880),
               _cardSlider(context, "Tether", "1.00", "0.44", "tether.png",
                   0xFFF86800, 0xFF404040),
-              Card(
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.blue[800],
-                        width: 2,
-                      ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => TopCoin(),
+                    ),
+                  );
+                },
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => TopCoin(),
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.blue[800],
+                          width: 2,
                         ),
-                      );
-                    },
+                        borderRadius: BorderRadius.circular(20)),
                     child: Center(
                       child: Text(
                         "View All",
@@ -109,7 +116,7 @@ Widget _cardSlider(BuildContext context, String coin, String rate, String price,
     elevation: 3,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     child: Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.only(top: 10, left: 10, right: 5, bottom: 5),
       width: MediaQuery.of(context).size.width * 0.4,
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -118,31 +125,32 @@ Widget _cardSlider(BuildContext context, String coin, String rate, String price,
             colors: [Color(lcolor), Color(rcolor)],
           ),
           borderRadius: BorderRadius.circular(20)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            coin,
-            style: TextStyle(
-              color: Colors.white60,
-            ),
-          ),
-          Text(
-            "\$$rate",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 26,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                coin,
+                style: TextStyle(
+                  color: Colors.white60,
+                  fontSize: 12,
+                ),
+              ),
+              Text(
+                "\$$rate",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
               Row(
                 children: [
                   Image(
-                    width: 15,
-                    height: 15,
+                    width: 10,
+                    height: 10,
                     image: AssetImage("assets/images/up_arrow.png"),
                   ),
                   SizedBox(
@@ -152,23 +160,43 @@ Widget _cardSlider(BuildContext context, String coin, String rate, String price,
                     "\$$price%",
                     style: TextStyle(
                       color: Colors.white60,
-                      fontSize: 15,
+                      fontSize: 12,
                     ),
                   ),
                 ],
               ),
-              Container(
-                padding: EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.white30,
-                ),
-                child: Image(
-                  width: 25,
-                  height: 25,
-                  image: AssetImage("assets/images/$imageUrl"),
-                ),
-              )
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Stack(
+                    children: [
+                      Positioned(
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Container(
+                            padding: EdgeInsets.all(0.5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white30,
+                            ),
+                            child: Image(
+                              width: 30,
+                              height: 30,
+                              image: AssetImage("assets/images/$imageUrl"),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ],
           )
         ],
