@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'carousel.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 class CoinDetails extends StatelessWidget {
   @override
@@ -110,7 +113,7 @@ class CoinDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      // width: MediaQuery.of(context).size.width * 0.5,
+                      width: MediaQuery.of(context).size.width * 0.5,
                       child: Column(
                         children: [
                           Row(
@@ -164,7 +167,7 @@ class CoinDetails extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.1,
+                            width: MediaQuery.of(context).size.width * 0.12,
                             decoration: BoxDecoration(
                               color: Colors.white24,
                               borderRadius: BorderRadius.circular(12),
@@ -181,7 +184,7 @@ class CoinDetails extends StatelessWidget {
                             width: 6,
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.1,
+                            width: MediaQuery.of(context).size.width * 0.12,
                             decoration: BoxDecoration(
                               color: Colors.white24,
                               borderRadius: BorderRadius.circular(12),
@@ -198,7 +201,7 @@ class CoinDetails extends StatelessWidget {
                             width: 6,
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.1,
+                            width: MediaQuery.of(context).size.width * 0.12,
                             decoration: BoxDecoration(
                               color: Colors.white24,
                               borderRadius: BorderRadius.circular(12),
@@ -213,72 +216,14 @@ class CoinDetails extends StatelessWidget {
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.all(10),
-            child: Card(
-              elevation: 3,
-              child: Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  children: [
-                    _buildTotalCap("24 Hrs Volume", "\$${38.95} B"),
-                    Divider(
-                      color: Colors.blue[800],
-                      thickness: 2,
-                    ),
-                    _buildTotalCap("Total Coins", "\$${18.25} B"),
-                    Divider(
-                      color: Colors.blue[800],
-                      thickness: 2,
-                    ),
-                    _buildTotalCap("Market Cap", "\$${166.51} B"),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: Card(
-              elevation: 3,
-              child: Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "About",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black54,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Bitcoin uses peer-to-peer technology to operate with no central authority or banks; managing transactions and the issuing of bitcoins is carried out collectively by the network. Bitcoin is open-source; its design is public, nobody owns or controls Bitcoin and everyone can take part.",
-                      style: TextStyle(
-                        // fontSize: 16,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          Expanded(
+            child: cardsBody(),
           ),
         ],
       ),
@@ -304,6 +249,299 @@ Widget _buildTotalCap(String name, String volume) {
           style: TextStyle(
             fontSize: 16,
             color: Colors.blue[800],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget cardsBody() {
+  YoutubePlayerController _controller = YoutubePlayerController(
+    initialVideoId: 'V89BOZhJFlI',
+    flags: YoutubePlayerFlags(
+      autoPlay: true,
+      mute: false,
+      controlsVisibleAtStart: true,
+      disableDragSeek: false,
+      loop: false,
+      isLive: false,
+      forceHD: false,
+    ),
+  );
+  return SingleChildScrollView(
+    child: Column(
+      children: [
+        Container(
+          margin: EdgeInsets.all(10),
+          child: Card(
+            elevation: 3,
+            child: Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                children: [
+                  _buildTotalCap("24 Hrs Volume", "\$${38.95} B"),
+                  Divider(
+                    color: Colors.blue[800],
+                    thickness: 2,
+                  ),
+                  _buildTotalCap("Total Coins", "\$${18.25} B"),
+                  Divider(
+                    color: Colors.blue[800],
+                    thickness: 2,
+                  ),
+                  _buildTotalCap("Market Cap", "\$${166.51} B"),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 10),
+          child: Card(
+            elevation: 3,
+            child: Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "About",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Bitcoin uses peer-to-peer technology to operate with no central authority or banks; managing transactions and the issuing of bitcoins is carried out collectively by the network. Bitcoin is open-source; its design is public, nobody owns or controls Bitcoin and everyone can take part.",
+                    style: TextStyle(
+                      // fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  YoutubePlayer(
+                    controller: _controller,
+                    onReady: () {
+                      _controller.play();
+                    },
+                    showVideoProgressIndicator: true,
+                    topActions: <Widget>[
+                      SizedBox(width: 0.0),
+                      Expanded(
+                        child: Text(
+                          _controller.metadata.title,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 12.0,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.play_arrow,
+                          color: Colors.white,
+                          size: 25.0,
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.all(10),
+          child: Card(
+            elevation: 3,
+            child: Container(
+              padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  StickyHeader(
+                    header: Container( 
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      width: double.infinity,
+                      decoration: BoxDecoration(  
+                       color: Colors.white,
+                      ),
+                      child: Text(
+                        "Important Links",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
+                    content: Container(  
+                      margin: EdgeInsets.only(top: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [
+                              CircleAvatar(
+                                child: Image(
+                                  width: 100,
+                                  image:
+                                      AssetImage('assets/images/bitcoin.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Text("Facebook"),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              CircleAvatar(
+                                child: Image(
+                                  width: 100,
+                                  image:
+                                      AssetImage('assets/images/bitcoin.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Text("Facebook"),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              CircleAvatar(
+                                child: Image(
+                                  width: 100,
+                                  image:
+                                      AssetImage('assets/images/bitcoin.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Text("Facebook"),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              CircleAvatar(
+                                child: Image(
+                                  width: 100,
+                                  image:
+                                      AssetImage('assets/images/bitcoin.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Text("Facebook"),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            child: Image(
+                              width: 100,
+                              image: AssetImage('assets/images/bitcoin.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text("Facebook"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            child: Image(
+                              width: 100,
+                              image: AssetImage('assets/images/bitcoin.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text("Facebook"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            child: Image(
+                              width: 100,
+                              image: AssetImage('assets/images/bitcoin.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text("Facebook"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            child: Image(
+                              width: 100,
+                              image: AssetImage('assets/images/bitcoin.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text("Facebook"),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
+          child: Card(
+            elevation: 3,
+            child: Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "About",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CarouselWithIndicatorDemo(),
+                ],
+              ),
+            ),
           ),
         ),
       ],

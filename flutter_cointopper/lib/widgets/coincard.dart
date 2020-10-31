@@ -48,7 +48,7 @@ class _CoinCardState extends State<CoinCard> {
         // )
 
         Container(
-          height: 80.0,
+          height: 80.0, 
           margin: EdgeInsets.symmetric(horizontal: 10),
           child: ListView(
             scrollDirection: Axis.horizontal,
@@ -83,7 +83,8 @@ class _CoinCardState extends State<CoinCard> {
                       borderRadius: BorderRadius.circular(20)),
                   child: Container(
                     padding: EdgeInsets.all(10),
-                    width: MediaQuery.of(context).size.width * 0.4,
+                    // width: MediaQuery.of(context).size.width * 0.4,
+                    width: 160,
                     decoration: BoxDecoration(
                         border: Border.all(
                           color: Colors.blue[800],
@@ -117,7 +118,7 @@ Widget _cardSlider(BuildContext context, String coin, String rate, String price,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     child: Container(
       padding: EdgeInsets.only(top: 10, left: 10, right: 5, bottom: 5),
-      width: MediaQuery.of(context).size.width * 0.4,
+      width:160,
       decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.centerLeft,
@@ -143,7 +144,7 @@ Widget _cardSlider(BuildContext context, String coin, String rate, String price,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 20,
                 ),
               ),
               Row(

@@ -60,7 +60,7 @@ class TopCoin extends StatelessWidget {
               ],
             ),
           ),
-          CoinList(),
+          Expanded(child: CoinList()),
         ],
       ),
     );
