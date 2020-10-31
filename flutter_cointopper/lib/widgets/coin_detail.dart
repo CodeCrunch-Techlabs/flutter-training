@@ -4,6 +4,10 @@ import 'carousel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class CoinDetails extends StatelessWidget {
+  final String name;
+  final double rate;
+  final double price;
+  CoinDetails(this.name, this.rate, this.price);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +46,7 @@ class CoinDetails extends StatelessWidget {
                           width: 6,
                         ),
                         Text(
-                          "Bitcoin / BTC",
+                          name,
                           style: TextStyle(fontSize: 18, color: Colors.white60),
                         ),
                       ],
@@ -69,7 +73,7 @@ class CoinDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "\$${9120.78}",
+                      "\$$rate",
                       style: TextStyle(
                           fontSize: 40,
                           color: Colors.white,
@@ -119,7 +123,7 @@ class CoinDetails extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "\$${10967.21}",
+                                "\$$price",
                                 style: TextStyle(
                                     fontSize: 20,
                                     color: Colors.white,
@@ -372,7 +376,7 @@ Widget cardsBody() {
           child: Card(
             elevation: 3,
             child: Container(
-              padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
+              padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
               ),
@@ -380,11 +384,11 @@ Widget cardsBody() {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   StickyHeader(
-                    header: Container( 
+                    header: Container(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       width: double.infinity,
-                      decoration: BoxDecoration(  
-                       color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
                       ),
                       child: Text(
                         "Important Links",
@@ -394,7 +398,7 @@ Widget cardsBody() {
                         ),
                       ),
                     ),
-                    content: Container(  
+                    content: Container(
                       margin: EdgeInsets.only(top: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

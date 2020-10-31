@@ -46,11 +46,11 @@ class CoinList extends StatelessWidget {
                 DataRow(cells: [
                   DataCell(
                     GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => CoinDetails(),
-                        ));
-                      },
+                      // onTap: () {
+                      //   Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (_) => CoinDetails(),
+                      //   ));
+                      // },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
