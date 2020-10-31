@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'carousel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -7,7 +8,11 @@ class CoinDetails extends StatelessWidget {
   final String name;
   final double rate;
   final double price;
-  CoinDetails(this.name, this.rate, this.price);
+  final String logo;
+  final int color1;
+  final int color2;
+  CoinDetails(
+      this.name, this.rate, this.price, this.logo, this.color1, this.color2);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +26,7 @@ class CoinDetails extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: [Color(0xFFF8A008), Color(0xFFF8A040)],
+                colors: [HexColor("$color1"), HexColor("$color2")],
               ),
             ),
             child: Column(
@@ -39,7 +44,9 @@ class CoinDetails extends StatelessWidget {
                             color: Colors.white30,
                           ),
                           child: Image(
-                            image: AssetImage("assets/images/bitcoin.png"),
+                            width: 30,
+                            height: 30,
+                            image: AssetImage("assets/images/$logo"),
                           ),
                         ),
                         SizedBox(
@@ -91,7 +98,7 @@ class CoinDetails extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      "4.46%",
+                      "$price%",
                       style: TextStyle(
                           fontSize: 14,
                           color: Colors.white60,
@@ -262,15 +269,15 @@ Widget _buildTotalCap(String name, String volume) {
 
 Widget cardsBody() {
   YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: 'V89BOZhJFlI',
+    initialVideoId: 'lGjF0waLW90',
     flags: YoutubePlayerFlags(
-      autoPlay: true,
       mute: false,
-      controlsVisibleAtStart: true,
+      autoPlay: true,
       disableDragSeek: false,
       loop: false,
       isLive: false,
       forceHD: false,
+      enableCaption: true,
     ),
   );
   return SingleChildScrollView(

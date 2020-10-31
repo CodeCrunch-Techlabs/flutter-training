@@ -138,7 +138,7 @@ Widget _cardSlider(BuildContext context, String coin, double rate, double price,
   return GestureDetector(
     onTap: () {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => CoinDetails(coin,rate,price)));
+          .push(MaterialPageRoute(builder: (_) => CoinDetails(coin,rate,price,imageUrl,lcolor,rcolor)));
     },
     child: Card(
       elevation: 3,
