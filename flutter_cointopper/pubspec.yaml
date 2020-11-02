@@ -36,6 +36,10 @@ dependencies:
   lazy_data_table: ^0.1.5
   table_sticky_headers: ^1.1.2
   horizontal_data_table: ^1.0.6+3
+  bloc: ^6.0.3
+  flutter_bloc: ^6.0.5
+  equatable: ^1.2.5
+  http: ^0.12.2
 
 dev_dependencies:
   flutter_test:

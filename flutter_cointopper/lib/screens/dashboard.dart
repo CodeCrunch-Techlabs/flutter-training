@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cointopper/bloc/dashboard_bloc.dart';
+import 'package:flutter_cointopper/bloc/dashboard_event.dart';
+import 'package:flutter_cointopper/bloc/dashboard_state.dart';
 import 'package:flutter_cointopper/bottom_bar.dart';
 import 'package:flutter_cointopper/widgets/coin_list.dart';
-import 'package:flutter_cointopper/widgets/coincard.dart'; 
+import 'package:flutter_cointopper/widgets/coincard.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
+  @override
+  _DashboardState createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  String dropdownValue = 'One';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.2,
+            // height: MediaQuery.of(context).size.height * 0.2,
+            height: 180,
             padding: EdgeInsets.only(top: 20, left: 10, right: 10),
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -93,19 +104,46 @@ class Dashboard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          padding: EdgeInsets.all(13),
-                          decoration: BoxDecoration(
-                            color: Color(0xFF00e00),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            'USD',
-                            style: TextStyle(fontSize: 16, color: Colors.white),
-                          ),
+                        DropdownButton<String>(
+                          value: dropdownValue,
+                          iconSize: 24,
+                          elevation: 16,
+                          style: TextStyle(color: Colors.deepPurple),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropdownValue = newValue;
+                            });
+                          },
+                          items: <String>['One', 'Two', 'Free', 'Four']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
                         ),
+                        BlocBuilder<CurrencyBloc, CurrencyState>(
+                            builder: (context, state) {
+                          if (state is CurrencyListLoadSuccess) {
+                            print("callled---1");
+                            print("${state.currencyList.map((e) => e.name)}");
+                          }
+                          return CircularProgressIndicator();
+                        }),
+
+                        // Container(
+                        //   height: 40,
+                        //   width: MediaQuery.of(context).size.width * 0.2,
+                        //   padding: EdgeInsets.all(13),
+                        //   decoration: BoxDecoration(
+                        //     color: Color(0xFF00e00),
+                        //     borderRadius: BorderRadius.circular(12),
+                        //   ),
+                        //   child: Text(
+                        //     'USD',
+                        //     style: TextStyle(fontSize: 16, color: Colors.white),
+                        //   ),
+                        // ),
                         Container(
                           height: 40,
                           width: MediaQuery.of(context).size.width * 0.15,

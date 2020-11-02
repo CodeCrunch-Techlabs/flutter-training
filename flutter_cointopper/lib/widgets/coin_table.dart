@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cointopper/widgets/coin_detail.dart';
+import 'package:flutter_cointopper/screens/coin_detail.dart';
 
 class CoinList extends StatelessWidget {
   @override

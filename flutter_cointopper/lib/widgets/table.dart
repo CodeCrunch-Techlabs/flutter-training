@@ -17,7 +17,7 @@ class _StickyTableState extends State<StickyTable> {
 
   @override
   void initState() {
-    user.initData(20);
+    user.initData(10);
     super.initState();
   }
 
@@ -26,7 +26,7 @@ class _StickyTableState extends State<StickyTable> {
     return Container(
       child: HorizontalDataTable(
         leftHandSideColumnWidth: 0,
-        rightHandSideColumnWidth: 500,
+        rightHandSideColumnWidth: 600,
         isFixedHeader: true,
         headerWidgets: _getTitleWidget(),
         leftSideItemBuilder: _generateFirstColumnRow,
@@ -82,45 +82,37 @@ class _StickyTableState extends State<StickyTable> {
 
   Widget _generateRightHandSideColumnRow(BuildContext context, int index) {
     return Row(
-      children: <Widget>[
-        Container(
-          child: Row(
-            children: <Widget>[
-              Icon(
-                  user.userInfo[index].status
-                      ? Icons.notifications_off
-                      : Icons.notifications_active,
-                  color:
-                      user.userInfo[index].status ? Colors.red : Colors.green),
-              Text(user.userInfo[index].status ? 'Disabled' : 'Active')
-            ],
-          ),
-          width: 100,
-          height: 52,
-          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-          alignment: Alignment.centerLeft,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image(
+          width: 40,
+          height: 40,
+          image: AssetImage("assets/images/bitcoin.png"),
         ),
-        Container(
-          child: Text(user.userInfo[index].phone),
-          width: 200,
-          height: 52,
-          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-          alignment: Alignment.centerLeft,
-        ),
-        Container(
-          child: Text(user.userInfo[index].registerDate),
-          width: 100,
-          height: 52,
-          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-          alignment: Alignment.centerLeft,
-        ),
-        Container(
-          child: Text(user.userInfo[index].terminationDate),
-          width: 200,
-          height: 52,
-          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-          alignment: Alignment.centerLeft,
-        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "coins.name",
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey[800],
+              ),
+            ),
+            SizedBox(
+              height: 6,
+            ),
+            Text(
+              "${166.50} B",
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey[500],
+              ),
+            ),
+          ],
+        )
       ],
     );
   }

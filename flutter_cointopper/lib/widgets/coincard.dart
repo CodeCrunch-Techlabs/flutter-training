@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cointopper/widgets/coin_detail.dart';
-import 'package:flutter_cointopper/widgets/top_coin.dart';
+import 'package:flutter_cointopper/screens/coin_detail.dart';
+import 'package:flutter_cointopper/screens/top_coin.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class CoinCard extends StatefulWidget {
@@ -72,7 +72,7 @@ class _CoinCardState extends State<CoinCard> {
             "Top Viewed",
             style: TextStyle(
                 color: HexColor("#005580"),
-                fontSize: MediaQuery.of(context).size.width * 0.04,
+                fontSize: MediaQuery.of(context).size.width * 0.03,
                 fontWeight: FontWeight.w600),
           ),
         ),

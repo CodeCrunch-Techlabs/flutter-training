@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'carousel.dart';
+import '../widgets/carousel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class CoinDetails extends StatelessWidget {

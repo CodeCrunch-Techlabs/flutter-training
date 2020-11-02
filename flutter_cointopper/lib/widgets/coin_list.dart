@@ -1,7 +1,7 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_cointopper/model/coin_list_model.dart'; 
-import 'coin_detail.dart';
+import '../screens/coin_detail.dart';
 
 class CoinList extends StatelessWidget {
   @override
@@ -17,6 +17,7 @@ class CoinList extends StatelessWidget {
           dataRowHeight: MediaQuery.of(context).size.height * 0.07,
           sortAscending: true,
           sortColumnIndex: 0, 
+          headingRowHeight: 30,
           columns: [
             DataColumn(
               label: Container(
