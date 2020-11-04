@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:flutter_cointopper/bloc/dashboard_event.dart';
-import 'package:flutter_cointopper/bloc/dashboard_state.dart';
 import 'package:flutter_cointopper/repository/coin_topper_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
+
+import 'dashboard_event.dart';
+import 'dashboard_state.dart';
 
 class CurrencyBloc extends Bloc<CurrencyEvent, CurrencyState> {
   final CoinTopperRepository coinRepository;
@@ -34,7 +35,7 @@ class CurrencyBloc extends Bloc<CurrencyEvent, CurrencyState> {
 
   Stream<CurrencyState> _mapUpdateCurrencyListState(
       UpdateCurrencyList event) async* {
-        print("11==> ${event.currencyList}");
+    print("11==> ${event.currencyList}");
     yield CurrencyListLoadSuccess(event.currencyList);
   }
 

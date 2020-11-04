@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cointopper/bloc/dashboard_bloc.dart';
-import 'package:flutter_cointopper/bloc/dashboard_event.dart';
-import 'package:flutter_cointopper/bloc/dashboard_state.dart';
+import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_bloc.dart';
+import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_state.dart'; 
 import 'package:flutter_cointopper/bottom_bar.dart';
 import 'package:flutter_cointopper/widgets/coin_list.dart';
 import 'package:flutter_cointopper/widgets/coincard.dart';
@@ -13,7 +12,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  String dropdownValue = 'One';
+  String dropdownValue = 'USD';
+  String dValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,31 +104,30 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           ),
                         ),
-                        DropdownButton<String>(
-                          value: dropdownValue,
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(color: Colors.deepPurple),
-                          onChanged: (String newValue) {
-                            setState(() {
-                              dropdownValue = newValue;
-                            });
-                          },
-                          items: <String>['One', 'Two', 'Free', 'Four']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
+
                         BlocBuilder<CurrencyBloc, CurrencyState>(
                             builder: (context, state) {
                           if (state is CurrencyListLoadSuccess) {
-                            print("callled---1");
-                            print("${state.currencyList.map((e) => e.name)}");
+                            return DropdownButton(
+                              iconSize: 24,
+                              style: TextStyle(color: Colors.white60),
+                              items: state.currencyList.map((value) {
+                                return DropdownMenuItem(
+                                  value: value.symbol,
+                                  child: Text(' ${value.symbol}'),
+                                );
+                              }).toList(),
+                              value: dropdownValue,
+                              onChanged: (String newValue) {
+                                // print('newvalue=====> $newValue');
+                                setState(() {
+                                  dropdownValue = newValue;
+                                });
+                              },
+                            );
+                          } else {
+                            return CircularProgressIndicator();
                           }
-                          return CircularProgressIndicator();
                         }),
 
                         // Container(

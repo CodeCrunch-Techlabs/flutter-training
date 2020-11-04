@@ -14,8 +14,8 @@ class ApiClient {
   }) : this.httpClient = httpClient ?? http.Client();
 
   Stream<List<Currency>> fetchCurrencyList() async* {
-    final response = await httpClient
-        .get(Uri.encodeFull('${this.baseUrl + "currency"}'), headers: {
+    final response =
+        await httpClient.get(Uri.encodeFull('${this.baseUrl + "currency"}'), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
     });
@@ -23,14 +23,10 @@ class ApiClient {
     Map<String, dynamic> map = json.decode(response.body);
     List<dynamic> results = map["data"];
     // print(results);
-    final datad = results
+
+    yield results
         .map((dynamic item) => Currency.fromEntity(
             CurrencyEntity.fromJson(item as Map<String, dynamic>)))
-        ;
-    print(datad);
-    // yield results
-    //     .map((dynamic item) => Currency.fromEntity(
-    //         CurrencyEntity.fromJson(item as Map<String, dynamic>)))
-    //     .toList();
+        .toList();
   }
 }

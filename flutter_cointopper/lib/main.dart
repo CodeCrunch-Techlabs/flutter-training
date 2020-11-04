@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cointopper/bloc/dashboard_bloc.dart';
-import 'package:flutter_cointopper/bloc/dashboard_event.dart';
+import 'package:flutter_bloc/flutter_bloc.dart'; 
 import 'package:flutter_cointopper/repository/coin_topper_repository.dart'; 
-import 'package:flutter_cointopper/screens/dashboard.dart'; 
+import 'package:flutter_cointopper/screens/dashboard.dart';
+
+import 'bloc/currency_bloc/dashboard_bloc.dart';
+import 'bloc/currency_bloc/dashboard_event.dart'; 
 
 void main() {
   runApp(MultiBlocProvider(
