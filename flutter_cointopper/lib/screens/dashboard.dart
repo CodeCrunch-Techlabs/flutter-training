@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_bloc.dart';
-import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_state.dart'; 
+import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_state.dart';
 import 'package:flutter_cointopper/bottom_bar.dart';
 import 'package:flutter_cointopper/widgets/coin_list.dart';
 import 'package:flutter_cointopper/widgets/coincard.dart';

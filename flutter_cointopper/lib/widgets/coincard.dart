@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
+import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_event.dart';
+import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_state.dart';
 import 'package:flutter_cointopper/screens/coin_detail.dart';
 import 'package:flutter_cointopper/screens/top_coin.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class CoinCard extends StatefulWidget {
-  
   @override
-  _CoinCardState createState() => _CoinCardState( );
+  _CoinCardState createState() => _CoinCardState();
 }
 
-class _CoinCardState extends State<CoinCard> { 
-    dynamic dummyData = [
+class _CoinCardState extends State<CoinCard> {
+  dynamic dummyData = [
     {
       "logo": "bitcoin.png",
       "price": 9120.78,
@@ -60,86 +63,94 @@ class _CoinCardState extends State<CoinCard> {
       "color2": 0xFFF89828,
     },
   ];
-  
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 10),
-          width: MediaQuery.of(context).size.width * 1,
-          child: Text(
-            "Top Viewed",
-            style: TextStyle(
-                color: HexColor("#005580"),
-                fontSize: MediaQuery.of(context).size.width * 0.03,
-                fontWeight: FontWeight.w600),
-          ),
-        ),
-        Container(
-          height: 80.0,
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: dummyData.length,
-            itemBuilder: (context, index) {
-              return index == 5
-                  ? GestureDetector(
-                      onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (_) => TopCoin()));
-                      },
-                      child: Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          // width: MediaQuery.of(context).size.width * 0.4,
-                          width: 160,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.blue[800],
-                                width: 2,
+    return BlocBuilder<TopCoinsBloc, TopCoinsState>(builder: (context, state) {
+     
+      if (state is TopCoinsLoadSuccess) { 
+            return Column(
+              children: [
+                Container(
+                  padding:
+                      EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 10),
+                  width: MediaQuery.of(context).size.width * 1,
+                  child: Text(
+                    "Top Viewed",
+                    style: TextStyle(
+                        color: HexColor("#005580"),
+                        fontSize: MediaQuery.of(context).size.width * 0.03,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                Container(
+                  height: 80.0,
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: state.topCoinsList.length,
+                    itemBuilder: (context, index) { 
+                      return index == 5
+                          ? GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => TopCoin()));
+                              },
+                              child: Card(
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  // width: MediaQuery.of(context).size.width * 0.4,
+                                  width: 160,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.blue[800],
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                    child: Text(
+                                      "View All",
+                                      style: TextStyle(
+                                        color: Colors.blue[800],
+                                        fontSize: 22,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Center(
-                            child: Text(
-                              "View All",
-                              style: TextStyle(
-                                color: Colors.blue[800],
-                                fontSize: 22,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  : _cardSlider(
-                      context,
-                      dummyData[index]['name'],
-                      dummyData[index]['price'],
-                      dummyData[index]['percent_change24h'],
-                      dummyData[index]['logo'],
-                      dummyData[index]['color1'],
-                      dummyData[index]['color2'],
-                    );
-            },
-          ),
-        ),
-      ],
-    );
+                            )
+                          : _cardSlider(
+                              context, 
+                              state.topCoinsList[index].name,
+                              state.topCoinsList[index].price,
+                              state.topCoinsList[index].percent_change24h,
+                              state.topCoinsList[index].logo,
+                            );
+                    },
+                  ),
+                ),
+              ],
+            );
+         
+        });
+      
+      return CircularProgressIndicator();
+    });
   }
 }
 
 Widget _cardSlider(BuildContext context, String coin, double rate, double price,
-    String imageUrl, int lcolor, int rcolor) {
-      
+    String imageUrl) {
+ print("========>>>> $coin");
   return GestureDetector(
-    onTap: () {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => CoinDetails(coin,rate,price,imageUrl,lcolor,rcolor)));
-    },
+    // onTap: () {
+    //   Navigator.of(context).push(MaterialPageRoute(
+    //       builder: (_) =>
+    //           CoinDetails(coin, rate, price, imageUrl, lcolor, rcolor)));
+    // },
     child: Card(
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -150,7 +161,7 @@ Widget _cardSlider(BuildContext context, String coin, double rate, double price,
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: [Color(lcolor), Color(rcolor)],
+              // colors: [Color(lcolor), Color(rcolor)],
             ),
             borderRadius: BorderRadius.circular(15)),
         child: Row(
