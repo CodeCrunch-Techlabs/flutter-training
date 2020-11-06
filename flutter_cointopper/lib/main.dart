@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_bloc.dart';
+import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_event.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
 import 'package:flutter_cointopper/repository/coin_topper_repository.dart';
 import 'package:flutter_cointopper/screens/dashboard.dart';
@@ -36,6 +38,11 @@ void main() {
         create: (BuildContext context) => TopCoinsBloc(
           coinRepository: CoinTopperRepository(),
         )..add(LoadTopCoins()),
+      ),
+      BlocProvider<CoinListBloc>(
+        create: (BuildContext context) => CoinListBloc(
+          coinRepository: CoinTopperRepository(),
+        )..add(LoadCoinList()),
       ),
     ],
     child: MyApp(),

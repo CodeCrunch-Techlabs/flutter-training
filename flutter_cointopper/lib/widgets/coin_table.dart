@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cointopper/screens/coin_detail.dart';
 
-class CoinList extends StatelessWidget {
+class CoinTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -11,9 +11,9 @@ class CoinList extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.3,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: FittedBox( 
+          child: FittedBox(
             child: DataTable(
-              columnSpacing:100 / 2,
+              columnSpacing: 100 / 2,
               columns: [
                 DataColumn(
                     label: Container(
