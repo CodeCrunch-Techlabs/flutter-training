@@ -6,6 +6,7 @@ import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_state.dart';
 import 'package:flutter_cointopper/screens/coin_detail.dart';
 import 'package:flutter_cointopper/screens/top_coin.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:intl/intl.dart';
 
 class CoinCard extends StatefulWidget {
   @override
@@ -13,144 +14,92 @@ class CoinCard extends StatefulWidget {
 }
 
 class _CoinCardState extends State<CoinCard> {
-  dynamic dummyData = [
-    {
-      "logo": "bitcoin.png",
-      "price": 9120.78,
-      "name": "Bitcoin ",
-      "percent_change24h": 4.46,
-      "color1": 0xFFF8A040,
-      "color2": 0xFFF8A008,
-    },
-    {
-      "logo": "eth.png",
-      "price": 0.001233,
-      "name": "Dogecoin ",
-      "percent_change24h": 4.66,
-      "color1": 0xFFB8A030,
-      "color2": 0xFFB8A028,
-    },
-    {
-      "logo": "ltc.png",
-      "price": 0.01,
-      "name": "TRON ",
-      "percent_change24h": 4.17,
-      "color1": 0xFFE70814,
-      "color2": 0xFFDE4546,
-    },
-    {
-      "logo": "ripple.png",
-      "price": 0.23,
-      "name": "Ripple ",
-      "percent_change24h": 2.61,
-      "color1": 0xFF818181,
-      "color2": 0xFF0e0e0e,
-    },
-    {
-      "logo": "tether.png",
-      "price": 336.62,
-      "name": "Bitcoin Cash ",
-      "percent_change24h": 5.77,
-      "color1": 0xFFF09018,
-      "color2": 0xFFF89828,
-    },
-    {
-      "logo": "bitcoin.jpg",
-      "price": 336.62,
-      "name": "Bitcoin",
-      "percent_change24h": 5.77,
-      "color1": 0xFFF09018,
-      "color2": 0xFFF89828,
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TopCoinsBloc, TopCoinsState>(builder: (context, state) {
-     
-      if (state is TopCoinsLoadSuccess) { 
-            return Column(
-              children: [
-                Container(
-                  padding:
-                      EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 10),
-                  width: MediaQuery.of(context).size.width * 1,
-                  child: Text(
-                    "Top Viewed",
-                    style: TextStyle(
-                        color: HexColor("#005580"),
-                        fontSize: MediaQuery.of(context).size.width * 0.03,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-                Container(
-                  height: 80.0,
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: state.topCoinsList.length,
-                    itemBuilder: (context, index) { 
-                      return index == 5
-                          ? GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => TopCoin()));
-                              },
-                              child: Card(
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  // width: MediaQuery.of(context).size.width * 0.4,
-                                  width: 160,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.blue[800],
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(15)),
-                                  child: Center(
-                                    child: Text(
-                                      "View All",
-                                      style: TextStyle(
-                                        color: Colors.blue[800],
-                                        fontSize: 22,
-                                      ),
-                                    ),
+      if (state is TopCoinsLoadSuccess) {
+        return Column(
+          children: [
+            Container(
+              padding:
+                  EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 10),
+              width: MediaQuery.of(context).size.width * 1,
+              child: Text(
+                "Top Viewed",
+                style: TextStyle(
+                    color: HexColor("#005580"),
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+            Container(
+              height: 80.0,
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: state.topCoinsList.length - 4,
+                itemBuilder: (context, index) {
+                  return index == 5
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (_) => TopCoin()));
+                          },
+                          child: Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              // width: MediaQuery.of(context).size.width * 0.4,
+                              width: 160,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.blue[800],
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Center(
+                                child: Text(
+                                  "View All",
+                                  style: TextStyle(
+                                    color: Colors.blue[800],
+                                    fontSize: 20,
                                   ),
                                 ),
                               ),
-                            )
-                          : _cardSlider(
-                              context, 
-                              state.topCoinsList[index].name,
-                              state.topCoinsList[index].price,
-                              state.topCoinsList[index].percent_change24h,
-                              state.topCoinsList[index].logo,
-                            );
-                    },
-                  ),
-                ),
-              ],
-            );
-         
-        });
-      
+                            ),
+                          ),
+                        )
+                      : _cardSlider(
+                          context,
+                          state.topCoinsList[index].name,
+                          state.topCoinsList[index].price,
+                          state.topCoinsList[index].percent_change24h,
+                          state.topCoinsList[index].logo,
+                          state.topCoinsList[index].color1,
+                          state.topCoinsList[index].color2,
+                        );
+                },
+              ),
+            ),
+          ],
+        );
+      }
+
       return CircularProgressIndicator();
     });
   }
 }
 
-Widget _cardSlider(BuildContext context, String coin, double rate, double price,
-    String imageUrl) {
- print("========>>>> $coin");
+Widget _cardSlider(BuildContext context, String name, double price,
+    double percent_change24h, String logo, String color1, String color2) {
   return GestureDetector(
-    // onTap: () {
-    //   Navigator.of(context).push(MaterialPageRoute(
-    //       builder: (_) =>
-    //           CoinDetails(coin, rate, price, imageUrl, lcolor, rcolor)));
-    // },
+    onTap: () {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) => CoinDetails(
+              name, price, percent_change24h, logo, color1, color2)));
+    },
     child: Card(
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -161,7 +110,7 @@ Widget _cardSlider(BuildContext context, String coin, double rate, double price,
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              // colors: [Color(lcolor), Color(rcolor)],
+              colors: [HexColor("$color1"), HexColor("$color2")],
             ),
             borderRadius: BorderRadius.circular(15)),
         child: Row(
@@ -171,14 +120,14 @@ Widget _cardSlider(BuildContext context, String coin, double rate, double price,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  coin,
+                  name,
                   style: TextStyle(
                     color: Colors.white60,
                     fontSize: 12,
                   ),
                 ),
                 Text(
-                  "\$$rate",
+                  "\$${price.toStringAsFixed(4)}",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -196,7 +145,7 @@ Widget _cardSlider(BuildContext context, String coin, double rate, double price,
                       width: 6,
                     ),
                     Text(
-                      "\$$price%",
+                      "\$$percent_change24h%",
                       style: TextStyle(
                         color: Colors.white60,
                         fontSize: 12,
@@ -219,15 +168,15 @@ Widget _cardSlider(BuildContext context, String coin, double rate, double price,
                           child: Align(
                             alignment: Alignment.bottomRight,
                             child: Container(
-                              padding: EdgeInsets.all(0.5),
+                              padding: EdgeInsets.all(3),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 color: Colors.white30,
                               ),
                               child: Image(
-                                width: 30,
-                                height: 30,
-                                image: AssetImage("assets/images/$imageUrl"),
+                                width: 25,
+                                height: 25,
+                                image: NetworkImage(logo),
                               ),
                             ),
                           ),
@@ -244,3 +193,26 @@ Widget _cardSlider(BuildContext context, String coin, double rate, double price,
     ),
   );
 }
+
+//  var _formattedMarketCap = NumberFormat.compactCurrency(
+//                     decimalDigits: 2,
+//                   ).format(data[index]['market_cap_usd']);
+//                   var _formattedPriceBTC = double.parse(
+//                       (data[index]['price_btc']).toStringAsFixed(8));
+//                   var _formattedPrice =
+//                       double.parse((data[index]['price']).toStringAsFixed(2));
+//                   return FlatButton(
+//                     onPressed: () {
+//                       print('Coin List Pressed $index');
+//                     },
+//                     child: _cardSlider(
+//                       context,
+//                       data[index]['logo'],
+//                       data[index]['name'],
+//                       data[index]['symbol'],
+//                       _formattedMarketCap,
+//                       data[index]['percent_change24h'],
+//                       _formattedPrice,
+//                       _formattedPriceBTC,
+//                     ),
+//                   );

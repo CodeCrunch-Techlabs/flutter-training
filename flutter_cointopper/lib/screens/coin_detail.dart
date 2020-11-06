@@ -6,13 +6,13 @@ import 'package:sticky_headers/sticky_headers.dart';
 
 class CoinDetails extends StatelessWidget {
   final String name;
-  final double rate;
   final double price;
+  final double percent_change24h;
   final String logo;
-  final int color1;
-  final int color2;
-  CoinDetails(
-      this.name, this.rate, this.price, this.logo, this.color1, this.color2);
+  final String color1;
+  final String color2;
+  CoinDetails(this.name, this.price, this.percent_change24h, this.logo,
+      this.color1, this.color2);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +46,7 @@ class CoinDetails extends StatelessWidget {
                           child: Image(
                             width: 30,
                             height: 30,
-                            image: AssetImage("assets/images/$logo"),
+                            image: NetworkImage(logo),
                           ),
                         ),
                         SizedBox(
@@ -80,9 +80,9 @@ class CoinDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "\$$rate",
+                      "\$$price",
                       style: TextStyle(
-                          fontSize: 40,
+                          fontSize: 30,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
@@ -98,7 +98,7 @@ class CoinDetails extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      "$price%",
+                      "$percent_change24h%",
                       style: TextStyle(
                           fontSize: 14,
                           color: Colors.white60,

@@ -9,17 +9,28 @@ class TopCoins {
   final double price;
   final String symbol;
   final String name;
+  final String color1;
+  final String color2;
+  final double market_cap_usd;
 
   TopCoins(this.percent_change24h, this.logo, this.price_btc, this.price,
-      this.symbol, this.name);
+      this.symbol, this.name, this.color1, this.color2, this.market_cap_usd);
 
   TopCoinsEntity toEntity() {
-    return TopCoinsEntity(
-        percent_change24h, logo, price_btc, price, symbol, name);
+    return TopCoinsEntity(percent_change24h, logo, price_btc, price, symbol,
+        name, color1, color2, market_cap_usd);
   }
 
   static TopCoins fromEntity(TopCoinsEntity entity) {
-    return TopCoins(entity.percent_change24h, entity.logo, entity.price_btc,
-        entity.price, entity.symbol, entity.name);
+    return TopCoins(
+        entity.percent_change24h,
+        entity.logo,
+        entity.price_btc,
+        entity.price,
+        entity.symbol,
+        entity.name,
+        entity.color1,
+        entity.color2,
+        entity.market_cap_usd);
   }
 }

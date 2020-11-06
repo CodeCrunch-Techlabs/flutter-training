@@ -5,9 +5,8 @@ import 'package:bloc/bloc.dart';
 
 import 'top_coin_event.dart';
 import 'top_coin_state.dart';
- 
 
-class TopCoinsBloc extends Bloc<TopCoinsEvent,TopCoinsState> {
+class TopCoinsBloc extends Bloc<TopCoinsEvent, TopCoinsState> {
   final CoinTopperRepository coinRepository;
   StreamSubscription _coinSubscription;
 
@@ -36,8 +35,7 @@ class TopCoinsBloc extends Bloc<TopCoinsEvent,TopCoinsState> {
 
   Stream<TopCoinsState> _mapUpdateTopCoinsListState(
       UpdateTopCoins event) async* {
-    print("11==> ${event.topCoinsList}");
-    yield  TopCoinsLoadSuccess(event.topCoinsList);
+    yield TopCoinsLoadSuccess(event.topCoinsList);
   }
 
   @override
