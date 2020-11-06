@@ -52,7 +52,7 @@ class ApiClient {
 
   Stream<List<CoinList>> fetchAllCoinsList() async* {
     final response = await httpClient
-        .get(Uri.encodeFull('${this.baseUrl + "ticker "}'), headers: {
+        .get(Uri.encodeFull('${this.baseUrl + "ticker"}'), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
     });

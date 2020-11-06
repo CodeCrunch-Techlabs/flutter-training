@@ -79,7 +79,7 @@ class _CoinCardState extends State<CoinCard> {
                           state.topCoinsList[index].logo,
                           state.topCoinsList[index].color1,
                           state.topCoinsList[index].color2,
-                        );
+                          state.topCoinsList[index].symbol);
                 },
               ),
             ),
@@ -92,13 +92,19 @@ class _CoinCardState extends State<CoinCard> {
   }
 }
 
-Widget _cardSlider(BuildContext context, String name, double price,
-    double percent_change24h, String logo, String color1, String color2) {
+Widget _cardSlider(
+    BuildContext context,
+    String name,
+    double price,
+    double percent_change24h,
+    String logo,
+    String color1,
+    String color2,
+    String symbol) {
   return GestureDetector(
     onTap: () {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) => CoinDetails(
-              name, price, percent_change24h, logo, color1, color2)));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => CoinDetails(symbol)));
     },
     child: Card(
       elevation: 3,

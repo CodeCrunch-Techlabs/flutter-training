@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_state.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TopCoin extends StatelessWidget {
   @override
@@ -202,8 +204,11 @@ class TopCoin extends StatelessWidget {
                                           Image(
                                             width: 12,
                                             height: 12,
-                                            image: AssetImage(
-                                                "assets/images/up_arrow_green.png"),
+                                            image: AssetImage(coins
+                                                        .percent_change24h >
+                                                    0
+                                                ? "assets/images/up_arrow_green.png"
+                                                : "assets/images/down_arrow_red.png"),
                                           ),
                                           SizedBox(
                                             width: 5,
@@ -213,7 +218,9 @@ class TopCoin extends StatelessWidget {
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.green[600],
+                                              color: coins.percent_change24h > 0
+                                                  ? Colors.green[600]
+                                                  : HexColor("#a94442"),
                                             ),
                                           ),
                                         ],
@@ -236,12 +243,21 @@ class TopCoin extends StatelessWidget {
                                           SizedBox(
                                             height: 6,
                                           ),
-                                          Text(
-                                            "B ${coins.price_btc.toStringAsFixed(8)}",
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.grey[500],
-                                            ),
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                FontAwesomeIcons.btc,
+                                                color: Colors.grey[500],
+                                                size: 12,
+                                              ),
+                                              Text(
+                                                "${coins.price_btc.toStringAsFixed(8)}",
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.grey[500],
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),

@@ -108,18 +108,18 @@ class _DashboardState extends State<Dashboard> {
                         BlocBuilder<CurrencyBloc, CurrencyState>(
                             builder: (context, state) {
                           if (state is CurrencyListLoadSuccess) {
-                            return DropdownButton(
+                            return DropdownButton( 
                               iconSize: 24,
                               style: TextStyle(color: Colors.white60),
                               items: state.currencyList.map((value) {
                                 return DropdownMenuItem(
                                   value: value.symbol,
-                                  child: Text(' ${value.symbol}'),
+                                  child: Text(' ${value.symbol}',
+                                      style: TextStyle(color: Colors.black)),
                                 );
                               }).toList(),
                               value: dropdownValue,
                               onChanged: (String newValue) {
-                                // print('newvalue=====> $newValue');
                                 setState(() {
                                   dropdownValue = newValue;
                                 });

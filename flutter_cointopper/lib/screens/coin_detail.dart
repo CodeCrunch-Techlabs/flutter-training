@@ -5,14 +5,16 @@ import '../widgets/carousel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class CoinDetails extends StatelessWidget {
-  final String name;
-  final double price;
-  final double percent_change24h;
-  final String logo;
-  final String color1;
-  final String color2;
-  CoinDetails(this.name, this.price, this.percent_change24h, this.logo,
-      this.color1, this.color2);
+  final String symbol;
+  CoinDetails(this.symbol);
+  // final String name;
+  // final double price;
+  // final double percent_change24h;
+  // final String logo;
+  // final String color1;
+  // final String color2;
+  // CoinDetails(this.name, this.price, this.percent_change24h, this.logo,
+  //     this.color1, this.color2);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +24,13 @@ class CoinDetails extends StatelessWidget {
           Container(
             height: 200,
             padding: EdgeInsets.only(top: 30, left: 10, right: 10),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [HexColor("$color1"), HexColor("$color2")],
-              ),
-            ),
+            // decoration: BoxDecoration(
+            //   gradient: LinearGradient(
+            //     begin: Alignment.centerLeft,
+            //     end: Alignment.centerRight,
+            //     // colors: [HexColor("$color1"), HexColor("$color2")],
+            //   ),
+            // ),
             child: Column(
               children: [
                 Row(
@@ -46,14 +48,14 @@ class CoinDetails extends StatelessWidget {
                           child: Image(
                             width: 30,
                             height: 30,
-                            image: NetworkImage(logo),
+                            image: NetworkImage("logo"),
                           ),
                         ),
                         SizedBox(
                           width: 6,
                         ),
                         Text(
-                          name,
+                          "name",
                           style: TextStyle(fontSize: 18, color: Colors.white60),
                         ),
                       ],
@@ -80,7 +82,7 @@ class CoinDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "\$$price",
+                      "\$price",
                       style: TextStyle(
                           fontSize: 30,
                           color: Colors.white,
@@ -98,7 +100,7 @@ class CoinDetails extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      "$percent_change24h%",
+                      "percent_change24h%",
                       style: TextStyle(
                           fontSize: 14,
                           color: Colors.white60,
@@ -130,7 +132,7 @@ class CoinDetails extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "\$$price",
+                                "\$price",
                                 style: TextStyle(
                                     fontSize: 20,
                                     color: Colors.white,
