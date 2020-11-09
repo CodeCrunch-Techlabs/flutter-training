@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_bloc.dart';
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_state.dart';
+import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_bloc.dart';
+import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_state.dart';
 import 'package:flutter_cointopper/bottom_bar.dart';
 import 'package:flutter_cointopper/widgets/coin_list.dart';
 import 'package:flutter_cointopper/widgets/coincard.dart';
@@ -57,20 +59,42 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text("CRYPTO M.CAP",
-                            style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.03,
-                                color: Colors.white60)),
-                        Text("\$207.00 B",
-                            style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.04,
-                                color: Colors.white)),
-                      ],
+                    BlocBuilder<GlobalDataBloc, GlobalDataState>(
+                      builder: (context, state) {
+                        if (state is GlobalDataLoadSuccess) {
+                          var data = state.globalDataList[0].total_market_cap;
+                          print("data ==> $data");
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                "CRYPTO M.CAP",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.03,
+                                    color: Colors.white60),
+                              ),
+                              Text(
+                                (data >= 1000000 && data < (1000000 * 10 * 100))
+                                    ? (data / 1000000).toStringAsFixed(2) + "M"
+                                    : (data / (1000000 * 10 * 100))
+                                            .toStringAsFixed(2) +
+                                        "B",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.04,
+                                    color: Colors.white),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -108,7 +132,7 @@ class _DashboardState extends State<Dashboard> {
                         BlocBuilder<CurrencyBloc, CurrencyState>(
                             builder: (context, state) {
                           if (state is CurrencyListLoadSuccess) {
-                            return DropdownButton( 
+                            return DropdownButton(
                               iconSize: 24,
                               style: TextStyle(color: Colors.white60),
                               items: state.currencyList.map((value) {

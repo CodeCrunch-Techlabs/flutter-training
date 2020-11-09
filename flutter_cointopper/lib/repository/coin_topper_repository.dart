@@ -1,6 +1,7 @@
 import 'package:flutter_cointopper/api/api_client.dart';
 import 'package:flutter_cointopper/model/coin_list_all.dart';
 import 'package:flutter_cointopper/model/currency.dart';
+import 'package:flutter_cointopper/model/global_data.dart';
 import 'package:flutter_cointopper/model/top_coin.dart';
 
 class CoinTopperRepository {
@@ -20,5 +21,9 @@ class CoinTopperRepository {
 
   Stream<List<CoinList>> loadAllCoinsList() async* {
     yield* apiClient.fetchAllCoinsList();
+  }
+
+  Stream<List<GlobalData>> loadGlobalData() async* {
+    yield* apiClient.fetchGlobalData();
   }
 }

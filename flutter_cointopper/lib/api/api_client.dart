@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:flutter_cointopper/entity/coin_list_entity.dart';
 import 'package:flutter_cointopper/entity/currency_entity.dart';
+import 'package:flutter_cointopper/entity/global_data_entity.dart';
 import 'package:flutter_cointopper/entity/top_coin_entity.dart';
 import 'package:flutter_cointopper/model/coin_list_all.dart';
 import 'package:flutter_cointopper/model/currency.dart';
+import 'package:flutter_cointopper/model/global_data.dart';
 import 'package:flutter_cointopper/model/top_coin.dart';
 import 'package:flutter_cointopper/widgets/coin_table.dart';
 import 'package:http/http.dart' as http;
@@ -62,6 +64,37 @@ class ApiClient {
     yield results
         .map((dynamic item) => CoinList.fromEntity(
             CoinListEntity.fromJson(item as Map<String, dynamic>)))
+        .toList();
+  }
+  // Stream<List<GlobalData>> fetchGlobalData() async* {
+  //   final response = await httpClient
+  //       .get(Uri.encodeFull('${this.baseUrl + "globaldata"}'), headers: {
+  //     'Content-type': 'application/json',
+  //     'Accept': 'application/json',
+  //   });
+
+  //   Map<String, dynamic> map = json.decode(response.body);
+  //   List<dynamic> results = map['data'];
+  //   yield results
+  //       .map((dynamic item) => GlobalData.fromEntity(
+  //           GlobalDataEntity.fromJson(item as Map<String, dynamic>)))
+  //       .toList();
+  // }
+
+  Stream<List<GlobalData>> fetchGlobalData() async* {
+    var gData = [];
+    final response = await httpClient
+        .get(Uri.encodeFull('${this.baseUrl + "globaldata"}'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    });
+
+    Map<String, dynamic> map = json.decode(response.body);
+    var result = map['data'];
+    gData.add(result);
+    yield gData
+        .map((dynamic item) => GlobalData.fromEntity(
+            GlobalDataEntity.fromJson(item as Map<String, dynamic>)))
         .toList();
   }
 }
