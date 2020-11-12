@@ -8,14 +8,21 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../widgets/carousel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class CoinDetails extends StatelessWidget {
+class CoinDetails extends StatefulWidget {
   final String symbol;
   CoinDetails(this.symbol);
 
   @override
+  _CoinDetailsState createState() => _CoinDetailsState();
+}
+
+class _CoinDetailsState extends State<CoinDetails> {
+  @override
   Widget build(BuildContext context) {
-    BlocProvider.of<CoinDetailsBloc>(context).add(LoadCoinDetails(symbol));
+    BlocProvider.of<CoinDetailsBloc>(context)
+        .add(LoadCoinDetails(widget.symbol));
     return Scaffold(
       body: BlocBuilder<CoinDetailsBloc, CoinDetailsState>(
           builder: (context, state) {
@@ -245,8 +252,20 @@ class CoinDetails extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: cardsBody(data.volume24h_usd, data.available_supply,
-                    data.market_cap_usd, data.intro, data.youtube),
+                child: cardsBody(
+                    data.volume24h_usd,
+                    data.available_supply,
+                    data.market_cap_usd,
+                    data.intro,
+                    data.youtube,
+                    data.website,
+                    data.explorer,
+                    data.facebook,
+                    data.blog,
+                    data.forum,
+                    data.github,
+                    data.raddit,
+                    data.slack),
               ),
             ],
           );
@@ -288,11 +307,28 @@ Widget _buildTotalCap(String name, double volume) {
 }
 
 Widget cardsBody(
-    double volume, double coin, double cap, String intro, String youtube) {
-  _launchURL() async {
-    const url = 'https://flutter.io';
+    double volume,
+    double coin,
+    double cap,
+    String intro,
+    String youtube,
+    String website,
+    String explorer,
+    String facebook,
+    String blog,
+    String forum,
+    String github,
+    String raddit,
+    String slack) {
+  Future<void> _launched;
+  Future<void> _launchInWebView(String url) async {
     if (await canLaunch(url)) {
-      await launch(url);
+      await launch(
+        url,
+        forceSafariVC: true,
+        forceWebView: true,
+        enableJavaScript: true,
+      );
     } else {
       throw 'Could not launch $url';
     }
@@ -440,115 +476,179 @@ Widget cardsBody(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                child: Image(
-                                  width: 100,
-                                  image:
-                                      AssetImage('assets/images/bitcoin.png'),
-                                  fit: BoxFit.cover,
+                          GestureDetector(
+                            onTap: () {
+                              _launched = _launchInWebView(website);
+                            },
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  child: Image(
+                                    width: 100,
+                                    image:
+                                        AssetImage('assets/images/bitcoin.png'),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              Text("Facebook"),
-                            ],
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text("Website"),
+                              ],
+                            ),
                           ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                child: Image(
-                                  width: 100,
-                                  image:
-                                      AssetImage('assets/images/bitcoin.png'),
-                                  fit: BoxFit.cover,
+                          GestureDetector(
+                            onTap: () {
+                              _launched = _launchInWebView(explorer);
+                            },
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  child: Image(
+                                    width: 100,
+                                    image:
+                                        AssetImage('assets/images/bitcoin.png'),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              Text("Facebook"),
-                            ],
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text("Explorer"),
+                              ],
+                            ),
                           ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                child: Image(
-                                  width: 100,
-                                  image:
-                                      AssetImage('assets/images/bitcoin.png'),
-                                  fit: BoxFit.cover,
+                          GestureDetector(
+                            onTap: () {
+                              _launched = _launchInWebView(facebook);
+                            },
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  child: Image(
+                                    width: 100,
+                                    image:
+                                        AssetImage('assets/images/bitcoin.png'),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              Text("Facebook"),
-                            ],
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text("Facebook"),
+                              ],
+                            ),
                           ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                child: Image(
-                                  width: 100,
-                                  image:
-                                      AssetImage('assets/images/bitcoin.png'),
-                                  fit: BoxFit.cover,
+                          GestureDetector(
+                            onTap: () {
+                              _launched = _launchInWebView(blog);
+                            },
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  child: Image(
+                                    width: 100,
+                                    image:
+                                        AssetImage('assets/images/bitcoin.png'),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              Text("Facebook"),
-                            ],
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text("Blog"),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            child: Image(
-                              width: 100,
-                              image: AssetImage('assets/images/bitcoin.png'),
-                              fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          _launched = _launchInWebView(forum);
+                        },
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              child: Image(
+                                width: 100,
+                                image: AssetImage('assets/images/bitcoin.png'),
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Text("Facebook"),
-                        ],
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text("Forum"),
+                          ],
+                        ),
                       ),
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            child: Image(
-                              width: 100,
-                              image: AssetImage('assets/images/bitcoin.png'),
-                              fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          _launched = _launchInWebView(github);
+                        },
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              child: Image(
+                                width: 100,
+                                image: AssetImage('assets/images/bitcoin.png'),
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Text("Facebook"),
-                        ],
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text("Github"),
+                          ],
+                        ),
                       ),
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            child: Image(
-                              width: 100,
-                              image: AssetImage('assets/images/bitcoin.png'),
-                              fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          _launched = _launchInWebView(raddit);
+                        },
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              child: Image(
+                                width: 100,
+                                image: AssetImage('assets/images/bitcoin.png'),
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Text("Facebook"),
-                        ],
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text("Raddit"),
+                          ],
+                        ),
                       ),
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            child: Image(
-                              width: 100,
-                              image: AssetImage('assets/images/bitcoin.png'),
-                              fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          _launched = _launchInWebView(slack);
+                        },
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              child: Image(
+                                width: 100,
+                                image: AssetImage('assets/images/bitcoin.png'),
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Text("Facebook"),
-                        ],
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text("Slack"),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -570,7 +670,7 @@ Widget cardsBody(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "About",
+                    "Important Articles",
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black54,
