@@ -62,8 +62,7 @@ class _DashboardState extends State<Dashboard> {
                     BlocBuilder<GlobalDataBloc, GlobalDataState>(
                       builder: (context, state) {
                         if (state is GlobalDataLoadSuccess) {
-                          var data = state.globalDataList[0].total_market_cap;
-                          print("data ==> $data");
+                          var data = state.globalDataList[0].total_market_cap; 
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [

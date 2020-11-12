@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
-import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_event.dart';
+import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart'; 
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_state.dart';
 import 'package:flutter_cointopper/screens/coin_detail.dart';
 import 'package:flutter_cointopper/screens/top_coin.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:intl/intl.dart';
+import 'package:hexcolor/hexcolor.dart'; 
 
 class CoinCard extends StatefulWidget {
   @override
@@ -199,26 +197,4 @@ Widget _cardSlider(
     ),
   );
 }
-
-//  var _formattedMarketCap = NumberFormat.compactCurrency(
-//                     decimalDigits: 2,
-//                   ).format(data[index]['market_cap_usd']);
-//                   var _formattedPriceBTC = double.parse(
-//                       (data[index]['price_btc']).toStringAsFixed(8));
-//                   var _formattedPrice =
-//                       double.parse((data[index]['price']).toStringAsFixed(2));
-//                   return FlatButton(
-//                     onPressed: () {
-//                       print('Coin List Pressed $index');
-//                     },
-//                     child: _cardSlider(
-//                       context,
-//                       data[index]['logo'],
-//                       data[index]['name'],
-//                       data[index]['symbol'],
-//                       _formattedMarketCap,
-//                       data[index]['percent_change24h'],
-//                       _formattedPrice,
-//                       _formattedPriceBTC,
-//                     ),
-//                   );
+ 

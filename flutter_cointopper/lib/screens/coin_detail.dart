@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_bloc.dart';
+import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_event.dart';
+import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_state.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../widgets/carousel.dart';
@@ -7,244 +12,255 @@ import 'package:sticky_headers/sticky_headers.dart';
 class CoinDetails extends StatelessWidget {
   final String symbol;
   CoinDetails(this.symbol);
-  // final String name;
-  // final double price;
-  // final double percent_change24h;
-  // final String logo;
-  // final String color1;
-  // final String color2;
-  // CoinDetails(this.name, this.price, this.percent_change24h, this.logo,
-  //     this.color1, this.color2);
+
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<CoinDetailsBloc>(context).add(LoadCoinDetails(symbol));
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 200,
-            padding: EdgeInsets.only(top: 30, left: 10, right: 10),
-            // decoration: BoxDecoration(
-            //   gradient: LinearGradient(
-            //     begin: Alignment.centerLeft,
-            //     end: Alignment.centerRight,
-            //     // colors: [HexColor("$color1"), HexColor("$color2")],
-            //   ),
-            // ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      body: BlocBuilder<CoinDetailsBloc, CoinDetailsState>(
+          builder: (context, state) {
+        if (state is CoinDetailsLoadSuccess) {
+          var data = state.coinDetailsList[0];
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 200,
+                padding: EdgeInsets.only(top: 30, left: 10, right: 10),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [HexColor(data.color1), HexColor(data.color2)],
+                  ),
+                ),
+                child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white30,
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: Colors.white30,
+                              ),
+                              child: Image(
+                                width: 30,
+                                height: 30,
+                                image: NetworkImage(data.logo),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 6,
+                            ),
+                            Text(
+                              data.name,
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.white60),
+                            ),
+                          ],
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white30,
+                            ),
+                            child: Icon(
+                              Icons.close,
+                              color: Colors.white60,
+                            ),
                           ),
-                          child: Image(
-                            width: 30,
-                            height: 30,
-                            image: NetworkImage("logo"),
-                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "\$${data.price}",
+                          style: TextStyle(
+                              fontSize: 26,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
-                          width: 6,
+                          width: 10,
+                        ),
+                        Image(
+                          height: 10,
+                          width: 10,
+                          image: AssetImage("assets/images/up_arrow.png"),
+                        ),
+                        SizedBox(
+                          width: 5,
                         ),
                         Text(
-                          "name",
-                          style: TextStyle(fontSize: 18, color: Colors.white60),
+                          "${data.percent_change24h}%",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white60,
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.white30,
-                        ),
-                        child: Icon(
-                          Icons.close,
+                    Row(
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.btc,
                           color: Colors.white60,
+                          size: 14,
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "\$price",
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                        Text(
+                          "${data.price_btc.toStringAsFixed(8)}",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white60,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                     SizedBox(
-                      width: 10,
-                    ),
-                    Image(
                       height: 10,
-                      width: 10,
-                      image: AssetImage("assets/images/up_arrow.png"),
                     ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "percent_change24h%",
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white60,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "B1.00000000",
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white60,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: Column(
-                        children: [
-                          Row(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Column(
                             children: [
-                              Text(
-                                "\$price",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                              Row(
+                                children: [
+                                  Text(
+                                    "\$${data.high24_usd}",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    "24 HOUR HIGH",
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.white60,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Text(
-                                "24 HOUR HIGH",
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white60,
-                                    fontWeight: FontWeight.bold),
+                              Row(
+                                children: [
+                                  Text(
+                                    "\$${data.low24_usd}",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    "24 HOUR LOW",
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.white60,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          Row(
+                        ),
+                        Container(
+                          // width: MediaQuery.of(context).size.width * 0.4,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                "\$${10537.92}",
-                                style: TextStyle(
-                                    fontSize: 20,
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.12,
+                                decoration: BoxDecoration(
+                                  color: Colors.white24,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.alarm,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                               ),
                               SizedBox(
-                                width: 8,
+                                width: 6,
                               ),
-                              Text(
-                                "24 HOUR LOW",
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white60,
-                                    fontWeight: FontWeight.bold),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.12,
+                                decoration: BoxDecoration(
+                                  color: Colors.white24,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.star_border,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 6,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.12,
+                                decoration: BoxDecoration(
+                                  color: Colors.white24,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.pages,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      // width: MediaQuery.of(context).size.width * 0.4,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.12,
-                            decoration: BoxDecoration(
-                              color: Colors.white24,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.alarm,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 6,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.12,
-                            decoration: BoxDecoration(
-                              color: Colors.white24,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.star_border,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 6,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.12,
-                            decoration: BoxDecoration(
-                              color: Colors.white24,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.pages,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: cardsBody(),
-          ),
-        ],
-      ),
+              ),
+              Expanded(
+                child: cardsBody(data.volume24h_usd, data.available_supply,
+                    data.market_cap_usd, data.intro, data.youtube),
+              ),
+            ],
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      }),
     );
   }
 }
 
-Widget _buildTotalCap(String name, String volume) {
+Widget _buildTotalCap(String name, double volume) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Row(
@@ -258,7 +274,9 @@ Widget _buildTotalCap(String name, String volume) {
           ),
         ),
         Text(
-          volume,
+          (volume >= 1000000 && volume < (1000000 * 10 * 100))
+              ? (volume / 1000000).toStringAsFixed(2) + "M"
+              : (volume / (1000000 * 10 * 100)).toStringAsFixed(2) + "B",
           style: TextStyle(
             fontSize: 16,
             color: Colors.blue[800],
@@ -269,9 +287,19 @@ Widget _buildTotalCap(String name, String volume) {
   );
 }
 
-Widget cardsBody() {
+Widget cardsBody(
+    double volume, double coin, double cap, String intro, String youtube) {
+  _launchURL() async {
+    const url = 'https://flutter.io';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: 'lGjF0waLW90',
+    initialVideoId: '$youtube',
     flags: YoutubePlayerFlags(
       mute: false,
       autoPlay: true,
@@ -296,17 +324,17 @@ Widget cardsBody() {
               ),
               child: Column(
                 children: [
-                  _buildTotalCap("24 Hrs Volume", "\$${38.95} B"),
+                  _buildTotalCap("24 Hrs Volume", volume),
                   Divider(
                     color: Colors.blue[800],
                     thickness: 2,
                   ),
-                  _buildTotalCap("Total Coins", "\$${18.25} B"),
+                  _buildTotalCap("Total Coins", coin),
                   Divider(
                     color: Colors.blue[800],
                     thickness: 2,
                   ),
-                  _buildTotalCap("Market Cap", "\$${166.51} B"),
+                  _buildTotalCap("Market Cap", cap),
                 ],
               ),
             ),
@@ -327,7 +355,7 @@ Widget cardsBody() {
                   Text(
                     "About",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       color: Colors.black54,
                     ),
                   ),
@@ -335,13 +363,13 @@ Widget cardsBody() {
                     height: 10,
                   ),
                   Text(
-                    "Bitcoin uses peer-to-peer technology to operate with no central authority or banks; managing transactions and the issuing of bitcoins is carried out collectively by the network. Bitcoin is open-source; its design is public, nobody owns or controls Bitcoin and everyone can take part.",
+                    intro.replaceAll("<p>", ""),
                     style: TextStyle(
-                      // fontSize: 16,
+                      fontSize: 16,
                       color: Colors.black54,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
+                    overflow: TextOverflow.clip,
+                    maxLines: 4,
                   ),
                   SizedBox(
                     height: 10,

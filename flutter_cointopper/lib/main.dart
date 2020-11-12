@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_bloc.dart';
+import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_event.dart';
 import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_bloc.dart';
 import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_event.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_bloc.dart';
@@ -47,9 +49,14 @@ void main() {
         )..add(LoadCoinList()),
       ),
       BlocProvider<GlobalDataBloc>(
-        create: (BuildContext context) =>  GlobalDataBloc(
+        create: (BuildContext context) => GlobalDataBloc(
           coinRepository: CoinTopperRepository(),
         )..add(LoadGlobalData()),
+      ),
+      BlocProvider<CoinDetailsBloc>(
+        create: (BuildContext context) => CoinDetailsBloc(
+          coinRepository: CoinTopperRepository(),
+        )..add(LoadCoinDetails("")),
       ),
     ],
     child: MyApp(),

@@ -34,8 +34,7 @@ class CurrencyBloc extends Bloc<CurrencyEvent, CurrencyState> {
   }
 
   Stream<CurrencyState> _mapUpdateCurrencyListState(
-      UpdateCurrencyList event) async* {
-    print("11==> ${event.currencyList}");
+      UpdateCurrencyList event) async* { 
     yield CurrencyListLoadSuccess(event.currencyList);
   }
 

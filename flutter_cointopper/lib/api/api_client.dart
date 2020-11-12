@@ -1,13 +1,14 @@
 import 'dart:convert';
+import 'package:flutter_cointopper/entity/coin_details_entity.dart';
 import 'package:flutter_cointopper/entity/coin_list_entity.dart';
 import 'package:flutter_cointopper/entity/currency_entity.dart';
 import 'package:flutter_cointopper/entity/global_data_entity.dart';
 import 'package:flutter_cointopper/entity/top_coin_entity.dart';
+import 'package:flutter_cointopper/model/coin_details_model.dart';
 import 'package:flutter_cointopper/model/coin_list_all.dart';
 import 'package:flutter_cointopper/model/currency.dart';
 import 'package:flutter_cointopper/model/global_data.dart';
 import 'package:flutter_cointopper/model/top_coin.dart';
-import 'package:flutter_cointopper/widgets/coin_table.dart';
 import 'package:http/http.dart' as http;
 
 class ApiClient {
@@ -29,8 +30,6 @@ class ApiClient {
 
     Map<String, dynamic> map = json.decode(response.body);
     List<dynamic> results = map["data"];
-    // print(results);
-
     yield results
         .map((dynamic item) => Currency.fromEntity(
             CurrencyEntity.fromJson(item as Map<String, dynamic>)))
@@ -66,20 +65,6 @@ class ApiClient {
             CoinListEntity.fromJson(item as Map<String, dynamic>)))
         .toList();
   }
-  // Stream<List<GlobalData>> fetchGlobalData() async* {
-  //   final response = await httpClient
-  //       .get(Uri.encodeFull('${this.baseUrl + "globaldata"}'), headers: {
-  //     'Content-type': 'application/json',
-  //     'Accept': 'application/json',
-  //   });
-
-  //   Map<String, dynamic> map = json.decode(response.body);
-  //   List<dynamic> results = map['data'];
-  //   yield results
-  //       .map((dynamic item) => GlobalData.fromEntity(
-  //           GlobalDataEntity.fromJson(item as Map<String, dynamic>)))
-  //       .toList();
-  // }
 
   Stream<List<GlobalData>> fetchGlobalData() async* {
     var gData = [];
@@ -95,6 +80,23 @@ class ApiClient {
     yield gData
         .map((dynamic item) => GlobalData.fromEntity(
             GlobalDataEntity.fromJson(item as Map<String, dynamic>)))
+        .toList();
+  }
+
+  Stream<List<CoinDetailsModel>> fetchCoinDetails(String symbol) async* {
+    final response = await httpClient.get(
+        Uri.encodeFull('${this.baseUrl + "ticker/" + "$symbol"}'),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json'
+        });
+    var convertInArray = [];
+    Map<String, dynamic> map = json.decode(response.body);
+    var result = map['data'];
+    convertInArray.add(result);
+    yield convertInArray
+        .map((dynamic item) => CoinDetailsModel.fromEntity(
+            CoinDetailsEntity.fromJson(item as Map<String, dynamic>)))
         .toList();
   }
 }

@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,7 @@ final List<String> imgList = [
 
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
-          child: Container( 
+          child: Container(
             margin: EdgeInsets.all(5.0),
             child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -71,9 +70,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
   Widget build(BuildContext context) {
     return Column(children: [
       CarouselSlider(
-        items: imageSliders, 
+        items: imageSliders,
         options: CarouselOptions(
-
             autoPlay: true,
             enlargeCenterPage: false,
             viewportFraction: 1,

@@ -26,8 +26,7 @@ class GlobalDataBloc extends Bloc<GlobalDataEvent, GlobalDataState> {
     }
   }
 
-  Stream<GlobalDataState> _mapLoadGlobalDataState() async* {
-    print("bloc enterred");
+  Stream<GlobalDataState> _mapLoadGlobalDataState() async* { 
     _coinSubscription?.cancel();
     _coinSubscription = coinRepository.loadGlobalData().listen(
           (list) => add(UpdateGlobalData(list)),

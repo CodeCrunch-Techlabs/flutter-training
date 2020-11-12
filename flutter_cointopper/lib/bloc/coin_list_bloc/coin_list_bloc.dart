@@ -25,8 +25,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
     }
   }
 
-  Stream<CoinListState> _mapLoadCoinListState() async* {
-    print("bloc enterred");
+  Stream<CoinListState> _mapLoadCoinListState() async* { 
     _coinSubscription?.cancel();
     _coinSubscription = coinRepository.loadAllCoinsList().listen(
           (list) => add(UpdateCoinList(list)),
