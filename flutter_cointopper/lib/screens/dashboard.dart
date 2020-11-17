@@ -4,9 +4,13 @@ import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_bloc.dart';
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_state.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_bloc.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_state.dart';
+import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_bloc.dart';
+import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_state.dart';
 import 'package:flutter_cointopper/bottom_bar.dart';
+import 'package:flutter_cointopper/screens/coin_detail.dart';
 import 'package:flutter_cointopper/widgets/coin_list.dart';
 import 'package:flutter_cointopper/widgets/coincard.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -16,6 +20,8 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   String dropdownValue = 'USD';
   String dValue;
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +68,7 @@ class _DashboardState extends State<Dashboard> {
                     BlocBuilder<GlobalDataBloc, GlobalDataState>(
                       builder: (context, state) {
                         if (state is GlobalDataLoadSuccess) {
-                          var data = state.globalDataList[0].total_market_cap; 
+                          var data = state.globalDataList[0].total_market_cap;
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -105,27 +111,95 @@ class _DashboardState extends State<Dashboard> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: TextField(
-                            style: TextStyle(
-                                fontSize: 18.0, color: Colors.white60),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(12)),
-                              filled: true,
-                              hintText: 'Search',
-                              hintStyle: TextStyle(
-                                color: Colors.white60,
-                                fontSize: 18,
-                              ),
-                              contentPadding: EdgeInsets.only(
-                                left: 14.0,
-                              ),
-                            ),
-                          ),
+                        // Container(
+                        //   height: 40,
+                        //   width: MediaQuery.of(context).size.width * 0.4,
+                        //   child: TextField(
+                        //     style: TextStyle(
+                        //         fontSize: 18.0, color: Colors.white60),
+                        //     decoration: InputDecoration(
+                        //       border: OutlineInputBorder(
+                        //           borderSide: BorderSide.none,
+                        //           borderRadius: BorderRadius.circular(12)),
+                        //       filled: true,
+                        //       hintText: 'Search',
+                        //       hintStyle: TextStyle(
+                        //         color: Colors.white60,
+                        //         fontSize: 18,
+                        //       ),
+                        //       contentPadding: EdgeInsets.only(
+                        //         left: 14.0,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+
+                        BlocBuilder<SearchCoinBloc, SearchCoinState>(
+                          builder: (context, state) {
+                            if (state is SearchCoinLoadSuccess) {
+                              return Container(
+                                height: 40,
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                child: TypeAheadField(
+                                  textFieldConfiguration:
+                                      TextFieldConfiguration(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                      filled: true,
+                                      hintText: 'Search',
+                                      hintStyle: TextStyle(
+                                        color: Colors.white60,
+                                        fontSize: 18,
+                                      ),
+                                      contentPadding: EdgeInsets.only(
+                                        left: 14.0,
+                                      ),
+                                    ),
+                                  ),
+                                  suggestionsCallback: (pattern) async {
+                                    var result = state.searchCoinList.where(
+                                        (coin) => coin.value
+                                            .toLowerCase()
+                                            .contains(pattern.toLowerCase()));
+                                    var mappedData = result
+                                        .map((data) => data.value)
+                                        .toList();
+                                    return mappedData
+                                        .map((coinName) => coinName);
+                                  },
+                                  itemBuilder: (context, suggestion) {
+                                    return ListTile(
+                                      title: GestureDetector(
+                                          child: Text(suggestion)),
+                                    );
+                                  },
+                                  transitionBuilder: (context, suggestionsBox,
+                                          animationController) =>
+                                      FadeTransition(
+                                    child: suggestionsBox,
+                                    opacity: CurvedAnimation(
+                                        parent: animationController,
+                                        curve: Curves.fastOutSlowIn),
+                                  ),
+                                  onSuggestionSelected: (suggestion) {
+                                    this._searchController.text = suggestion;
+                                    var data = state.searchCoinList
+                                        .where((e) => e.value == suggestion);
+                                    var cid = data.map((e) => e.id); 
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (_) => CoinDetails("${cid.single}"),
+                                    ));
+                                  },
+                                ),
+                              );
+                            } else {
+                              return CircularProgressIndicator();
+                            }
+                          },
                         ),
 
                         BlocBuilder<CurrencyBloc, CurrencyState>(

@@ -6,6 +6,8 @@ import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_bloc.dart';
 import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_event.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_bloc.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_event.dart';
+import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_bloc.dart';
+import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_event.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
 import 'package:flutter_cointopper/repository/coin_topper_repository.dart';
 import 'package:flutter_cointopper/screens/dashboard.dart';
@@ -57,6 +59,11 @@ void main() {
         create: (BuildContext context) => CoinDetailsBloc(
           coinRepository: CoinTopperRepository(),
         )..add(LoadCoinDetails("")),
+      ),
+      BlocProvider<SearchCoinBloc>(
+        create: (BuildContext context) => SearchCoinBloc(
+          coinRepository: CoinTopperRepository(),
+        )..add(LoadSearchCoin()),
       ),
     ],
     child: MyApp(),

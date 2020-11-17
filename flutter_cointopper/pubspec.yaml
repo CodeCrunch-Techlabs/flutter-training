@@ -42,8 +42,8 @@ dependencies:
   http: ^0.12.2
   intl: ^0.16.1
   loadmore: ^1.0.4
-  url_launcher: ^5.7.10
-  
+  url_launcher: ^5.7.10 
+  flutter_typeahead: ^1.8.8
    
 
 dev_dependencies:

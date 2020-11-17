@@ -4,10 +4,12 @@ import 'package:flutter_cointopper/entity/coin_list_entity.dart';
 import 'package:flutter_cointopper/entity/currency_entity.dart';
 import 'package:flutter_cointopper/entity/global_data_entity.dart';
 import 'package:flutter_cointopper/entity/top_coin_entity.dart';
+import 'package:flutter_cointopper/entity/search_coin_entity.dart';
 import 'package:flutter_cointopper/model/coin_details_model.dart';
 import 'package:flutter_cointopper/model/coin_list_all.dart';
 import 'package:flutter_cointopper/model/currency.dart';
 import 'package:flutter_cointopper/model/global_data.dart';
+import 'package:flutter_cointopper/model/search_coin_model.dart';
 import 'package:flutter_cointopper/model/top_coin.dart';
 import 'package:http/http.dart' as http;
 
@@ -97,6 +99,21 @@ class ApiClient {
     yield convertInArray
         .map((dynamic item) => CoinDetailsModel.fromEntity(
             CoinDetailsEntity.fromJson(item as Map<String, dynamic>)))
+        .toList();
+  }
+
+  Stream<List<SearchCoinModel>> fetchSearchCoinsList() async* {
+    final response = await httpClient
+        .get(Uri.encodeFull('${this.baseUrl + "search"}'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    });
+
+    Map<String, dynamic> map = json.decode(response.body);
+    List<dynamic> results = map["data"];
+    yield results
+        .map((dynamic item) => SearchCoinModel.fromEntity(
+              SearchCoinEntity.fromJson(item as Map<String, dynamic>)))
         .toList();
   }
 }

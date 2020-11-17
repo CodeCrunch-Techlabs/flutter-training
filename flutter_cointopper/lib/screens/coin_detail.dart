@@ -486,7 +486,7 @@ Widget cardsBody(
                                   child: Image(
                                     width: 100,
                                     image:
-                                        AssetImage('assets/images/bitcoin.png'),
+                                        AssetImage('assets/images/browser.png'),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -507,7 +507,7 @@ Widget cardsBody(
                                   child: Image(
                                     width: 100,
                                     image:
-                                        AssetImage('assets/images/bitcoin.png'),
+                                        AssetImage('assets/images/compass.png'),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -527,8 +527,8 @@ Widget cardsBody(
                                 CircleAvatar(
                                   child: Image(
                                     width: 100,
-                                    image:
-                                        AssetImage('assets/images/bitcoin.png'),
+                                    image: AssetImage(
+                                        'assets/images/facebook.png'),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -546,11 +546,15 @@ Widget cardsBody(
                             child: Column(
                               children: [
                                 CircleAvatar(
-                                  child: Image(
-                                    width: 100,
-                                    image:
-                                        AssetImage('assets/images/bitcoin.png'),
-                                    fit: BoxFit.cover,
+                                  backgroundColor: Colors.orange[900],
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Image(
+                                      width: 100,
+                                      image: AssetImage(
+                                          'assets/images/blogger.png'),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
@@ -577,10 +581,14 @@ Widget cardsBody(
                         child: Column(
                           children: [
                             CircleAvatar(
-                              child: Image(
-                                width: 100,
-                                image: AssetImage('assets/images/bitcoin.png'),
-                                fit: BoxFit.cover,
+                              backgroundColor: Colors.green,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Image(
+                                  width: 100,
+                                  image: AssetImage('assets/images/forum.png'),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -597,9 +605,10 @@ Widget cardsBody(
                         child: Column(
                           children: [
                             CircleAvatar(
+                              backgroundColor: Colors.white,
                               child: Image(
                                 width: 100,
-                                image: AssetImage('assets/images/bitcoin.png'),
+                                image: AssetImage('assets/images/github.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -619,7 +628,7 @@ Widget cardsBody(
                             CircleAvatar(
                               child: Image(
                                 width: 100,
-                                image: AssetImage('assets/images/bitcoin.png'),
+                                image: AssetImage('assets/images/reddit.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -637,10 +646,14 @@ Widget cardsBody(
                         child: Column(
                           children: [
                             CircleAvatar(
-                              child: Image(
-                                width: 100,
-                                image: AssetImage('assets/images/bitcoin.png'),
-                                fit: BoxFit.cover,
+                              backgroundColor: Colors.grey[200],
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Image(
+                                  width: 100,
+                                  image: AssetImage('assets/images/slack.png'),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                             SizedBox(

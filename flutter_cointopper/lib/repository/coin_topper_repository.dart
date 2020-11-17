@@ -3,6 +3,7 @@ import 'package:flutter_cointopper/model/coin_details_model.dart';
 import 'package:flutter_cointopper/model/coin_list_all.dart';
 import 'package:flutter_cointopper/model/currency.dart';
 import 'package:flutter_cointopper/model/global_data.dart';
+import 'package:flutter_cointopper/model/search_coin_model.dart';
 import 'package:flutter_cointopper/model/top_coin.dart';
 
 class CoinTopperRepository {
@@ -30,5 +31,9 @@ class CoinTopperRepository {
 
   Stream<List<CoinDetailsModel>> loadCoinDetailsList(symbol) async* {
     yield* apiClient.fetchCoinDetails(symbol);
+  }
+
+  Stream<List<SearchCoinModel>> loadSearchCoinsList() async* {
+    yield* apiClient.fetchSearchCoinsList();
   }
 }

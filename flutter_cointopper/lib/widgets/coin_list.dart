@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'; 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_state.dart';
 import 'package:flutter_cointopper/screens/coin_detail.dart';
@@ -26,10 +26,10 @@ class _CoinListState extends State<CoinList> {
               builder: (context, state) {
             if (state is TopCoinsLoadSuccess) {
               return DataTable(
-                columnSpacing: 8.0,
-                horizontalMargin: 4.0,
-                dataRowHeight: MediaQuery.of(context).size.height * 0.08,
-                headingRowHeight: 30,
+                // columnSpacing: 8.0,
+                // horizontalMargin: 4.0,
+                dataRowHeight: MediaQuery.of(context).size.height * 0.08, 
+                headingRowHeight:  MediaQuery.of(context).size.height * 0.06,
                 sortColumnIndex: _sortColumnIndex,
                 sortAscending: isSort,
                 columns: [
