@@ -27,6 +27,7 @@ class CoinDetailsModel {
   final String paper;
   final String youtube;
   final double available_supply;
+  final List<dynamic> guides;
 
   CoinDetailsModel(
       this.percent_change24h,
@@ -52,7 +53,8 @@ class CoinDetailsModel {
       this.slack,
       this.paper,
       this.youtube,
-      this.available_supply);
+      this.available_supply,
+      this.guides);
 
   CoinDetailsEntity toEntity() {
     return CoinDetailsEntity(
@@ -79,7 +81,8 @@ class CoinDetailsModel {
         slack,
         paper,
         youtube,
-        available_supply);
+        available_supply,
+        guides);
   }
 
   static CoinDetailsModel fromEntity(CoinDetailsEntity entity) {
@@ -107,6 +110,7 @@ class CoinDetailsModel {
         entity.slack,
         entity.paper,
         entity.youtube,
-        entity.available_supply);
+        entity.available_supply,
+        entity.guides);
   }
 }

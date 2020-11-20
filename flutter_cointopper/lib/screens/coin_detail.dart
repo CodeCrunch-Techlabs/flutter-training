@@ -28,6 +28,8 @@ class _CoinDetailsState extends State<CoinDetails> {
           builder: (context, state) {
         if (state is CoinDetailsLoadSuccess) {
           var data = state.coinDetailsList[0];
+          final title = data.guides;
+          print("Data====>$title");
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -253,19 +255,21 @@ class _CoinDetailsState extends State<CoinDetails> {
               ),
               Expanded(
                 child: cardsBody(
-                    data.volume24h_usd,
-                    data.available_supply,
-                    data.market_cap_usd,
-                    data.intro,
-                    data.youtube,
-                    data.website,
-                    data.explorer,
-                    data.facebook,
-                    data.blog,
-                    data.forum,
-                    data.github,
-                    data.raddit,
-                    data.slack),
+                  data.volume24h_usd,
+                  data.available_supply,
+                  data.market_cap_usd,
+                  data.intro,
+                  data.youtube,
+                  data.website,
+                  data.explorer,
+                  data.facebook,
+                  data.blog,
+                  data.forum,
+                  data.github,
+                  data.raddit,
+                  data.slack,
+                  title,
+                ),
               ),
             ],
           );
@@ -307,19 +311,21 @@ Widget _buildTotalCap(String name, double volume) {
 }
 
 Widget cardsBody(
-    double volume,
-    double coin,
-    double cap,
-    String intro,
-    String youtube,
-    String website,
-    String explorer,
-    String facebook,
-    String blog,
-    String forum,
-    String github,
-    String raddit,
-    String slack) {
+  double volume,
+  double coin,
+  double cap,
+  String intro,
+  String youtube,
+  String website,
+  String explorer,
+  String facebook,
+  String blog,
+  String forum,
+  String github,
+  String raddit,
+  String slack,
+  final title,
+) {
   Future<void> _launched;
   Future<void> _launchInWebView(String url) async {
     if (await canLaunch(url)) {
@@ -692,7 +698,7 @@ Widget cardsBody(
                   SizedBox(
                     height: 10,
                   ),
-                  CarouselWithIndicatorDemo(),
+                  title != null ? CoinCardSlider(title) : Container(),
                 ],
               ),
             ),

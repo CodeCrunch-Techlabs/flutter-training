@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_bloc.dart';
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_state.dart';
@@ -111,29 +112,6 @@ class _DashboardState extends State<Dashboard> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Container(
-                        //   height: 40,
-                        //   width: MediaQuery.of(context).size.width * 0.4,
-                        //   child: TextField(
-                        //     style: TextStyle(
-                        //         fontSize: 18.0, color: Colors.white60),
-                        //     decoration: InputDecoration(
-                        //       border: OutlineInputBorder(
-                        //           borderSide: BorderSide.none,
-                        //           borderRadius: BorderRadius.circular(12)),
-                        //       filled: true,
-                        //       hintText: 'Search',
-                        //       hintStyle: TextStyle(
-                        //         color: Colors.white60,
-                        //         fontSize: 18,
-                        //       ),
-                        //       contentPadding: EdgeInsets.only(
-                        //         left: 14.0,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-
                         BlocBuilder<SearchCoinBloc, SearchCoinState>(
                           builder: (context, state) {
                             if (state is SearchCoinLoadSuccess) {
@@ -143,6 +121,7 @@ class _DashboardState extends State<Dashboard> {
                                 child: TypeAheadField(
                                   textFieldConfiguration:
                                       TextFieldConfiguration(
+                                    autofocus: true,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide.none,
@@ -167,8 +146,11 @@ class _DashboardState extends State<Dashboard> {
                                     var mappedData = result
                                         .map((data) => data.value)
                                         .toList();
-                                    return mappedData
-                                        .map((coinName) => coinName);
+                                    if (pattern.length > 0) {
+                                      return mappedData
+                                          .map((coinName) => coinName);
+                                    }
+                                    return null;
                                   },
                                   itemBuilder: (context, suggestion) {
                                     return ListTile(
@@ -188,10 +170,11 @@ class _DashboardState extends State<Dashboard> {
                                     this._searchController.text = suggestion;
                                     var data = state.searchCoinList
                                         .where((e) => e.value == suggestion);
-                                    var cid = data.map((e) => e.id); 
+                                    var cid = data.map((e) => e.id);
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(
-                                      builder: (_) => CoinDetails("${cid.single}"),
+                                      builder: (_) =>
+                                          CoinDetails("${cid.single}"),
                                     ));
                                   },
                                 ),
@@ -205,22 +188,38 @@ class _DashboardState extends State<Dashboard> {
                         BlocBuilder<CurrencyBloc, CurrencyState>(
                             builder: (context, state) {
                           if (state is CurrencyListLoadSuccess) {
-                            return DropdownButton(
-                              iconSize: 24,
-                              style: TextStyle(color: Colors.white60),
-                              items: state.currencyList.map((value) {
-                                return DropdownMenuItem(
-                                  value: value.symbol,
-                                  child: Text(' ${value.symbol}',
-                                      style: TextStyle(color: Colors.black)),
-                                );
-                              }).toList(),
-                              value: dropdownValue,
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  dropdownValue = newValue;
-                                });
-                              },
+                            return Container(
+                              height: 40,
+                              padding: EdgeInsets.all(13),
+                              decoration: BoxDecoration(
+                                color: Color(0xFF00e00),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: new DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.white60,
+                                    size: 24,
+                                  ),
+                                  iconSize: 24,
+                                  style: TextStyle(color: Colors.white60),
+                                  items: state.currencyList.map((value) {
+                                    return DropdownMenuItem(
+                                      value: value.symbol,
+                                      child: Text(' ${value.symbol}',
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                    );
+                                  }).toList(),
+                                  value: dropdownValue,
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      dropdownValue = newValue;
+                                    });
+                                  },
+                                ),
+                              ),
                             );
                           } else {
                             return CircularProgressIndicator();

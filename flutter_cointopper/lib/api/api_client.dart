@@ -95,7 +95,7 @@ class ApiClient {
     var convertInArray = [];
     Map<String, dynamic> map = json.decode(response.body);
     var result = map['data'];
-    convertInArray.add(result);
+    convertInArray.add(result);  
     yield convertInArray
         .map((dynamic item) => CoinDetailsModel.fromEntity(
             CoinDetailsEntity.fromJson(item as Map<String, dynamic>)))
