@@ -286,8 +286,7 @@ class _DashboardState extends State<Dashboard> {
             child: CoinList(),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomNavigation(),
+      ), 
     );
   }
 }

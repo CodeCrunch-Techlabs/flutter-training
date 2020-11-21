@@ -78,8 +78,7 @@ class _CoinCardSliderState extends State<CoinCardSlider> {
                                           MainAxisAlignment.start,
                                       children: [
                                         Text(
-                                          data.title,
-                                          textAlign: TextAlign.center,
+                                          data.title, 
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 14.0,

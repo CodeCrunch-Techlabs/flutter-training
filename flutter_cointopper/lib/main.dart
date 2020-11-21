@@ -10,11 +10,10 @@ import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_bloc.dart';
 import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_event.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
 import 'package:flutter_cointopper/repository/coin_topper_repository.dart';
-import 'package:flutter_cointopper/screens/dashboard.dart';
-
 import 'bloc/currency_bloc/dashboard_bloc.dart';
 import 'bloc/currency_bloc/dashboard_event.dart';
 import 'bloc/top_coin_bloc/top_coin_event.dart';
+import 'bottom_bar.dart';
 
 void main() {
   runApp(
@@ -80,7 +79,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Dashboard(),
+      home: BottomNavigation(),
     );
   }
 }
