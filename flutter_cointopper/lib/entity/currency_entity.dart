@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class CurrencyEntity extends Equatable {
-  final double id;
+  final dynamic id;
   final String name;
   final String code;
   final String symbol;
   final String format;
   final String exchange_rate;
-  final double active;
+  final dynamic active;
 
   CurrencyEntity(this.id, this.name, this.code, this.symbol, this.format,
       this.exchange_rate, this.active);
@@ -37,12 +37,12 @@ class CurrencyEntity extends Equatable {
 
   static CurrencyEntity fromJson(Map<String, Object> json) {
     return CurrencyEntity(
-        json['id'] as double,
+        json['id'] as dynamic,
         json['name'] as String,
         json['code'] as String,
         json['symbol'] as String,
         json['format'] as String,
         json['exchange_rate'] as String,
-        json['active'] as double);
+        json['active'] as dynamic);
   }
 }

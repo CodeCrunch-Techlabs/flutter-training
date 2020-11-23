@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart'; 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_bloc.dart';
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_state.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_bloc.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_state.dart';
 import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_bloc.dart';
-import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_state.dart';
-import 'package:flutter_cointopper/bottom_bar.dart';
+import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_state.dart'; 
 import 'package:flutter_cointopper/screens/coin_detail.dart';
 import 'package:flutter_cointopper/widgets/coin_list.dart';
 import 'package:flutter_cointopper/widgets/coincard.dart';
@@ -121,7 +119,7 @@ class _DashboardState extends State<Dashboard> {
                                 child: TypeAheadField(
                                   textFieldConfiguration:
                                       TextFieldConfiguration(
-                                    autofocus: true,
+                                    autofocus: false,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide.none,

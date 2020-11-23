@@ -3,9 +3,9 @@ import 'package:meta/meta.dart';
 
 @immutable
 class GlobalData {
-  final double total_coins;
-  final double total_volume;
-  final double total_market_cap;
+  final dynamic total_coins;
+  final dynamic total_volume;
+  final dynamic total_market_cap;
 
   GlobalData(
     this.total_coins,

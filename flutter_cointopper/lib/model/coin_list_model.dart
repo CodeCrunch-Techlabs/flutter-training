@@ -1,8 +1,8 @@
 class CoinListModel {
-  final double percent_change24h;
+  final dynamic percent_change24h;
   final String logo;
-  final double price_btc;
-  final double price;
+  final dynamic price_btc;
+  final dynamic price;
   final String symbol;
   final String name;
 

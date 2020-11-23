@@ -5,7 +5,19 @@ import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_state.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class TopCoin extends StatelessWidget {
+import 'coin_detail.dart';
+
+class TopCoin extends StatefulWidget {
+  @override
+  _TopCoinState createState() => _TopCoinState();
+}
+
+class _TopCoinState extends State<TopCoin> {
+  bool isSort = true;
+  bool isSortChange = true;
+  bool isSortPrice = true;
+  var _sortColumnIndex;
+  var loadData = 20;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,9 +89,10 @@ class TopCoin extends StatelessWidget {
                         horizontalMargin: 4.0,
                         dataRowHeight:
                             MediaQuery.of(context).size.height * 0.08,
-                        sortAscending: true,
-                        sortColumnIndex: 0,
-                        headingRowHeight: 30,
+                        headingRowHeight:
+                            MediaQuery.of(context).size.height * 0.06,
+                        sortColumnIndex: _sortColumnIndex,
+                        sortAscending: isSort,
                         columns: [
                           DataColumn(
                             label: Container(
@@ -94,6 +107,24 @@ class TopCoin extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            onSort: (i, b) {
+                              setState(() {
+                                if (i == 0) {
+                                  _sortColumnIndex = i;
+                                  if (isSort) {
+                                    state.topCoinsList.sort(
+                                        (a, b) => b.name.compareTo(a.name));
+                                    isSort = false;
+                                  } else {
+                                    state.topCoinsList.sort(
+                                        (a, b) => a.name.compareTo(b.name));
+                                    isSort = true;
+                                  }
+                                }
+                              });
+                            },
+                            numeric: false,
+                            tooltip: "M.CAP",
                           ),
                           DataColumn(
                             label: Text(
@@ -105,6 +136,26 @@ class TopCoin extends StatelessWidget {
                                 color: Color(0xFF005580),
                               ),
                             ),
+                            onSort: (i, b) {
+                              setState(() {
+                                if (i == 1) {
+                                  _sortColumnIndex = i;
+                                  if (isSortChange) {
+                                    state.topCoinsList.sort((a, b) => b
+                                        .percent_change24h
+                                        .compareTo(a.percent_change24h));
+                                    isSortChange = false;
+                                  } else {
+                                    state.topCoinsList.sort((a, b) => a
+                                        .percent_change24h
+                                        .compareTo(b.percent_change24h));
+                                    isSortChange = true;
+                                  }
+                                }
+                              });
+                            },
+                            numeric: false,
+                            tooltip: "CHANGE",
                           ),
                           DataColumn(
                             label: Text(
@@ -116,6 +167,24 @@ class TopCoin extends StatelessWidget {
                                 color: Color(0xFF005580),
                               ),
                             ),
+                            onSort: (i, b) {
+                              setState(() {
+                                if (i == 2) {
+                                  _sortColumnIndex = i;
+                                  if (isSortPrice) {
+                                    state.topCoinsList.sort(
+                                        (a, b) => b.price.compareTo(a.price));
+                                    isSortPrice = false;
+                                  } else {
+                                    state.topCoinsList.sort(
+                                        (a, b) => a.price.compareTo(b.price));
+                                    isSortPrice = true;
+                                  }
+                                }
+                              });
+                            },
+                            numeric: false,
+                            tooltip: "PRICE",
                           ),
                         ],
                         rows: state.topCoinsList.length != 0
@@ -124,11 +193,13 @@ class TopCoin extends StatelessWidget {
                                   (coins) => DataRow(cells: [
                                     DataCell(
                                       GestureDetector(
-                                        // onTap: () {
-                                        //   Navigator.of(context).push(MaterialPageRoute(
-                                        //     builder: (_) => CoinDetails(),
-                                        //   ));
-                                        // },
+                                        onTap: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (_) =>
+                                                CoinDetails(coins.symbol),
+                                          ));
+                                        },
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
@@ -268,7 +339,7 @@ class TopCoin extends StatelessWidget {
                             : "Not an arry",
                       );
                     }
-                    return CircularProgressIndicator();
+                    return Center(child: CircularProgressIndicator());
                   })),
             ),
           ),

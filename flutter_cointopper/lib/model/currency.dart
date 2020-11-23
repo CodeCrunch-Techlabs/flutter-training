@@ -3,13 +3,13 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Currency {
-  final double id;
+  final dynamic id;
   final String name;
   final String code;
   final String symbol;
   final String format;
   final String exchange_rate;
-  final double active;
+  final dynamic active;
 
   Currency(this.id, this.name, this.code, this.symbol, this.format, this.exchange_rate,
   this.active);

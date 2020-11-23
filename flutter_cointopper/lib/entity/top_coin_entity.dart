@@ -1,15 +1,15 @@
 import 'package:equatable/equatable.dart';
 
 class TopCoinsEntity extends Equatable {
-  final double percent_change24h;
+  final dynamic percent_change24h;
   final String logo;
-  final double price_btc;
-  final double price;
+  final dynamic price_btc;
+  final dynamic price;
   final String symbol;
   final String name;
   final String color1;
   final String color2;
-  final double market_cap_usd;
+  final dynamic market_cap_usd;
 
   TopCoinsEntity(this.percent_change24h, this.logo, this.price_btc, this.price,
       this.symbol, this.name, this.color1, this.color2, this.market_cap_usd);
@@ -43,15 +43,15 @@ class TopCoinsEntity extends Equatable {
 
   static TopCoinsEntity fromJson(Map<String, Object> json) {
     return TopCoinsEntity(
-      json['percent_change24h'] as double,
+      json['percent_change24h'] as dynamic,
       json['logo'] as String,
-      json['price_btc'] as double,
-      json['price'] as double,
+      json['price_btc'] as dynamic,
+      json['price'] as dynamic,
       json['symbol'] as String,
       json['name'] as String,
       json['color1'] as String,
       json['color2'] as String,
-      json['market_cap_usd'] as double,
+      json['market_cap_usd'] as dynamic,
     );
   }
 }

@@ -26,8 +26,8 @@ class _CoinListState extends State<CoinList> {
               builder: (context, state) {
             if (state is TopCoinsLoadSuccess) {
               return DataTable(
-                // columnSpacing: 8.0,
-                // horizontalMargin: 4.0,
+                columnSpacing: 8.0,
+                horizontalMargin: 4.0,
                 dataRowHeight: MediaQuery.of(context).size.height * 0.08, 
                 headingRowHeight:  MediaQuery.of(context).size.height * 0.06,
                 sortColumnIndex: _sortColumnIndex,
@@ -263,3 +263,5 @@ class _CoinListState extends State<CoinList> {
     );
   }
 }
+// https://medium.com/@jun.chenying/flutter-tutorial-part-5-listview-pagination-scroll-up-to-load-more-ed132f6a06be
+// https://medium.com/@jun.chenying/flutter-tutorial-part-5-listview-pagination-scroll-up-to-load-more-ed132f6a06be

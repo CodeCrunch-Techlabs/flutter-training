@@ -3,15 +3,15 @@ import 'package:meta/meta.dart';
 
 @immutable
 class CoinList {
-  final double percent_change24h;
+  final dynamic percent_change24h;
   final String logo;
-  final double price_btc;
-  final double price;
+  final dynamic price_btc;
+  final dynamic price;
   final String symbol;
   final String name;
   final String color1;
   final String color2;
-  final double market_cap_usd;
+  final dynamic market_cap_usd;
 
   CoinList(this.percent_change24h, this.logo, this.price_btc, this.price,
       this.symbol, this.name, this.color1, this.color2, this.market_cap_usd);
