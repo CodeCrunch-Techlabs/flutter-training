@@ -10,6 +10,8 @@ import '../widgets/carousel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:carousel_slider/carousel_slider.dart';
+
 class CoinDetails extends StatefulWidget {
   final String symbol;
   CoinDetails(this.symbol);
@@ -29,7 +31,6 @@ class _CoinDetailsState extends State<CoinDetails> {
         if (state is CoinDetailsLoadSuccess) {
           var data = state.coinDetailsList[0];
           final title = data.guides;
-          print("Data====>$title");
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -255,6 +256,7 @@ class _CoinDetailsState extends State<CoinDetails> {
               ),
               Expanded(
                 child: cardsBody(
+                  context,
                   data.volume24h_usd,
                   data.available_supply,
                   data.market_cap_usd,
@@ -311,6 +313,7 @@ Widget _buildTotalCap(String name, double volume) {
 }
 
 Widget cardsBody(
+  BuildContext context,
   double volume,
   double coin,
   double cap,
@@ -340,15 +343,81 @@ Widget cardsBody(
     }
   }
 
+  Widget carousel = title == null
+      ? Container(
+          child: Center(
+            child: Text(
+              "No Data Available",
+              style: TextStyle(color: Colors.blue),
+            ),
+          ),
+        )
+      : CarouselSlider(
+          options: CarouselOptions(
+            height: 300,
+            autoPlay: true,
+            viewportFraction: 1,
+            aspectRatio: 1.5,
+            enlargeCenterPage: true,
+          ),
+          items: title.map<Widget>((data) {
+            return new Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: new BoxDecoration(),
+                child: Container(
+                  child: Container(
+                    margin: EdgeInsets.all(5.0),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        child: Stack(
+                          children: <Widget>[
+                            Image.network(
+                              data.photo,
+                              height: double.infinity,
+                              width: double.infinity,
+                              fit: BoxFit.fill,
+                            ),
+                            Positioned(
+                              bottom: 0.0,
+                              left: 0.0,
+                              right: 0.0,
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color.fromARGB(200, 0, 0, 0),
+                                        Color.fromARGB(0, 0, 0, 0)
+                                      ],
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment.topCenter,
+                                    ),
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 20.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        data.title,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                          ],
+                        )),
+                  ),
+                ));
+          }).toList(),
+        );
+
   YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: '$youtube',
+    initialVideoId: youtube,
     flags: YoutubePlayerFlags(
-      mute: false,
-      autoPlay: true,
-      disableDragSeek: false,
-      loop: false,
-      isLive: false,
-      forceHD: false,
       enableCaption: true,
     ),
   );
@@ -416,35 +485,37 @@ Widget cardsBody(
                   SizedBox(
                     height: 10,
                   ),
-                  YoutubePlayer(
-                    controller: _controller,
-                    onReady: () {
-                      _controller.play();
-                    },
-                    showVideoProgressIndicator: true,
-                    topActions: <Widget>[
-                      SizedBox(width: 0.0),
-                      Expanded(
-                        child: Text(
-                          _controller.metadata.title,
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 12.0,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
-                          size: 25.0,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
+                  youtube.length != 0
+                      ? YoutubePlayer(
+                          controller: _controller,
+                          onReady: () {
+                            _controller.play();
+                          },
+                          showVideoProgressIndicator: true,
+                          topActions: <Widget>[
+                            SizedBox(width: 0.0),
+                            Expanded(
+                              child: Text(
+                                _controller.metadata.title,
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 12.0,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.play_arrow,
+                                color: Colors.white,
+                                size: 25.0,
+                              ),
+                              onPressed: () {},
+                            ),
+                          ],
+                        )
+                      : Container(),
                 ],
               ),
             ),
@@ -698,7 +769,14 @@ Widget cardsBody(
                   SizedBox(
                     height: 10,
                   ),
-                  title != null ? CoinCardSlider(title) : Container(),
+                  title != null
+                      ? Container(
+                          color: Colors.grey[100],
+                          child: Column(
+                            children: <Widget>[carousel],
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
             ),

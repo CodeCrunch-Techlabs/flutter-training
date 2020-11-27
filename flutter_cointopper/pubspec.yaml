@@ -44,6 +44,8 @@ dependencies:
   loadmore: ^1.0.4
   url_launcher: ^5.7.10 
   flutter_typeahead: ^1.8.8
+  autocomplete_textfield: ^1.6.4
+  incrementally_loading_listview: ^0.3.0
    
 
 dev_dependencies:

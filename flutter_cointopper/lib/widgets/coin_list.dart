@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_bloc.dart';
+import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_state.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_state.dart';
 import 'package:flutter_cointopper/screens/coin_detail.dart';
@@ -16,20 +18,27 @@ class _CoinListState extends State<CoinList> {
   bool isSortChange = true;
   bool isSortPrice = true;
   var _sortColumnIndex;
+
+  int _maxItems = 30;
+  int _numItemsPage = 1;
+  bool _loadingMore;
+  bool _hasMoreItems;
+
+  
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
           padding: EdgeInsets.only(),
           width: MediaQuery.of(context).size.width,
-          child: BlocBuilder<TopCoinsBloc, TopCoinsState>(
+          child: BlocBuilder<CoinListBloc, CoinListState>(
               builder: (context, state) {
-            if (state is TopCoinsLoadSuccess) {
+            if (state is CoinListLoadSuccess) {
               return DataTable(
                 columnSpacing: 8.0,
                 horizontalMargin: 4.0,
-                dataRowHeight: MediaQuery.of(context).size.height * 0.08, 
-                headingRowHeight:  MediaQuery.of(context).size.height * 0.06,
+                dataRowHeight: MediaQuery.of(context).size.height * 0.08,
+                headingRowHeight: MediaQuery.of(context).size.height * 0.06,
                 sortColumnIndex: _sortColumnIndex,
                 sortAscending: isSort,
                 columns: [
@@ -50,11 +59,11 @@ class _CoinListState extends State<CoinList> {
                         if (i == 0) {
                           _sortColumnIndex = i;
                           if (isSort) {
-                            state.topCoinsList
+                            state.coinListList
                                 .sort((a, b) => b.name.compareTo(a.name));
                             isSort = false;
                           } else {
-                            state.topCoinsList
+                            state.coinListList
                                 .sort((a, b) => a.name.compareTo(b.name));
                             isSort = true;
                           }
@@ -78,12 +87,12 @@ class _CoinListState extends State<CoinList> {
                         if (i == 1) {
                           _sortColumnIndex = i;
                           if (isSortChange) {
-                            state.topCoinsList.sort((a, b) => b
+                            state.coinListList.sort((a, b) => b
                                 .percent_change24h
                                 .compareTo(a.percent_change24h));
                             isSortChange = false;
                           } else {
-                            state.topCoinsList.sort((a, b) => a
+                            state.coinListList.sort((a, b) => a
                                 .percent_change24h
                                 .compareTo(b.percent_change24h));
                             isSortChange = true;
@@ -108,11 +117,11 @@ class _CoinListState extends State<CoinList> {
                         if (i == 2) {
                           _sortColumnIndex = i;
                           if (isSortPrice) {
-                            state.topCoinsList
+                            state.coinListList
                                 .sort((a, b) => b.price.compareTo(a.price));
                             isSortPrice = false;
                           } else {
-                            state.topCoinsList
+                            state.coinListList
                                 .sort((a, b) => a.price.compareTo(b.price));
                             isSortPrice = true;
                           }
@@ -123,8 +132,8 @@ class _CoinListState extends State<CoinList> {
                     tooltip: "PRICE",
                   ),
                 ],
-                rows: state.topCoinsList.length != 0
-                    ? state.topCoinsList
+                rows: state.coinListList.length != 0
+                    ? state.coinListList
                         .map(
                           (coins) => DataRow(cells: [
                             DataCell(
@@ -263,5 +272,4 @@ class _CoinListState extends State<CoinList> {
     );
   }
 }
-// https://medium.com/@jun.chenying/flutter-tutorial-part-5-listview-pagination-scroll-up-to-load-more-ed132f6a06be
 // https://medium.com/@jun.chenying/flutter-tutorial-part-5-listview-pagination-scroll-up-to-load-more-ed132f6a06be
