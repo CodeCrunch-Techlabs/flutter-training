@@ -94,7 +94,7 @@ Widget _cardSlider(
     BuildContext context,
     String name,
     double price,
-    double percent_change24h,
+    double percentChange24h,
     String logo,
     String color1,
     String color2,
@@ -149,7 +149,7 @@ Widget _cardSlider(
                       width: 6,
                     ),
                     Text(
-                      "\$$percent_change24h%",
+                      "\$$percentChange24h%",
                       style: TextStyle(
                         color: Colors.white60,
                         fontSize: 12,

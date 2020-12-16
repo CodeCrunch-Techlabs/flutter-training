@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_bloc.dart';
+import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_state.dart';
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_bloc.dart';
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_state.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_bloc.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_state.dart';
-// import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_bloc.dart';
-// import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_state.dart';
-// import 'package:flutter_cointopper/screens/coin_detail.dart';
 import 'package:flutter_cointopper/screens/search_screen.dart';
 import 'package:flutter_cointopper/widgets/coin_list.dart';
-import 'package:flutter_cointopper/widgets/coincard.dart';
-// import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:flutter_cointopper/widgets/coincard.dart'; 
 
 class Dashboard extends StatefulWidget {
   @override
@@ -20,7 +18,6 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   String dropdownValue = 'USD';
   String dValue;
-  // final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -133,80 +130,7 @@ class _DashboardState extends State<Dashboard> {
                                   fontSize: 18,
                                 ),
                               )),
-                        ), 
-                        // BlocBuilder<SearchCoinBloc, SearchCoinState>(
-                        //   builder: (context, state) {
-                        //     if (state is SearchCoinLoadSuccess) {
-                        //       return Container(
-                        //         height: 40,
-                        //         width: MediaQuery.of(context).size.width * 0.4,
-                        //         child: TypeAheadField(
-                        //           textFieldConfiguration:
-                        //               TextFieldConfiguration(
-                        //             autofocus: false,
-                        //             decoration: InputDecoration(
-                        //               border: OutlineInputBorder(
-                        //                   borderSide: BorderSide.none,
-                        //                   borderRadius:
-                        //                       BorderRadius.circular(12)),
-                        //               filled: true,
-                        //               hintText: 'Search',
-                        //               hintStyle: TextStyle(
-                        //                 color: Colors.white60,
-                        //                 fontSize: 18,
-                        //               ),
-                        //               contentPadding: EdgeInsets.only(
-                        //                 left: 14.0,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //           suggestionsCallback: (pattern) async {
-                        //             var result = state.searchCoinList.where(
-                        //                 (coin) => coin.value
-                        //                     .toLowerCase()
-                        //                     .contains(pattern.toLowerCase()));
-                        //             var mappedData = result
-                        //                 .map((data) => data.value)
-                        //                 .toList();
-                        //             if (pattern.length > 0) {
-                        //               return mappedData
-                        //                   .map((coinName) => coinName);
-                        //             }
-                        //             return null;
-                        //           },
-                        //           itemBuilder: (context, suggestion) {
-                        //             return ListTile(
-                        //               title: GestureDetector(
-                        //                   child: Text(suggestion)),
-                        //             );
-                        //           },
-                        //           transitionBuilder: (context, suggestionsBox,
-                        //                   animationController) =>
-                        //               FadeTransition(
-                        //             child: suggestionsBox,
-                        //             opacity: CurvedAnimation(
-                        //                 parent: animationController,
-                        //                 curve: Curves.fastOutSlowIn),
-                        //           ),
-                        //           onSuggestionSelected: (suggestion) {
-                        //             this._searchController.text = suggestion;
-                        //             var data = state.searchCoinList
-                        //                 .where((e) => e.value == suggestion);
-                        //             var cid = data.map((e) => e.id);
-                        //             Navigator.of(context)
-                        //                 .push(MaterialPageRoute(
-                        //               builder: (_) =>
-                        //                   CoinDetails("${cid.single}"),
-                        //             ));
-                        //           },
-                        //         ),
-                        //       );
-                        //     } else {
-                        //       return CircularProgressIndicator();
-                        //     }
-                        //   },
-                        // ),
-
+                        ),
                         BlocBuilder<CurrencyBloc, CurrencyState>(
                             builder: (context, state) {
                           if (state is CurrencyListLoadSuccess) {
@@ -247,20 +171,6 @@ class _DashboardState extends State<Dashboard> {
                             return CircularProgressIndicator();
                           }
                         }),
-
-                        // Container(
-                        //   height: 40,
-                        //   width: MediaQuery.of(context).size.width * 0.2,
-                        //   padding: EdgeInsets.all(13),
-                        //   decoration: BoxDecoration(
-                        //     color: Color(0xFF00e00),
-                        //     borderRadius: BorderRadius.circular(12),
-                        //   ),
-                        //   child: Text(
-                        //     'USD',
-                        //     style: TextStyle(fontSize: 16, color: Colors.white),
-                        //   ),
-                        // ),
                         Container(
                           height: 40,
                           width: MediaQuery.of(context).size.width * 0.15,
@@ -304,9 +214,17 @@ class _DashboardState extends State<Dashboard> {
               thickness: 2,
             ),
           ),
-          Expanded(
-            child: CoinList(),
-          ),
+          BlocBuilder<CoinListBloc, CoinListState>(builder: (context, state) {
+            if (state is CoinListLoadSuccess) {
+              return Expanded(
+                child: CoinList(),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
         ],
       ),
     );

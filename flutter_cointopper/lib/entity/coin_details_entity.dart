@@ -18,13 +18,13 @@ class Data {
 class CoinDetailsEntity extends Equatable {
   final double percent_change24h;
   final String logo;
-  final double price_btc;
+  final dynamic price_btc;
   final double price;
   final String symbol;
   final String name;
   final String color1;
   final String color2;
-  final double market_cap_usd;
+  final int market_cap_usd;
   final String intro;
   final double volume24h_usd;
   final double low24_usd;
@@ -39,7 +39,7 @@ class CoinDetailsEntity extends Equatable {
   final String slack;
   final String paper;
   final String youtube;
-  final double available_supply;
+  final int available_supply;
   final List<dynamic> guides;
 
   CoinDetailsEntity(
@@ -134,13 +134,13 @@ class CoinDetailsEntity extends Equatable {
     return CoinDetailsEntity(
       json['percent_change24h'] as double,
       json['logo'] as String,
-      json['price_btc'] as double,
+      json['price_btc'] as  dynamic,
       json['price'] as double,
       json['symbol'] as String,
       json['name'] as String,
       json['color1'] as String,
       json['color2'] as String,
-      json['market_cap_usd'] as double,
+      json['market_cap_usd'] as int,
       json['intro'] as String,
       json['volume24h_usd'] as double,
       json['low24_usd'] as double,
@@ -155,7 +155,7 @@ class CoinDetailsEntity extends Equatable {
       json['slack'] as String,
       json['paper'] as String,
       json['youtube'] as String,
-      json['available_supply'] as double,
+      json['available_supply'] as  int,
       _dataList,
     );
   }

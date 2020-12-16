@@ -8,7 +8,15 @@ abstract class CoinListEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadCoinList extends CoinListEvent {}
+class LoadCoinList extends CoinListEvent {
+  final dynamic offset;
+  final dynamic limit;
+  const LoadCoinList(this.offset,this.limit);
+  @override
+  List<dynamic> get props => ([offset,limit]);
+   
+  
+}
 
 class UpdateCoinList extends CoinListEvent {
   final List<CoinList> coinListList;

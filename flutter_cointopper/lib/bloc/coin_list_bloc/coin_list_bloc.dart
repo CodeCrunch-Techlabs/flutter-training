@@ -5,7 +5,7 @@ import 'package:bloc/bloc.dart';
 
 import 'coin_list_event.dart';
 import 'coin_list_state.dart';
- 
+
 class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
   final CoinTopperRepository coinRepository;
   StreamSubscription _coinSubscription;
@@ -16,7 +16,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
   @override
   Stream<CoinListState> mapEventToState(CoinListEvent event) async* {
     if (event is LoadCoinList) {
-      yield* _mapLoadCoinListState();
+      yield* _mapLoadCoinListState(event.offset, event.limit);
     }
     {
       if (event is UpdateCoinList) {
@@ -25,15 +25,14 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
     }
   }
 
-  Stream<CoinListState> _mapLoadCoinListState() async* { 
+  Stream<CoinListState> _mapLoadCoinListState(offset, limit) async* {
     _coinSubscription?.cancel();
-    _coinSubscription = coinRepository.loadAllCoinsList().listen(
+    _coinSubscription = coinRepository.loadAllCoinsList(offset, limit).listen(
           (list) => add(UpdateCoinList(list)),
         );
   }
 
-  Stream<CoinListState> _mapUpdateCoinListState(
-      UpdateCoinList event) async* {
+  Stream<CoinListState> _mapUpdateCoinListState(UpdateCoinList event) async* {
     yield CoinListLoadSuccess(event.coinListList);
   }
 

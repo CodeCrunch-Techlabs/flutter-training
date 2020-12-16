@@ -1,213 +1,306 @@
- import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:incrementally_loading_listview/incrementally_loading_listview.dart';
+import 'package:flutter_cointopper/screens/coin_detail.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hexcolor/hexcolor.dart';
 
- 
-
-class DemoList extends StatefulWidget {
-  DemoList({Key key, this.title}) : super(key: key);
- 
-
-  final String title;
+class DataList extends StatefulWidget {
+  final List<dynamic> data;
+  DataList(this.data);
 
   @override
-  _DemoListState createState() => _DemoListState();
+  _DataListState createState() => new _DataListState(this.data);
 }
 
-class _DemoListState extends State<DemoList> {
-  List<Item> items;
-  bool _loadingMore;
-  bool _hasMoreItems;
-  int _maxItems = 30;
-  int _numItemsPage = 1;
-  Future _initialLoad;
+class _DataListState extends State<DataList> {
+  final List<dynamic> data;
+  _DataListState(this.data);
+  int present = 0;
+  int perPage = 20;
+  var originalItems;
 
-  Future _loadMoreItems() async {
-    final totalItems = items.length;
-    await Future.delayed(Duration(seconds: 3), () {
-      for (var i = 0; i < _numItemsPage; i++) {
-        items.add(Item('Item ${totalItems + i + 1}'));
-      }
-    });
-
-    _hasMoreItems = items.length < _maxItems;
-  }
+  var items = List<dynamic>();
 
   @override
   void initState() {
     super.initState();
-    _initialLoad = Future.delayed(Duration(seconds: 3), () {
-      items = List<Item>();
-      for (var i = 0; i < _numItemsPage; i++) {
-        items.add(Item('Item ${i + 1}'));
-      }
-      _hasMoreItems = true;
+    originalItems = data;
+    setState(() {
+      items.addAll(originalItems.getRange(present, present + perPage));
+      present = present + perPage;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.yellow,
-      appBar: AppBar(
-        title: Text(widget.title),
+    return new Scaffold(
+      body: ListView.builder(
+        itemCount:
+            (present <= originalItems.length) ? items.length + 1 : items.length,
+        itemBuilder: (context, index) {
+          return (index == items.length)
+              ? Container(
+                  child: FlatButton(
+                    child: CircularProgressIndicator(),
+                    onPressed: () {
+                      setState(() {
+                        if ((present + perPage) > originalItems.length) {
+                          items.addAll(originalItems.getRange(
+                              present, originalItems.length));
+                        } else {
+                          items.addAll(originalItems.getRange(
+                              present, present + perPage));
+                        }
+                        present = present + perPage;
+                      });
+                    },
+                  ),
+                )
+              :  Expanded(child: DataTableCoinList(items));
+        },
       ),
-      body: FutureBuilder(
-          future: _initialLoad,
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return Center(child: CircularProgressIndicator());
-              case ConnectionState.done:
-                return IncrementallyLoadingListView(
-                  hasMore: () => _hasMoreItems,
-                  itemCount: () => items.length,
-                  loadMore: () async {
-                    // can shorten to "loadMore: _loadMoreItems" but this syntax is used to demonstrate that
-                    // functions with parameters can also be invoked if needed
-                    await _loadMoreItems();
-                  },
-                  onLoadMore: () {
-                    setState(() {
-                      _loadingMore = true;
-                    });
-                  },
-                  onLoadMoreFinished: () {
-                    setState(() {
-                      _loadingMore = false;
-                    });
-                  },
-                  loadMoreOffsetFromBottom: 0,
-                  itemBuilder: (context, index) {
-                    final item = items[index];
-                    if ((_loadingMore ?? false) && index == items.length - 1) {
-                      return Column(
-                        children: <Widget>[
-                          ItemCard(item: item),
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        width: 60.0,
-                                        height: 60.0,
-                                        color: Colors.grey,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            8.0, 0.0, 0.0, 0.0),
-                                        child: Container(
-                                          color: Colors.grey,
-                                          child: Text(
-                                            item.name,
-                                            style: TextStyle(
-                                                color: Colors.transparent),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        0.0, 8.0, 0.0, 0.0),
-                                    child: Container(
-                                      color: Colors.grey,
-                                      child: Text(
-                                        item.message,
-                                        style: TextStyle(
-                                            color: Colors.transparent),
-                                      ),
-                                    ),
-                                  )
-                                ],
+    );
+  }
+}
+
+class DataTableCoinList extends StatefulWidget {
+  final List<dynamic> items;
+  DataTableCoinList(this.items);
+  @override
+  _DataTableCoinListState createState() => _DataTableCoinListState(this.items);
+}
+
+class _DataTableCoinListState extends State<DataTableCoinList> {
+  final List<dynamic> items;
+  _DataTableCoinListState(this.items);
+
+  bool isSort = true;
+  bool isSortChange = true;
+  bool isSortPrice = true;
+  var _sortColumnIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return DataTable(
+      columnSpacing: 8.0,
+      horizontalMargin: 4.0,
+      dataRowHeight: MediaQuery.of(context).size.height * 0.08,
+      headingRowHeight: MediaQuery.of(context).size.height * 0.06,
+      sortColumnIndex: _sortColumnIndex,
+      sortAscending: isSort,
+      columns: [
+        DataColumn(
+          label: Container(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'NAME/  M.CAP',
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width * 0.03,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF005580),
+              ),
+            ),
+          ),
+          onSort: (i, b) {
+            setState(() {
+              if (i == 0) {
+                _sortColumnIndex = i;
+                if (isSort) {
+                  items.sort((a, b) => b.name.compareTo(a.name));
+                  isSort = false;
+                } else {
+                  items.sort((a, b) => a.name.compareTo(b.name));
+                  isSort = true;
+                }
+              }
+            });
+          },
+          numeric: false,
+          tooltip: "M.CAP",
+        ),
+        DataColumn(
+          label: Text(
+            'CHANGE',
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width * 0.03,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF005580),
+            ),
+          ),
+          onSort: (i, b) {
+            setState(() {
+              if (i == 1) {
+                _sortColumnIndex = i;
+                if (isSortChange) {
+                  items.sort((a, b) =>
+                      b.percent_change24h.compareTo(a.percent_change24h));
+                  isSortChange = false;
+                } else {
+                  items.sort((a, b) =>
+                      a.percent_change24h.compareTo(b.percent_change24h));
+                  isSortChange = true;
+                }
+              }
+            });
+          },
+          numeric: false,
+          tooltip: "CHANGE",
+        ),
+        DataColumn(
+          label: Text(
+            'PRICE',
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width * 0.03,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF005580),
+            ),
+          ),
+          onSort: (i, b) {
+            setState(() {
+              if (i == 2) {
+                _sortColumnIndex = i;
+                if (isSortPrice) {
+                  items.sort((a, b) => b.price.compareTo(a.price));
+                  isSortPrice = false;
+                } else {
+                  items.sort((a, b) => a.price.compareTo(b.price));
+                  isSortPrice = true;
+                }
+              }
+            });
+          },
+          numeric: false,
+          tooltip: "PRICE",
+        ),
+      ],
+      rows: items.length != 0
+          ? items
+              .map(
+                (coins) => DataRow(cells: [
+                  DataCell(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => CoinDetails(coins.symbol),
+                        ));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image(
+                            width: 30,
+                            height: 30,
+                            image: NetworkImage("${coins.logo}"),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                coins.name,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[800],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 6,
+                              ),
+                              Text(
+                                (coins.market_cap_usd >= 1000000 &&
+                                        coins.market_cap_usd <
+                                            (1000000 * 10 * 100))
+                                    ? "${coins.symbol}" +
+                                        " / " +
+                                        (coins.market_cap_usd / 1000000)
+                                            .toStringAsFixed(2) +
+                                        "M"
+                                    : "${coins.symbol}" +
+                                        " / " +
+                                        (coins.market_cap_usd /
+                                                (1000000 * 10 * 100))
+                                            .toStringAsFixed(2) +
+                                        "B",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[500],
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  DataCell(
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image(
+                          width: 12,
+                          height: 12,
+                          image: AssetImage(coins.percent_change24h > 0
+                              ? "assets/images/up_arrow_green.png"
+                              : "assets/images/down_arrow_red.png"),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          '${coins.percent_change24h.toStringAsFixed(2)}%',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: coins.percent_change24h > 0
+                                ? Colors.green[600]
+                                : HexColor("#a94442"),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  DataCell(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "\$${coins.price.toStringAsFixed(8)}",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.btc,
+                              color: Colors.grey[500],
+                              size: 12,
+                            ),
+                            Text(
+                              "${coins.price_btc.toStringAsFixed(8)}",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[500],
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    }
-                    return ItemCard(item: item);
-                  },
-                );
-              default:
-                return Text('Something went wrong');
-            }
-          }),
-    );
-  }
-}
-
-class ItemCard extends StatelessWidget {
-  const ItemCard({
-    Key key,
-    @required this.item,
-  }) : super(key: key);
-
-  final Item item;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Image.network(item.avatarUrl),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
-                      child: Text(item.name),
+                          ],
+                        ),
+                      ],
                     ),
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
-                child: Text(item.message),
+                  ),
+                ]),
               )
-            ],
-          ),
-        ),
-      ),
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => ItemDetailsPage(item)),
-      ),
+              .toList()
+          : Center(child: CircularProgressIndicator()),
     );
   }
-}
-
-class ItemDetailsPage extends StatelessWidget {
-  final Item item;
-  const ItemDetailsPage(this.item);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.yellow,
-        appBar: AppBar(
-          title: Text(item.name),
-        ),
-        body: Container(
-          child: Text(item.message),
-        ));
-  }
-}
-
-class Item {
-  final String name;
-  final String avatarUrl = 'http://via.placeholder.com/60x60';
-  final String message =
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-
-  Item(this.name);
 }

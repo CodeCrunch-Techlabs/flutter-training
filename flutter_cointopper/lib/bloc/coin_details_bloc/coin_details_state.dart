@@ -9,6 +9,7 @@ abstract class CoinDetailsState extends Equatable {
 }
 
 class CoinDetailsLoadInProgress extends CoinDetailsState { 
+  
 }
 
 class CoinDetailsLoadSuccess extends CoinDetailsState {

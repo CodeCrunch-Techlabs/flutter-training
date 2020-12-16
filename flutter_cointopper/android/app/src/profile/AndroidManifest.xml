@@ -1,7 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_cointopper">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.flutter_cointopper">
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <meta-data android:name="flutterEmbedding" android:value="2" />
 </manifest>

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_bloc.dart';
+import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_event.dart';
 import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_state.dart';
-import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
-import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_state.dart';
 import 'package:flutter_cointopper/screens/coin_detail.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -19,21 +18,50 @@ class _CoinListState extends State<CoinList> {
   bool isSortPrice = true;
   var _sortColumnIndex;
 
-  int _maxItems = 30;
-  int _numItemsPage = 1;
-  bool _loadingMore;
-  bool _hasMoreItems;
+  int _maxItems = 10;
+  int _numItemsPage = 0;
+  int page = -10; 
+  ScrollController controller;
 
-  
+  @override
+  void initState() {
+    super.initState();
+    controller = new ScrollController()..addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() { 
+    super.dispose();
+    controller.removeListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    print(controller.position.extentAfter);
+    if (controller.position.extentAfter ==
+            controller.position.maxScrollExtent ||
+        controller.position.extentAfter > 0) {
+      setState(() {
+        Future.delayed(const Duration(seconds: 0), () {
+          return BlocProvider.of<CoinListBloc>(context)
+              .add(LoadCoinList(_numItemsPage, _numItemsPage + _maxItems));
+        });
+      });
+      if (_numItemsPage < 1500) {
+        _numItemsPage = _numItemsPage + _maxItems;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: controller,
       child: Container(
           padding: EdgeInsets.only(),
           width: MediaQuery.of(context).size.width,
           child: BlocBuilder<CoinListBloc, CoinListState>(
               builder: (context, state) {
-            if (state is CoinListLoadSuccess) {
+            if (state is CoinListLoadSuccess) { 
               return DataTable(
                 columnSpacing: 8.0,
                 horizontalMargin: 4.0,
@@ -215,7 +243,7 @@ class _CoinListState extends State<CoinList> {
                                     width: 5,
                                   ),
                                   Text(
-                                    '${coins.percent_change24h}%',
+                                    '${coins.percent_change24h.toStringAsFixed(2)}%',
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
@@ -233,7 +261,7 @@ class _CoinListState extends State<CoinList> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "\$${coins.price}",
+                                    "\$${coins.price.toStringAsFixed(8)}",
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.blue,
@@ -264,7 +292,7 @@ class _CoinListState extends State<CoinList> {
                           ]),
                         )
                         .toList()
-                    : "Not an arry",
+                    : Center(child: CircularProgressIndicator()),
               );
             }
             return Center(child: CircularProgressIndicator());
@@ -273,3 +301,5 @@ class _CoinListState extends State<CoinList> {
   }
 }
 // https://medium.com/@jun.chenying/flutter-tutorial-part-5-listview-pagination-scroll-up-to-load-more-ed132f6a06be
+// https://github.com/MaikuB/incrementally_loading_listview/blob/master/example/lib/main.dart
+// https://www.initpals.com/flutter/how-to-lazy-load-large-list-from-http-rest-api-with-pagination-in-flutter/

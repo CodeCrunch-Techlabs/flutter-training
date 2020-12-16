@@ -46,6 +46,8 @@ dependencies:
   flutter_typeahead: ^1.8.8
   autocomplete_textfield: ^1.6.4
   incrementally_loading_listview: ^0.3.0
+  webview_flutter: ^1.0.7
+   
    
 
 dev_dependencies:

@@ -13,10 +13,10 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int selectedIndex = 0;
   final widgetOptions = [
-    Dashboard(),
+    NewsScreen(),
     IcoScreen(),
     AirdropScreen(),
-    NewsScreen(),
+    Dashboard(),
     AccountScreen(),
   ];
   @override
@@ -30,45 +30,35 @@ class _BottomNavigationState extends State<BottomNavigation> {
         showUnselectedLabels: true,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              title: Text(
-                'Home',
-                style: TextStyle(),
-              )),
+            icon: Icon(
+              Icons.web,
+            ),
+            label: 'News',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.donut_large,
-              ),
-              title: Text(
-                'ICOs',
-                style: TextStyle(),
-              )),
+            icon: Icon(
+              Icons.donut_large,
+            ),
+            label: 'ICOs',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.local_airport,
-              ),
-              title: Text(
-                'AirDrops',
-                style: TextStyle(),
-              )),
+            icon: Icon(
+              Icons.local_airport,
+            ),
+            label: 'AirDrops',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.web,
-              ),
-              title: Text(
-                'News',
-                style: TextStyle(),
-              )),
+            icon: Icon(
+              Icons.home,
+            ),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.account_circle,
-              ),
-              title: Text(
-                'Account',
-                style: TextStyle(),
-              )),
+            icon: Icon(
+              Icons.account_circle,
+            ),
+            label: 'Account',
+          ),
         ],
         currentIndex: selectedIndex,
         selectedItemColor: Theme.of(context).primaryColor,

@@ -6,7 +6,6 @@ import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_state.dar
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import '../widgets/carousel.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -108,13 +107,15 @@ class _CoinDetailsState extends State<CoinDetails> {
                         Image(
                           height: 10,
                           width: 10,
-                          image: AssetImage("assets/images/up_arrow.png"),
+                          image: AssetImage(data.percent_change24h > 0
+                              ? "assets/images/up_arrow.png"
+                              : "assets/images/down_arrow.png"),
                         ),
                         SizedBox(
                           width: 5,
                         ),
                         Text(
-                          "${data.percent_change24h}%",
+                          "${data.percent_change24h.toStringAsFixed(2)}%",
                           style: TextStyle(
                               fontSize: 14,
                               color: Colors.white60,
@@ -151,7 +152,7 @@ class _CoinDetailsState extends State<CoinDetails> {
                               Row(
                                 children: [
                                   Text(
-                                    "\$${data.high24_usd}",
+                                    "\$${data.high24_usd.toStringAsFixed(2)}",
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
@@ -172,7 +173,7 @@ class _CoinDetailsState extends State<CoinDetails> {
                               Row(
                                 children: [
                                   Text(
-                                    "\$${data.low24_usd}",
+                                    "\$${data.low24_usd.toStringAsFixed(2)}",
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
@@ -285,7 +286,7 @@ class _CoinDetailsState extends State<CoinDetails> {
   }
 }
 
-Widget _buildTotalCap(String name, double volume) {
+Widget _buildTotalCap(String name, dynamic volume) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Row(
@@ -315,8 +316,8 @@ Widget _buildTotalCap(String name, double volume) {
 Widget cardsBody(
   BuildContext context,
   double volume,
-  double coin,
-  double cap,
+  int coin,
+  int cap,
   String intro,
   String youtube,
   String website,
@@ -344,8 +345,8 @@ Widget cardsBody(
   }
 
   Widget carousel = title == null
-      ? Container(
-          child: Center(
+      ? Center(
+          child: Container(
             child: Text(
               "No Data Available",
               style: TextStyle(color: Colors.blue),
@@ -354,7 +355,7 @@ Widget cardsBody(
         )
       : CarouselSlider(
           options: CarouselOptions(
-            height: 300,
+            height: 200,
             autoPlay: true,
             viewportFraction: 1,
             aspectRatio: 1.5,
@@ -776,7 +777,11 @@ Widget cardsBody(
                             children: <Widget>[carousel],
                           ),
                         )
-                      : Container(),
+                      : Container(
+                          child: Center(
+                            child: Text("No data"),
+                          ),
+                        ),
                 ],
               ),
             ),

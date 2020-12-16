@@ -5,13 +5,13 @@ import 'package:meta/meta.dart';
 class CoinDetailsModel {
   final double percent_change24h;
   final String logo;
-  final double price_btc;
+  final  dynamic price_btc;
   final double price;
   final String symbol;
   final String name;
   final String color1;
   final String color2;
-  final double market_cap_usd;
+  final  int market_cap_usd;
   final String intro;
   final double volume24h_usd;
   final double low24_usd;
@@ -26,7 +26,7 @@ class CoinDetailsModel {
   final String slack;
   final String paper;
   final String youtube;
-  final double available_supply;
+  final  int available_supply;
   final List<dynamic> guides;
 
   CoinDetailsModel(

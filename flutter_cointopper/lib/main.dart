@@ -4,14 +4,20 @@ import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_bloc.dart
 import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_event.dart';
 import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_bloc.dart';
 import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_event.dart';
+import 'package:flutter_cointopper/bloc/featured_news_bloc/featured_news_bloc.dart';
+import 'package:flutter_cointopper/bloc/featured_news_bloc/featured_news_event.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_bloc.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_event.dart';
+import 'package:flutter_cointopper/bloc/news_search_bloc/news_search_bloc.dart';
+import 'package:flutter_cointopper/bloc/news_search_bloc/news_search_event.dart';
 import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_bloc.dart';
 import 'package:flutter_cointopper/bloc/search_coin_bloc/search_coin_event.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
 import 'package:flutter_cointopper/repository/coin_topper_repository.dart';
 import 'bloc/currency_bloc/dashboard_bloc.dart';
 import 'bloc/currency_bloc/dashboard_event.dart';
+import 'bloc/news_list_bloc/news_list_bloc.dart';
+import 'bloc/news_list_bloc/news_list_event.dart';
 import 'bloc/top_coin_bloc/top_coin_event.dart';
 import 'bottom_bar.dart';
 
@@ -47,7 +53,7 @@ void main() {
       BlocProvider<CoinListBloc>(
         create: (BuildContext context) => CoinListBloc(
           coinRepository: CoinTopperRepository(),
-        )..add(LoadCoinList()),
+        )..add(LoadCoinList("", "")),
       ),
       BlocProvider<GlobalDataBloc>(
         create: (BuildContext context) => GlobalDataBloc(
@@ -63,6 +69,21 @@ void main() {
         create: (BuildContext context) => SearchCoinBloc(
           coinRepository: CoinTopperRepository(),
         )..add(LoadSearchCoin()),
+      ),
+      BlocProvider<FeaturedNewsBloc>(
+        create: (BuildContext context) => FeaturedNewsBloc(
+          coinRepository: CoinTopperRepository(),
+        )..add(LoadFeaturedNewsList()),
+      ),
+      BlocProvider<NewsListBloc>(
+        create: (BuildContext context) => NewsListBloc(
+          coinRepository: CoinTopperRepository(),
+        )..add(LoadNewsList()),
+      ),
+      BlocProvider<NewsSearchBloc>(
+        create: (BuildContext context) => NewsSearchBloc(
+          coinRepository: CoinTopperRepository(),
+        )..add(LoadNewsSearch("")),
       ),
     ],
     child: MyApp(),

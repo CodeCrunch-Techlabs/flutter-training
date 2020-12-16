@@ -34,7 +34,6 @@ class CoinDetailsBloc extends Bloc<CoinDetailsEvent, CoinDetailsState> {
 
   Stream<CoinDetailsState> _mapUpdateCoinDetailsState(
       UpdateCoinDetails event) async* {
-        print("===>${event.coinDetailsList}");
     yield CoinDetailsLoadSuccess(event.coinDetailsList);
   }
 

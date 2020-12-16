@@ -2,13 +2,19 @@ import 'dart:convert';
 import 'package:flutter_cointopper/entity/coin_details_entity.dart';
 import 'package:flutter_cointopper/entity/coin_list_entity.dart';
 import 'package:flutter_cointopper/entity/currency_entity.dart';
+import 'package:flutter_cointopper/entity/featured_news_entity.dart';
 import 'package:flutter_cointopper/entity/global_data_entity.dart';
+import 'package:flutter_cointopper/entity/news_list_entity.dart';
+import 'package:flutter_cointopper/entity/news_search_entity.dart';
 import 'package:flutter_cointopper/entity/top_coin_entity.dart';
 import 'package:flutter_cointopper/entity/search_coin_entity.dart';
 import 'package:flutter_cointopper/model/coin_details_model.dart';
 import 'package:flutter_cointopper/model/coin_list_all.dart';
 import 'package:flutter_cointopper/model/currency.dart';
+import 'package:flutter_cointopper/model/featured_news.dart';
 import 'package:flutter_cointopper/model/global_data.dart';
+import 'package:flutter_cointopper/model/news_list_model.dart';
+import 'package:flutter_cointopper/model/news_search_model.dart';
 import 'package:flutter_cointopper/model/search_coin_model.dart';
 import 'package:flutter_cointopper/model/top_coin.dart';
 import 'package:http/http.dart' as http;
@@ -53,13 +59,15 @@ class ApiClient {
         .toList();
   }
 
-  Stream<List<CoinList>> fetchAllCoinsList() async* {
-    final response = await httpClient
-        .get(Uri.encodeFull('${this.baseUrl + "ticker?offset=0&limit=30"}'), headers: {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-    });
-
+  Stream<List<CoinList>> fetchAllCoinsList(
+      dynamic offset, dynamic limit) async* {
+    print("offset===>$offset");
+    final response = await httpClient.get(
+        Uri.encodeFull('${this.baseUrl + "ticker?offset=$offset&limit=20"}'),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        });
     Map<String, dynamic> map = json.decode(response.body);
     List<dynamic> results = map["data"];
     yield results
@@ -95,7 +103,7 @@ class ApiClient {
     var convertInArray = [];
     Map<String, dynamic> map = json.decode(response.body);
     var result = map['data'];
-    convertInArray.add(result);  
+    convertInArray.add(result);
     yield convertInArray
         .map((dynamic item) => CoinDetailsModel.fromEntity(
             CoinDetailsEntity.fromJson(item as Map<String, dynamic>)))
@@ -113,7 +121,53 @@ class ApiClient {
     List<dynamic> results = map["data"];
     yield results
         .map((dynamic item) => SearchCoinModel.fromEntity(
-              SearchCoinEntity.fromJson(item as Map<String, dynamic>)))
+            SearchCoinEntity.fromJson(item as Map<String, dynamic>)))
+        .toList();
+  }
+
+  Stream<List<FeaturedNews>> fetchFeaturedNewsList() async* {
+    final response = await httpClient
+        .get(Uri.encodeFull('${this.baseUrl + "featured"}'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    });
+
+    Map<String, dynamic> map = json.decode(response.body);
+    List<dynamic> results = map["data"];
+    yield results
+        .map((dynamic item) => FeaturedNews.fromEntity(
+            FeaturedNewsEntity.fromJson(item as Map<String, dynamic>)))
+        .toList();
+  }
+
+  Stream<List<NewsListModel>> fetchNewsList() async* {
+    final response = await httpClient
+        .get(Uri.encodeFull('${this.baseUrl + "news"}'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    });
+
+    Map<String, dynamic> map = json.decode(response.body);
+    List<dynamic> results = map["data"];
+    yield results
+        .map((dynamic item) => NewsListModel.fromEntity(
+            NewsListEntity.fromJson(item as Map<String, dynamic>)))
+        .toList();
+  }
+
+  Stream<List<NewsSearchModel>> fetchSearchNewsList(String keyword) async* {
+    final response = await httpClient.get(
+        Uri.encodeFull('${this.baseUrl + "search/news?keyword=" + "$keyword"}'),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json'
+        });
+
+    Map<String, dynamic> map = json.decode(response.body);
+    List<dynamic> results = map["data"];
+    yield results
+        .map((dynamic item) => NewsSearchModel.fromEntity(
+            NewsSearchEntity.fromJson(item as Map<String, dynamic>)))
         .toList();
   }
 }
