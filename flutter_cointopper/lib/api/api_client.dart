@@ -4,6 +4,7 @@ import 'package:flutter_cointopper/entity/coin_list_entity.dart';
 import 'package:flutter_cointopper/entity/currency_entity.dart';
 import 'package:flutter_cointopper/entity/featured_news_entity.dart';
 import 'package:flutter_cointopper/entity/global_data_entity.dart';
+import 'package:flutter_cointopper/entity/news_details_entity.dart';
 import 'package:flutter_cointopper/entity/news_list_entity.dart';
 import 'package:flutter_cointopper/entity/news_search_entity.dart';
 import 'package:flutter_cointopper/entity/top_coin_entity.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_cointopper/model/coin_list_all.dart';
 import 'package:flutter_cointopper/model/currency.dart';
 import 'package:flutter_cointopper/model/featured_news.dart';
 import 'package:flutter_cointopper/model/global_data.dart';
+import 'package:flutter_cointopper/model/news_details_model.dart';
 import 'package:flutter_cointopper/model/news_list_model.dart';
 import 'package:flutter_cointopper/model/news_search_model.dart';
 import 'package:flutter_cointopper/model/search_coin_model.dart';
@@ -168,6 +170,22 @@ class ApiClient {
     yield results
         .map((dynamic item) => NewsSearchModel.fromEntity(
             NewsSearchEntity.fromJson(item as Map<String, dynamic>)))
+        .toList();
+  }
+
+  Stream<List<NewsDetailsModel>> fetchNewsDetails(int id) async* { 
+    final response = await httpClient
+        .get(Uri.encodeFull('${this.baseUrl + "news/" + "$id"}'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    });
+    var convertInArray = [];
+    Map<String, dynamic> map = json.decode(response.body);
+    var results = map["data"];
+    convertInArray.add(results); 
+    yield convertInArray
+        .map((dynamic item) => NewsDetailsModel.fromEntity(
+            NewsDetailsEntity.fromJson(item as Map<String, dynamic>)))
         .toList();
   }
 }

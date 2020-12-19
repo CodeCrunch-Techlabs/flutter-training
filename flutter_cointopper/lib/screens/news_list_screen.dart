@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/news_list_bloc/news_list_bloc.dart';
 import 'package:flutter_cointopper/bloc/news_list_bloc/news_list_state.dart';
+import 'package:flutter_cointopper/screens/news_webview_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-import 'dart:async';
 
 class NewsList extends StatefulWidget {
   @override
@@ -66,12 +65,14 @@ class _NewsListState extends State<NewsList> {
                                   child: new Text(data[i].titleEn),
                                 ),
                                 onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          MyWebView(
-                                            title: data[i].titleEn,
-                                            selectedUrl: data[i].postLink,
-                                          )));
+                                          NewsWebview( 
+                                        id: data[i].id,
+                                      ),
+                                    ),
+                                  );
                                 },
                                 subtitle: new Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,33 +143,5 @@ class _NewsListState extends State<NewsList> {
         );
       },
     );
-  }
-}
-
-class MyWebView extends StatelessWidget {
-  final String title;
-  final String selectedUrl;
-
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
-
-  MyWebView({
-    @required this.title,
-    @required this.selectedUrl,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: WebView(
-          initialUrl: selectedUrl,
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController webViewController) {
-            _controller.complete(webViewController);
-          },
-        ));
   }
 }

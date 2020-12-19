@@ -4,6 +4,7 @@ import 'package:flutter_cointopper/model/coin_list_all.dart';
 import 'package:flutter_cointopper/model/currency.dart';
 import 'package:flutter_cointopper/model/featured_news.dart';
 import 'package:flutter_cointopper/model/global_data.dart';
+import 'package:flutter_cointopper/model/news_details_model.dart';
 import 'package:flutter_cointopper/model/news_list_model.dart';
 import 'package:flutter_cointopper/model/news_search_model.dart';
 import 'package:flutter_cointopper/model/search_coin_model.dart';
@@ -47,8 +48,12 @@ class CoinTopperRepository {
   Stream<List<NewsListModel>> loadNewsList() async* {
     yield* apiClient.fetchNewsList();
   }
+
   Stream<List<NewsSearchModel>> loadSearchNewsList(keyword) async* {
     yield* apiClient.fetchSearchNewsList(keyword);
   }
+
+  Stream<List<NewsDetailsModel>> loadNewsDetails(id) async* {
+    yield* apiClient.fetchNewsDetails(id);
+  }
 }
- 

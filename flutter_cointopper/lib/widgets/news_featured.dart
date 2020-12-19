@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/featured_news_bloc/featured_news_bloc.dart';
 import 'package:flutter_cointopper/bloc/featured_news_bloc/featured_news_state.dart';
+import 'package:flutter_cointopper/screens/news_webview_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -36,7 +37,9 @@ class _NewsFeaturedState extends State<NewsFeatured> {
             NewsSlider(data)
           ]);
         }
-        return Center(child: CircularProgressIndicator(),);
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }
@@ -95,7 +98,13 @@ class _NewsSliderState extends State<NewsSlider> {
             items: data.map<Widget>((e) {
               return GestureDetector(
                 onTap: () {
-                  _launchInWebView(e.postLink);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => NewsWebview(
+                        id: e.id,
+                      ),
+                    ),
+                  );
                 },
                 child: new Container(
                     width: MediaQuery.of(context).size.width,

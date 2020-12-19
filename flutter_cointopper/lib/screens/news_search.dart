@@ -6,6 +6,8 @@ import 'package:flutter_cointopper/bloc/news_search_bloc/news_search_event.dart'
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import 'news_webview_screen.dart';
+
 class NewsSearch extends StatefulWidget {
   @override
   _NewsSearchState createState() => new _NewsSearchState();
@@ -149,14 +151,16 @@ class _NewsSearchState extends State<NewsSearch> {
                                           top: 0.0, bottom: 0.0),
                                       child: new Text(data[i].titleEn),
                                     ),
-                                    // onTap: () {
-                                    //   Navigator.of(context).push(MaterialPageRoute(
-                                    //       builder: (BuildContext context) =>
-                                    //           MyWebView(
-                                    //             title: data[i].titleEn,
-                                    //             selectedUrl: data[i].postLink,
-                                    //           )));
-                                    // },
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              NewsWebview(
+                                            id: data[i].id,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     subtitle: new Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,

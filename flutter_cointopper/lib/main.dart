@@ -16,6 +16,8 @@ import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
 import 'package:flutter_cointopper/repository/coin_topper_repository.dart';
 import 'bloc/currency_bloc/dashboard_bloc.dart';
 import 'bloc/currency_bloc/dashboard_event.dart';
+import 'bloc/news_details_bloc/news_details_bloc.dart';
+import 'bloc/news_details_bloc/news_details_event.dart';
 import 'bloc/news_list_bloc/news_list_bloc.dart';
 import 'bloc/news_list_bloc/news_list_event.dart';
 import 'bloc/top_coin_bloc/top_coin_event.dart';
@@ -84,6 +86,11 @@ void main() {
         create: (BuildContext context) => NewsSearchBloc(
           coinRepository: CoinTopperRepository(),
         )..add(LoadNewsSearch("")),
+      ),
+      BlocProvider<NewsDetailsBloc>(
+        create: (BuildContext context) => NewsDetailsBloc(
+          coinRepository: CoinTopperRepository(),
+        )..add(LoadNewsDetails(0)),
       ),
     ],
     child: MyApp(),
