@@ -48,7 +48,9 @@ dependencies:
   incrementally_loading_listview: ^0.3.0
   webview_flutter: ^1.0.7
   flutter_webview_plugin: ^0.3.11
-   
+  rflutter_alert: ^1.0.3
+  image_picker_saver: ^0.3.0
+  fl_chart: ^0.12.1
    
 
 dev_dependencies:

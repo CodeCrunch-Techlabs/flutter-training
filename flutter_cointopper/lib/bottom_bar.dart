@@ -13,10 +13,10 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int selectedIndex = 0;
   final widgetOptions = [
-    NewsScreen(),
+    Dashboard(),
     IcoScreen(),
     AirdropScreen(),
-    Dashboard(),
+    NewsScreen(),
     AccountScreen(),
   ];
   @override
@@ -31,9 +31,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.web,
+              Icons.home,
             ),
-            label: 'News',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -49,9 +49,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home,
+              Icons.web,
             ),
-            label: 'Home',
+            label: 'News',
           ),
           BottomNavigationBarItem(
             icon: Icon(

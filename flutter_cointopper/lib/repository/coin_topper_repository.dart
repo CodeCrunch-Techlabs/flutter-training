@@ -15,6 +15,7 @@ class CoinTopperRepository {
 
   CoinTopperRepository() {
     this.apiClient = ApiClient(baseUrl: "https://api.cointopper.com/api/v3/");
+    this.apiClient = ApiClient(graphUrl: "https://graph.cointopper.com/");
   }
 
   Stream<List<Currency>> loadCurrencyList() async* {
@@ -55,5 +56,8 @@ class CoinTopperRepository {
 
   Stream<List<NewsDetailsModel>> loadNewsDetails(id) async* {
     yield* apiClient.fetchNewsDetails(id);
+  }
+   Stream<List<NewsDetailsModel>> loadGraphWeekList(marketId) async* {
+    yield* apiClient.fetchGraphWeekList(marketId);
   }
 }

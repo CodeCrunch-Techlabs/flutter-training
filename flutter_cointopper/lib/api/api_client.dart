@@ -23,12 +23,14 @@ import 'package:http/http.dart' as http;
 
 class ApiClient {
   String baseUrl;
+  String graphUrl;
   String token;
   final http.Client httpClient;
 
   ApiClient({
     http.Client httpClient,
     this.baseUrl,
+    this.graphUrl,
   }) : this.httpClient = httpClient ?? http.Client();
 
   Stream<List<Currency>> fetchCurrencyList() async* {

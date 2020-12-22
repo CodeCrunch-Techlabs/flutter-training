@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
- 
 class Data {
   final String title;
   final String photo;
@@ -41,6 +40,7 @@ class CoinDetailsEntity extends Equatable {
   final String youtube;
   final int available_supply;
   final List<dynamic> guides;
+  final int market_id;
 
   CoinDetailsEntity(
       this.percent_change24h,
@@ -67,7 +67,8 @@ class CoinDetailsEntity extends Equatable {
       this.paper,
       this.youtube,
       this.available_supply,
-      this.guides);
+      this.guides,
+      this.market_id);
 
   @override
   List<Object> get props => [
@@ -96,6 +97,7 @@ class CoinDetailsEntity extends Equatable {
         youtube,
         available_supply,
         guides,
+        market_id,
       ];
 
   Map<String, Object> toJson() {
@@ -125,16 +127,17 @@ class CoinDetailsEntity extends Equatable {
       'youtube;': youtube,
       'available_supply': available_supply,
       'guides': guides,
+      'market_id': market_id,
     };
   }
 
   static CoinDetailsEntity fromJson(Map<String, Object> json) {
-    var list = json['guides'] as List; 
+    var list = json['guides'] as List;
     List<Data> _dataList = list.map((i) => Data.fromJson(i)).toList();
     return CoinDetailsEntity(
       json['percent_change24h'] as double,
       json['logo'] as String,
-      json['price_btc'] as  dynamic,
+      json['price_btc'] as dynamic,
       json['price'] as double,
       json['symbol'] as String,
       json['name'] as String,
@@ -155,8 +158,9 @@ class CoinDetailsEntity extends Equatable {
       json['slack'] as String,
       json['paper'] as String,
       json['youtube'] as String,
-      json['available_supply'] as  int,
+      json['available_supply'] as int,
       _dataList,
+      json['market_id'] as int,
     );
   }
 }

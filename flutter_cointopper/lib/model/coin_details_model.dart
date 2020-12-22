@@ -5,13 +5,13 @@ import 'package:meta/meta.dart';
 class CoinDetailsModel {
   final double percent_change24h;
   final String logo;
-  final  dynamic price_btc;
+  final dynamic price_btc;
   final double price;
   final String symbol;
   final String name;
   final String color1;
   final String color2;
-  final  int market_cap_usd;
+  final int market_cap_usd;
   final String intro;
   final double volume24h_usd;
   final double low24_usd;
@@ -26,8 +26,9 @@ class CoinDetailsModel {
   final String slack;
   final String paper;
   final String youtube;
-  final  int available_supply;
+  final int available_supply;
   final List<dynamic> guides;
+  final int market_id;
 
   CoinDetailsModel(
       this.percent_change24h,
@@ -54,7 +55,8 @@ class CoinDetailsModel {
       this.paper,
       this.youtube,
       this.available_supply,
-      this.guides);
+      this.guides,
+      this.market_id);
 
   CoinDetailsEntity toEntity() {
     return CoinDetailsEntity(
@@ -82,7 +84,8 @@ class CoinDetailsModel {
         paper,
         youtube,
         available_supply,
-        guides);
+        guides,
+        market_id);
   }
 
   static CoinDetailsModel fromEntity(CoinDetailsEntity entity) {
@@ -111,6 +114,7 @@ class CoinDetailsModel {
         entity.paper,
         entity.youtube,
         entity.available_supply,
-        entity.guides);
+        entity.guides,
+        entity.market_id);
   }
 }
