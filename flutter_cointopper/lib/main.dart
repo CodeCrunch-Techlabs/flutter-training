@@ -16,6 +16,8 @@ import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
 import 'package:flutter_cointopper/repository/coin_topper_repository.dart';
 import 'bloc/currency_bloc/dashboard_bloc.dart';
 import 'bloc/currency_bloc/dashboard_event.dart';
+import 'bloc/graph_week_bloc/graph_week_bloc.dart';
+import 'bloc/graph_week_bloc/graph_week_event.dart';
 import 'bloc/news_details_bloc/news_details_bloc.dart';
 import 'bloc/news_details_bloc/news_details_event.dart';
 import 'bloc/news_list_bloc/news_list_bloc.dart';
@@ -24,23 +26,7 @@ import 'bloc/top_coin_bloc/top_coin_event.dart';
 import 'bottom_bar.dart';
 
 void main() {
-  runApp(
-      // MultiBlocProvider(
-      // providers: [
-      //   BlocProvider<CurrencyBloc>(
-      //     create: (context) {
-      //       return CurrencyBloc(
-      //         coinRepository: CoinTopperRepository(),
-      //       )..add(LoadCurrencyList());
-      //     },
-      //   ),
-      //   BlocProvider<TopCoinsBloc>(
-      //     create: (context) {
-      //       return TopCoinsBloc(
-      //         coinRepository: CoinTopperRepository(),
-      //       )..add(LoadTopCoins());
-      //     },
-      //   ),
+  runApp( 
       MultiBlocProvider(
     providers: [
       BlocProvider<CurrencyBloc>(
@@ -50,7 +36,7 @@ void main() {
       BlocProvider<TopCoinsBloc>(
         create: (BuildContext context) => TopCoinsBloc(
           coinRepository: CoinTopperRepository(),
-        )..add(LoadTopCoins()),
+        )..add(LoadTopCoins('INR')),
       ),
       BlocProvider<CoinListBloc>(
         create: (BuildContext context) => CoinListBloc(
@@ -65,7 +51,7 @@ void main() {
       BlocProvider<CoinDetailsBloc>(
         create: (BuildContext context) => CoinDetailsBloc(
           coinRepository: CoinTopperRepository(),
-        )..add(LoadCoinDetails("")),
+        )..add(LoadCoinDetails("",'USD')),
       ),
       BlocProvider<SearchCoinBloc>(
         create: (BuildContext context) => SearchCoinBloc(
@@ -91,6 +77,11 @@ void main() {
         create: (BuildContext context) => NewsDetailsBloc(
           coinRepository: CoinTopperRepository(),
         )..add(LoadNewsDetails(0)),
+      ),
+      BlocProvider<GraphWeekBloc>(
+        create: (BuildContext context) => GraphWeekBloc(
+          coinRepository: CoinTopperRepository(),
+        )..add(LoadGraphWeek(0)),
       ),
     ],
     child: MyApp(),

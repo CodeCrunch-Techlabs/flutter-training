@@ -8,7 +8,8 @@ import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_bloc.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_state.dart';
 import 'package:flutter_cointopper/screens/search_screen.dart';
 import 'package:flutter_cointopper/widgets/coin_list.dart';
-import 'package:flutter_cointopper/widgets/coincard.dart'; 
+import 'package:flutter_cointopper/widgets/coincard.dart';
+import 'package:intl/intl.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   String dropdownValue = 'USD';
   String dValue;
+  dynamic currencySymbol = '\$';
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +67,12 @@ class _DashboardState extends State<Dashboard> {
                     BlocBuilder<GlobalDataBloc, GlobalDataState>(
                       builder: (context, state) {
                         if (state is GlobalDataLoadSuccess) {
-                          var data = state.globalDataList[0].total_market_cap;
+                          var _formattedMarketCap =
+                              NumberFormat.compactCurrency(
+                            decimalDigits: 2,
+                            symbol: '\$',
+                          ).format(state.globalDataList[0].total_market_cap);
+
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -78,16 +85,13 @@ class _DashboardState extends State<Dashboard> {
                                     color: Colors.white60),
                               ),
                               Text(
-                                (data >= 1000000 && data < (1000000 * 10 * 100))
-                                    ? (data / 1000000).toStringAsFixed(2) + "M"
-                                    : (data / (1000000 * 10 * 100))
-                                            .toStringAsFixed(2) +
-                                        "B",
+                                _formattedMarketCap,
                                 style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.04,
-                                    color: Colors.white),
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.04,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           );
@@ -112,7 +116,7 @@ class _DashboardState extends State<Dashboard> {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => SearchScreen()));
+                                builder: (_) => SearchScreen( dropdownValue, currencySymbol)));
                           },
                           child: Container(
                               padding: EdgeInsets.only(
@@ -134,37 +138,68 @@ class _DashboardState extends State<Dashboard> {
                         BlocBuilder<CurrencyBloc, CurrencyState>(
                             builder: (context, state) {
                           if (state is CurrencyListLoadSuccess) {
+                            dynamic currencySymbolData = state.currencyList
+                                .where(
+                                    (value) => value.symbol == dropdownValue);
+                            dynamic symbolData =
+                                currencySymbolData.map((value) => value.format);
                             return Container(
                               height: 40,
-                              padding: EdgeInsets.all(3),
+                              width: MediaQuery.of(context).size.width * 0.2,
                               decoration: BoxDecoration(
-                                color: Color(0xFF00e00),
+                                 color: Color(0xFF00e00),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: new DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  icon: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Colors.white60,
-                                    size: 24,
-                                  ),
-                                  iconSize: 24,
-                                  style: TextStyle(color: Colors.white60),
-                                  items: state.currencyList.map((value) {
-                                    return DropdownMenuItem(
-                                      value: value.symbol,
-                                      child: Text(' ${value.symbol}',
-                                          style:
-                                              TextStyle(color: Colors.black)),
+                              child: DropdownButton(
+                                iconSize: 0.0,
+                                underline: Container(color: Colors.transparent),
+                                selectedItemBuilder: (BuildContext context) {
+                                  return state.currencyList
+                                      .map<Widget>((dynamic item) {
+                                    return Container(
+                                      alignment:
+                                          AlignmentDirectional.centerStart,
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text(
+                                        '${item.symbol}',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.03,
+                                        ),
+                                      ),
                                     );
-                                  }).toList(),
-                                  value: dropdownValue,
-                                  onChanged: (String newValue) {
-                                    setState(() {
-                                      dropdownValue = newValue;
-                                    });
-                                  },
-                                ),
+                                  }).toList();
+                                },
+                                items: state.currencyList.map((value) {
+                                  return DropdownMenuItem(
+                                    value: value.symbol,  
+                                    child: Container( 
+                                      padding: EdgeInsets.all(5.0), 
+                                      child: Column(  
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('${value.name}',
+                                              style: TextStyle(
+                                                  color: Colors.black)),
+                                          Text('(${value.symbol})',
+                                              style: TextStyle(
+                                                  color: Colors.black)), 
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                                value: dropdownValue,
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    dropdownValue = newValue;
+                                    currencySymbol = symbolData.single;
+                                  });
+                                },
                               ),
                             );
                           } else {
@@ -206,7 +241,7 @@ class _DashboardState extends State<Dashboard> {
               ],
             ),
           ),
-          CoinCard(),
+          CoinCard(dropdownValue, currencySymbol),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
             child: Divider(
@@ -217,7 +252,7 @@ class _DashboardState extends State<Dashboard> {
           BlocBuilder<CoinListBloc, CoinListState>(builder: (context, state) {
             if (state is CoinListLoadSuccess) {
               return Expanded(
-                child: CoinList(),
+                child: CoinListScreen(dropdownValue, currencySymbol),
               );
             } else {
               return Center(

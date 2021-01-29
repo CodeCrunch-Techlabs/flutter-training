@@ -51,6 +51,8 @@ dependencies:
   rflutter_alert: ^1.0.3
   image_picker_saver: ^0.3.0
   fl_chart: ^0.12.1
+  syncfusion_flutter_datagrid: ^18.4.30
+  infinite_scroll_pagination: ^2.3.0
    
 
 dev_dependencies:

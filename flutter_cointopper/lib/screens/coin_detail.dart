@@ -5,6 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_bloc.dart';
 import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_event.dart';
 import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_state.dart';
+import 'package:flutter_cointopper/bloc/graph_week_bloc/graph_week_bloc.dart';
+import 'package:flutter_cointopper/bloc/graph_week_bloc/graph_week_event.dart';
+import 'package:flutter_cointopper/bloc/graph_week_bloc/graph_week_state.dart';
 import 'package:flutter_cointopper/screens/screenshot.dart';
 import 'package:flutter_cointopper/widgets/coin_graph.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,7 +26,9 @@ import 'package:image_picker_saver/image_picker_saver.dart';
 
 class CoinDetails extends StatefulWidget {
   final String symbol;
-  CoinDetails(this.symbol);
+  final String currencyCode;
+  final dynamic currencySymbol;
+  CoinDetails(this.symbol, this.currencyCode, this.currencySymbol);
 
   @override
   _CoinDetailsState createState() => _CoinDetailsState();
@@ -68,7 +73,7 @@ class _CoinDetailsState extends State<CoinDetails> {
     }
   }
 
-  Widget _openPopup(var data) {
+  Widget _openPopup(var data, String currencySymbol) {
     Widget share = FlatButton(
       child: Container(
           padding: EdgeInsets.all(10),
@@ -116,10 +121,11 @@ class _CoinDetailsState extends State<CoinDetails> {
 
     var currDt = DateTime.now();
     String formattedDate = DateFormat('dd MMM yyyy \n kk:mm:ss').format(currDt);
-    var cap = (data.market_cap_usd >= 1000000 &&
-            data.market_cap_usd < (1000000 * 10 * 100))
-        ? (data.market_cap_usd / 1000000).toStringAsFixed(2) + "M"
-        : (data.market_cap_usd / (1000000 * 10 * 100)).toStringAsFixed(2) + "B";
+    // var cap = (data.market_cap_usd >= 1000000 &&
+    //         data.market_cap_usd < (1000000 * 10 * 100))
+    //     ? (data.market_cap_usd / 1000000).toStringAsFixed(2) + "M"
+    //     : (data.market_cap_usd / (1000000 * 10 * 100)).toStringAsFixed(2) + "B";
+    
 
     AlertDialog alert = AlertDialog(
       actionsOverflowDirection: VerticalDirection.up,
@@ -189,7 +195,13 @@ class _CoinDetailsState extends State<CoinDetails> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "\$${data.price.toStringAsFixed(2)}",
+                            data.price > 99999
+                              ? NumberFormat.compactCurrency(
+                                  decimalDigits: 2,
+                                  symbol: '${widget.currencySymbol}',
+                                ).format(data.price)
+                              : '${widget.currencySymbol}' +
+                                  data.price.toStringAsFixed(2),
                             style: TextStyle(
                                 fontSize: 24,
                                 color: Colors.white,
@@ -246,8 +258,14 @@ class _CoinDetailsState extends State<CoinDetails> {
                               children: [
                                 Row(
                                   children: [
-                                    Text(
-                                      "\$${data.high24_usd.toStringAsFixed(2)}",
+                                    Text( 
+                                      data.high24_usd > 99999
+                                        ? NumberFormat.compactCurrency(
+                                            decimalDigits: 2,
+                                            symbol: '${widget.currencySymbol}',
+                                          ).format(data.high24_usd)
+                                        : '${widget.currencySymbol}' +
+                                            data.high24_usd.toStringAsFixed(2),
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.white,
@@ -268,7 +286,13 @@ class _CoinDetailsState extends State<CoinDetails> {
                                 Row(
                                   children: [
                                     Text(
-                                      "\$${data.low24_usd.toStringAsFixed(2)}",
+                                    data.low24_usd > 99999
+                                        ? NumberFormat.compactCurrency(
+                                            decimalDigits: 2,
+                                            symbol: '${widget.currencySymbol}',
+                                          ).format(data.low24_usd)
+                                        : '${widget.currencySymbol}' +
+                                            data.low24_usd.toStringAsFixed(2),
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.white,
@@ -289,7 +313,10 @@ class _CoinDetailsState extends State<CoinDetails> {
                                 Row(
                                   children: [
                                     Text(
-                                      "\$$cap",
+                                      NumberFormat.compactCurrency(
+                                        decimalDigits: 2,
+                                        symbol: '$currencySymbol',
+                                      ).format(data.market_cap_usd),
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.white,
@@ -380,7 +407,7 @@ class _CoinDetailsState extends State<CoinDetails> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<CoinDetailsBloc>(context)
-        .add(LoadCoinDetails(widget.symbol));
+        .add(LoadCoinDetails(widget.symbol, widget.currencyCode));
     return Scaffold(
       body: BlocBuilder<CoinDetailsBloc, CoinDetailsState>(
           builder: (context, state) {
@@ -424,7 +451,7 @@ class _CoinDetailsState extends State<CoinDetails> {
                               width: 6,
                             ),
                             Text(
-                              data.name,
+                              '${data.name}/ ${data.symbol}',
                               style: TextStyle(
                                   fontSize: 18, color: Colors.white60),
                             ),
@@ -452,7 +479,13 @@ class _CoinDetailsState extends State<CoinDetails> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "\$${data.price}",
+                          data.price > 99999
+                              ? NumberFormat.compactCurrency(
+                                  decimalDigits: 2,
+                                  symbol: '${widget.currencySymbol}',
+                                ).format(data.price)
+                              : '${widget.currencySymbol}' +
+                                  data.price.toStringAsFixed(2),
                           style: TextStyle(
                               fontSize: 26,
                               color: Colors.white,
@@ -472,7 +505,7 @@ class _CoinDetailsState extends State<CoinDetails> {
                           width: 5,
                         ),
                         Text(
-                          "${data.percent_change24h.toStringAsFixed(2)}%",
+                          '${double.parse((data.percent_change24h).toStringAsFixed(2))}%',
                           style: TextStyle(
                               fontSize: 14,
                               color: Colors.white60,
@@ -509,7 +542,13 @@ class _CoinDetailsState extends State<CoinDetails> {
                               Row(
                                 children: [
                                   Text(
-                                    "\$${data.high24_usd.toStringAsFixed(2)}",
+                                    data.high24_usd > 99999
+                                        ? NumberFormat.compactCurrency(
+                                            decimalDigits: 2,
+                                            symbol: '${widget.currencySymbol}',
+                                          ).format(data.high24_usd)
+                                        : '${widget.currencySymbol}' +
+                                            data.high24_usd.toStringAsFixed(2),
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
@@ -530,7 +569,13 @@ class _CoinDetailsState extends State<CoinDetails> {
                               Row(
                                 children: [
                                   Text(
-                                    "\$${data.low24_usd.toStringAsFixed(2)}",
+                                    data.low24_usd > 99999
+                                        ? NumberFormat.compactCurrency(
+                                            decimalDigits: 2,
+                                            symbol: '${widget.currencySymbol}',
+                                          ).format(data.low24_usd)
+                                        : '${widget.currencySymbol}' +
+                                            data.low24_usd.toStringAsFixed(2),
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
@@ -598,7 +643,7 @@ class _CoinDetailsState extends State<CoinDetails> {
                                 ),
                                 child: IconButton(
                                   onPressed: () {
-                                    _openPopup(data);
+                                    _openPopup(data, widget.currencySymbol);
                                   },
                                   icon: Icon(
                                     Icons.pages,
@@ -616,23 +661,27 @@ class _CoinDetailsState extends State<CoinDetails> {
               ),
               Expanded(
                 child: cardsBody(
-                    context,
-                    data.volume24h_usd,
-                    data.available_supply,
-                    data.market_cap_usd,
-                    data.intro,
-                    data.youtube,
-                    data.website,
-                    data.explorer,
-                    data.facebook,
-                    data.blog,
-                    data.forum,
-                    data.github,
-                    data.raddit,
-                    data.slack,
-                    title,
-                    data.market_id),
-              ),
+                  context,
+                  data.volume24h_usd,
+                  data.available_supply,
+                  data.market_cap_usd,
+                  data.intro,
+                  data.youtube,
+                  data.website,
+                  data.explorer,
+                  data.facebook,
+                  data.blog,
+                  data.forum,
+                  data.github,
+                  data.raddit,
+                  data.slack,
+                  title,
+                  data.market_id,
+                  data.color1,
+                  data.color2,
+                  widget.currencySymbol,
+                ),
+              )
             ],
           );
         } else {
@@ -645,7 +694,11 @@ class _CoinDetailsState extends State<CoinDetails> {
   }
 }
 
-Widget _buildTotalCap(String name, dynamic volume) {
+Widget _buildTotalCap(String name, dynamic volume, dynamic currencySymbol) {
+  var _formattedValue = NumberFormat.compactCurrency(
+    decimalDigits: 2,
+    symbol: '$currencySymbol',
+  ).format(volume);
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Row(
@@ -659,9 +712,7 @@ Widget _buildTotalCap(String name, dynamic volume) {
           ),
         ),
         Text(
-          (volume >= 1000000 && volume < (1000000 * 10 * 100))
-              ? (volume / 1000000).toStringAsFixed(2) + "M"
-              : (volume / (1000000 * 10 * 100)).toStringAsFixed(2) + "B",
+          _formattedValue,
           style: TextStyle(
             fontSize: 16,
             color: Colors.blue[800],
@@ -675,8 +726,8 @@ Widget _buildTotalCap(String name, dynamic volume) {
 Widget cardsBody(
   BuildContext context,
   double volume,
-  int coin,
-  int cap,
+  double coin,
+  double cap,
   String intro,
   String youtube,
   String website,
@@ -689,6 +740,9 @@ Widget cardsBody(
   String slack,
   final title,
   int market_id,
+  String color1,
+  String color2,
+  String currencySymbol,
 ) {
   Future<void> _launched;
   Future<void> _launchInWebView(String url) async {
@@ -775,11 +829,12 @@ Widget cardsBody(
                 ));
           }).toList(),
         );
-
+  BlocProvider.of<GraphWeekBloc>(context).add(LoadGraphWeek(market_id));
   YoutubePlayerController _controller = YoutubePlayerController(
     initialVideoId: youtube,
     flags: YoutubePlayerFlags(
       enableCaption: true,
+      autoPlay: false,
     ),
   );
   return SingleChildScrollView(
@@ -794,7 +849,21 @@ Widget cardsBody(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: CoinGraph(market_id),
+              child: CoinGraph(market_id, color1, color2),
+              // child: BlocBuilder<GraphWeekBloc, GraphWeekState>(
+              //     builder: (context, state) {
+              //   if (state is GraphWeekLoadSuccess) {
+              //     var data = state.graphWeekList;
+              //     print("data===>${data.map((e) => e.price)}");
+              //     var d = data.map((e) => e.price);
+              //     return Container(
+              //       child: Text(d.toString()),
+              //     );
+              //   }
+              //   return Center(
+              //     child: CircularProgressIndicator(),
+              //   );
+              // }),
             ),
           ),
         ),
@@ -809,17 +878,17 @@ Widget cardsBody(
               ),
               child: Column(
                 children: [
-                  _buildTotalCap("24 Hrs Volume", volume),
+                  _buildTotalCap("24 Hrs Volume", volume, currencySymbol),
                   Divider(
                     color: Colors.blue[800],
                     thickness: 2,
                   ),
-                  _buildTotalCap("Total Coins", coin),
+                  _buildTotalCap("Total Coins", coin, currencySymbol),
                   Divider(
                     color: Colors.blue[800],
                     thickness: 2,
                   ),
-                  _buildTotalCap("Market Cap", cap),
+                  _buildTotalCap("Market Cap", cap, currencySymbol),
                 ],
               ),
             ),

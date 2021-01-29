@@ -11,7 +11,7 @@ class CoinDetailsModel {
   final String name;
   final String color1;
   final String color2;
-  final int market_cap_usd;
+  final double market_cap_usd;
   final String intro;
   final double volume24h_usd;
   final double low24_usd;
@@ -26,7 +26,7 @@ class CoinDetailsModel {
   final String slack;
   final String paper;
   final String youtube;
-  final int available_supply;
+  final double available_supply;
   final List<dynamic> guides;
   final int market_id;
 

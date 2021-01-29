@@ -10,9 +10,10 @@ abstract class CoinDetailsEvent extends Equatable {
 
 class LoadCoinDetails extends CoinDetailsEvent {
   final String symbol;
-  const LoadCoinDetails(this.symbol);
+  final String currencyCode;
+  const LoadCoinDetails(this.symbol,this.currencyCode);
   @override
-  List<String> get props => [symbol];
+  List<String> get props => [symbol,currencyCode];
   
 }
 

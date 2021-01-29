@@ -23,7 +23,7 @@ class CoinDetailsEntity extends Equatable {
   final String name;
   final String color1;
   final String color2;
-  final int market_cap_usd;
+  final dynamic market_cap_usd;
   final String intro;
   final double volume24h_usd;
   final double low24_usd;
@@ -38,7 +38,7 @@ class CoinDetailsEntity extends Equatable {
   final String slack;
   final String paper;
   final String youtube;
-  final int available_supply;
+  final dynamic available_supply;
   final List<dynamic> guides;
   final int market_id;
 
@@ -143,7 +143,7 @@ class CoinDetailsEntity extends Equatable {
       json['name'] as String,
       json['color1'] as String,
       json['color2'] as String,
-      json['market_cap_usd'] as int,
+      json['market_cap_usd'] as dynamic,
       json['intro'] as String,
       json['volume24h_usd'] as double,
       json['low24_usd'] as double,
@@ -158,7 +158,7 @@ class CoinDetailsEntity extends Equatable {
       json['slack'] as String,
       json['paper'] as String,
       json['youtube'] as String,
-      json['available_supply'] as int,
+      json['available_supply'] as dynamic,
       _dataList,
       json['market_id'] as int,
     );

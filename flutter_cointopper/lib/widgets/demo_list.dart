@@ -178,11 +178,11 @@ class _DataTableCoinListState extends State<DataTableCoinList> {
                 (coins) => DataRow(cells: [
                   DataCell(
                     GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => CoinDetails(coins.symbol),
-                        ));
-                      },
+                      // onTap: () {
+                      //   Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (_) => CoinDetails(coins.symbol),
+                      //   ));
+                      // },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,

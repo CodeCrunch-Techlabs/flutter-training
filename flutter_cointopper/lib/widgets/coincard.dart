@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart'; 
+import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
+import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_event.dart'; 
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_state.dart';
 import 'package:flutter_cointopper/screens/coin_detail.dart';
 import 'package:flutter_cointopper/screens/top_coin.dart';
-import 'package:hexcolor/hexcolor.dart'; 
+import 'package:hexcolor/hexcolor.dart';
+import 'package:intl/intl.dart'; 
 
 class CoinCard extends StatefulWidget {
+  final String currencyCode;
+  final String currencySymbol;
+  CoinCard(this.currencyCode,this.currencySymbol);
+
   @override
   _CoinCardState createState() => _CoinCardState();
 }
@@ -14,6 +20,8 @@ class CoinCard extends StatefulWidget {
 class _CoinCardState extends State<CoinCard> {
   @override
   Widget build(BuildContext context) {
+     BlocProvider.of<TopCoinsBloc>(context)
+        .add(LoadTopCoins(widget.currencyCode));
     return BlocBuilder<TopCoinsBloc, TopCoinsState>(builder: (context, state) {
       if (state is TopCoinsLoadSuccess) {
         return Column(
@@ -41,7 +49,7 @@ class _CoinCardState extends State<CoinCard> {
                       ? GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => TopCoin()));
+                                MaterialPageRoute(builder: (_) => TopCoin(widget.currencyCode, widget.currencySymbol)));
                           },
                           child: Card(
                             elevation: 2,
@@ -77,7 +85,10 @@ class _CoinCardState extends State<CoinCard> {
                           state.topCoinsList[index].logo,
                           state.topCoinsList[index].color1,
                           state.topCoinsList[index].color2,
-                          state.topCoinsList[index].symbol);
+                          state.topCoinsList[index].symbol,
+                          widget.currencyCode,
+                            widget.currencySymbol,
+                          );
                 },
               ),
             ),
@@ -98,11 +109,18 @@ Widget _cardSlider(
     String logo,
     String color1,
     String color2,
-    String symbol) {
+    String symbol,
+    String currencyCode,
+  dynamic currencySymbol,
+  ) {
+    var _formattedPrice = NumberFormat.compactCurrency(
+    decimalDigits: 2,
+    symbol: '$currencySymbol',
+  ).format(price);
   return GestureDetector(
     onTap: () {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => CoinDetails(symbol)));
+          .push(MaterialPageRoute(builder: (_) => CoinDetails(symbol,currencyCode,currencySymbol)));
     },
     child: Card(
       elevation: 3,
@@ -131,7 +149,7 @@ Widget _cardSlider(
                   ),
                 ),
                 Text(
-                  "\$${price.toStringAsFixed(4)}",
+                  "${price > 99999 ? _formattedPrice : '$currencySymbol' + price.toStringAsFixed(2)}",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -148,8 +166,8 @@ Widget _cardSlider(
                     SizedBox(
                       width: 6,
                     ),
-                    Text(
-                      "\$$percentChange24h%",
+                    Text( 
+                      "${double.parse((percentChange24h).toStringAsFixed(2))}%",
                       style: TextStyle(
                         color: Colors.white60,
                         fontSize: 12,

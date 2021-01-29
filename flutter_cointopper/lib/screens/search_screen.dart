@@ -43,6 +43,9 @@ class SearchCoinModel {
 }
 
 class SearchScreen extends StatefulWidget {
+  final String currencyCode;
+  final dynamic currencySymbol;
+  SearchScreen(this.currencyCode,this.currencySymbol);
   @override
   _SearchScreenState createState() => new _SearchScreenState();
 }
@@ -176,7 +179,8 @@ class _SearchScreenState extends State<SearchScreen> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (_) =>
-                                        CoinDetails(_searchResult[i].id)));
+                                        CoinDetails(_searchResult[i].id, widget.currencyCode,
+                                                widget.currencySymbol)));
                               },
                               child: new ListTile(
                                 leading: new CircleAvatar(

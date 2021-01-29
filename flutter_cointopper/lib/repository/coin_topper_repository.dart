@@ -4,6 +4,7 @@ import 'package:flutter_cointopper/model/coin_list_all.dart';
 import 'package:flutter_cointopper/model/currency.dart';
 import 'package:flutter_cointopper/model/featured_news.dart';
 import 'package:flutter_cointopper/model/global_data.dart';
+import 'package:flutter_cointopper/model/graph_week_model.dart';
 import 'package:flutter_cointopper/model/news_details_model.dart';
 import 'package:flutter_cointopper/model/news_list_model.dart';
 import 'package:flutter_cointopper/model/news_search_model.dart';
@@ -15,15 +16,14 @@ class CoinTopperRepository {
 
   CoinTopperRepository() {
     this.apiClient = ApiClient(baseUrl: "https://api.cointopper.com/api/v3/");
-    this.apiClient = ApiClient(graphUrl: "https://graph.cointopper.com/");
   }
 
   Stream<List<Currency>> loadCurrencyList() async* {
     yield* apiClient.fetchCurrencyList();
   }
 
-  Stream<List<TopCoins>> loadTopCoinsList() async* {
-    yield* apiClient.fetchTopCoinsList();
+  Stream<List<TopCoins>> loadTopCoinsList(String currencyCode) async* {
+    yield* apiClient.fetchTopCoinsList(currencyCode);
   }
 
   Stream<List<CoinList>> loadAllCoinsList(offset, limit) async* {
@@ -34,8 +34,8 @@ class CoinTopperRepository {
     yield* apiClient.fetchGlobalData();
   }
 
-  Stream<List<CoinDetailsModel>> loadCoinDetailsList(symbol) async* {
-    yield* apiClient.fetchCoinDetails(symbol);
+  Stream<List<CoinDetailsModel>> loadCoinDetailsList(symbol,String currencyCode) async* {
+    yield* apiClient.fetchCoinDetails(symbol,currencyCode);
   }
 
   Stream<List<SearchCoinModel>> loadSearchCoinsList() async* {
@@ -57,7 +57,8 @@ class CoinTopperRepository {
   Stream<List<NewsDetailsModel>> loadNewsDetails(id) async* {
     yield* apiClient.fetchNewsDetails(id);
   }
-   Stream<List<NewsDetailsModel>> loadGraphWeekList(marketId) async* {
+
+  Stream<List<GraphWeekModel>> loadGraphWeekList(marketId) async* {
     yield* apiClient.fetchGraphWeekList(marketId);
   }
 }

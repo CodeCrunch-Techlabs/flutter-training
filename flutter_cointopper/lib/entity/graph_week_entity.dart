@@ -1,15 +1,15 @@
 import 'package:equatable/equatable.dart';
 
 class GraphWeekModelEntity extends Equatable {
-  final int market_cap;
-  final double btc_price;
+  final double market_cap;
+  final dynamic btc_price;
   final double percent_change_7d;
   final double price;
   final double percent_change_24h;
-  final int total_supply;
-  final int max_supply;
+  final double total_supply;
+  final dynamic max_supply;
   final double volume_24h;
-  final int circulating_supply;
+  final double circulating_supply;
   final int time;
   final double percent_change_1h;
 
@@ -59,15 +59,15 @@ class GraphWeekModelEntity extends Equatable {
 
   static GraphWeekModelEntity fromJson(Map<String, Object> json) {
     return GraphWeekModelEntity(
-      json['market_cap'] as int,
-      json['btc_price'] as double,
+      json['market_cap'] as double,
+      json['btc_price'] as dynamic,
       json['percent_change_7d'] as double,
       json['price'] as double,
       json['percent_change_24h'] as double,
-      json['total_supply'] as int,
-      json['max_supply'] as int,
+      json['total_supply'] as double,
+      json['max_supply'] as  dynamic,
       json['volume_24h'] as double,
-      json['circulating_supply'] as int,
+      json['circulating_supply'] as double,
       json['time'] as int,
       json['percent_change_1h'] as double,
     );

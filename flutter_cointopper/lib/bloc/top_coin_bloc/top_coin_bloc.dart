@@ -16,7 +16,7 @@ class TopCoinsBloc extends Bloc<TopCoinsEvent, TopCoinsState> {
   @override
   Stream<TopCoinsState> mapEventToState(TopCoinsEvent event) async* {
     if (event is LoadTopCoins) {
-      yield* _mapLoadTopCoinsListState();
+      yield* _mapLoadTopCoinsListState(event.currencyCode);
     }
     {
       if (event is UpdateTopCoins) {
@@ -25,10 +25,10 @@ class TopCoinsBloc extends Bloc<TopCoinsEvent, TopCoinsState> {
     }
   }
 
-  Stream<TopCoinsState> _mapLoadTopCoinsListState() async* {
+  Stream<TopCoinsState> _mapLoadTopCoinsListState(currencyCode) async* {
     print("bloc enterred");
     _coinSubscription?.cancel();
-    _coinSubscription = coinRepository.loadTopCoinsList().listen(
+    _coinSubscription = coinRepository.loadTopCoinsList(currencyCode).listen(
           (list) => add(UpdateTopCoins(list)),
         );
   }

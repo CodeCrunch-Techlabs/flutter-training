@@ -3,15 +3,15 @@ import 'package:meta/meta.dart';
 
 @immutable
 class GraphWeekModel {
-  final int market_cap;
-  final double btc_price;
+  final double market_cap;
+  final  dynamic btc_price;
   final double percent_change_7d;
   final double price;
   final double percent_change_24h;
-  final int total_supply;
-  final int max_supply;
+  final double total_supply;
+  final  dynamic max_supply;
   final double volume_24h;
-  final int circulating_supply;
+  final double circulating_supply;
   final int time;
   final double percent_change_1h;
 
@@ -36,7 +36,7 @@ class GraphWeekModel {
         price,
         percent_change_24h,
         total_supply,
-        max_supply, 
+        max_supply,
         volume_24h,
         circulating_supply,
         time,
@@ -51,7 +51,7 @@ class GraphWeekModel {
         entity.price,
         entity.percent_change_24h,
         entity.total_supply,
-        entity.max_supply, 
+        entity.max_supply,
         entity.volume_24h,
         entity.circulating_supply,
         entity.time,
