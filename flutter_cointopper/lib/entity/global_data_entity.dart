@@ -1,24 +1,24 @@
 import 'package:equatable/equatable.dart';
 
 class GlobalDataEntity extends Equatable {
-  final dynamic total_coins;
-  final dynamic total_volume;
-  final dynamic total_market_cap;
+  final dynamic totalCoins;
+  final dynamic totalVolume;
+  final dynamic totalMarketCap;
 
-  GlobalDataEntity(this.total_coins, this.total_volume, this.total_market_cap);
+  GlobalDataEntity(this.totalCoins, this.totalVolume, this.totalMarketCap);
 
   @override
   List<Object> get props => [
-        total_coins,
-        total_volume,
-        total_market_cap,
+        totalCoins,
+        totalVolume,
+        totalMarketCap,
       ];
 
   Map<String, Object> toJson() {
     return {
-      'total_coins': total_coins,
-      'total_volume': total_volume,
-      'total_market_cap': total_market_cap,
+      'total_coins': totalCoins,
+      'total_volume': totalVolume,
+      'total_market_cap': totalMarketCap,
     };
   }
 

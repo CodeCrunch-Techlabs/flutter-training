@@ -27,7 +27,7 @@ class CoinDetailsVideo extends StatefulWidget {
   final String slack;
   final String paper;
   final title;
-  final int market_id;
+  final int marketId;
   final String color1;
   final String color2;
   final String currencySymbol;
@@ -47,7 +47,7 @@ class CoinDetailsVideo extends StatefulWidget {
       this.slack,
       this.paper,
       this.title,
-      this.market_id,
+      this.marketId,
       this.color1,
       this.color2,
       this.currencySymbol);
@@ -60,12 +60,11 @@ class _CoinDetailsVideoState extends State<CoinDetailsVideo> {
   String removeAllHtmlTags(String htmlText) {
     RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
     return htmlText.replaceAll(exp, '');
-  }
-
+  } 
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<GraphWeekBloc>(context)
-        .add(LoadGraphWeek(widget.market_id)); 
+        .add(LoadGraphWeek(widget.marketId)); 
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -79,7 +78,7 @@ class _CoinDetailsVideoState extends State<CoinDetailsVideo> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child:
-                    CoinGraph(widget.market_id, widget.color1, widget.color2, true, true), 
+                    CoinGraph(widget.marketId, widget.color1, widget.color2, true, true), 
               ),
             ),
           ),

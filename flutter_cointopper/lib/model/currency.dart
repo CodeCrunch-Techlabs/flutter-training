@@ -8,18 +8,18 @@ class Currency {
   final String code;
   final String symbol;
   final String format;
-  final String exchange_rate;
+  final String exchangeRate;
   final dynamic active;
 
-  Currency(this.id, this.name, this.code, this.symbol, this.format, this.exchange_rate,
+  Currency(this.id, this.name, this.code, this.symbol, this.format, this.exchangeRate,
   this.active);
 
   CurrencyEntity toEntity() {
-    return CurrencyEntity(id, name, code, symbol, format,exchange_rate,active);
+    return CurrencyEntity(id, name, code, symbol, format,exchangeRate,active);
   }
 
   static Currency fromEntity(CurrencyEntity entity) {
     return Currency(entity.id, entity.name, entity.code,entity.symbol,
-        entity.format,entity.exchange_rate,entity.active);
+        entity.format,entity.exchangeRate,entity.active);
   }
 }

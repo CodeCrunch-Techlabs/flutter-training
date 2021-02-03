@@ -1,11 +1,10 @@
-import 'dart:async';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/news_details_bloc/news_details_bloc.dart';
 import 'package:flutter_cointopper/bloc/news_details_bloc/news_details_event.dart';
 import 'package:flutter_cointopper/bloc/news_details_bloc/news_details_state.dart'; 
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart'; 
 
 class NewsWebview extends StatefulWidget {
   final int id;

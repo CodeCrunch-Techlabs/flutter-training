@@ -71,7 +71,7 @@ class _DashboardState extends State<Dashboard> {
                               NumberFormat.compactCurrency(
                             decimalDigits: 2,
                             symbol: '\$',
-                          ).format(state.globalDataList[0].total_market_cap); 
+                          ).format(state.globalDataList[0].totalMarketCap); 
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [

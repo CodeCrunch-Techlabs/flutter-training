@@ -6,11 +6,11 @@ class CurrencyEntity extends Equatable {
   final String code;
   final String symbol;
   final String format;
-  final String exchange_rate;
+  final String exchangeRate;
   final dynamic active;
 
   CurrencyEntity(this.id, this.name, this.code, this.symbol, this.format,
-      this.exchange_rate, this.active);
+      this.exchangeRate, this.active);
 
   @override
   List<Object> get props => [
@@ -19,7 +19,7 @@ class CurrencyEntity extends Equatable {
         code,
         symbol,
         format,
-        exchange_rate,
+        exchangeRate,
         active,
       ];
 
@@ -30,7 +30,7 @@ class CurrencyEntity extends Equatable {
       'code': code,
       'symbol': symbol,
       'format': format,
-      'exchange_rate': exchange_rate,
+      'exchange_rate': exchangeRate,
       'active': active
     };
   }

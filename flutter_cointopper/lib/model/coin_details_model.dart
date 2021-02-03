@@ -3,19 +3,19 @@ import 'package:meta/meta.dart';
 
 @immutable
 class CoinDetailsModel {
-  final double percent_change24h;
+  final double percentChange24h;
   final String logo;
-  final dynamic price_btc;
+  final dynamic priceBtc;
   final double price;
   final String symbol;
   final String name;
   final String color1;
   final String color2;
-  final double market_cap_usd;
+  final double marketCapUsd;
   final String intro;
-  final double volume24h_usd;
-  final double low24_usd;
-  final double high24_usd;
+  final double volume24hUsd;
+  final double low24Usd;
+  final double high24Usd;
   final String website;
   final String explorer;
   final String forum;
@@ -26,24 +26,24 @@ class CoinDetailsModel {
   final String slack;
   final String paper;
   final String youtube;
-  final double available_supply;
+  final double availableSupply;
   final List<dynamic> guides;
-  final int market_id;
+  final int marketId;
 
   CoinDetailsModel(
-      this.percent_change24h,
+      this.percentChange24h,
       this.logo,
-      this.price_btc,
+      this.priceBtc,
       this.price,
       this.symbol,
       this.name,
       this.color1,
       this.color2,
-      this.market_cap_usd,
+      this.marketCapUsd,
       this.intro,
-      this.volume24h_usd,
-      this.low24_usd,
-      this.high24_usd,
+      this.volume24hUsd,
+      this.low24Usd,
+      this.high24Usd,
       this.website,
       this.explorer,
       this.forum,
@@ -54,25 +54,25 @@ class CoinDetailsModel {
       this.slack,
       this.paper,
       this.youtube,
-      this.available_supply,
+      this.availableSupply,
       this.guides,
-      this.market_id);
+      this.marketId);
 
   CoinDetailsEntity toEntity() {
     return CoinDetailsEntity(
-        percent_change24h,
+        percentChange24h,
         logo,
-        price_btc,
+        priceBtc,
         price,
         symbol,
         name,
         color1,
         color2,
-        market_cap_usd,
+        marketCapUsd,
         intro,
-        volume24h_usd,
-        low24_usd,
-        high24_usd,
+        volume24hUsd,
+        low24Usd,
+        high24Usd,
         website,
         explorer,
         forum,
@@ -83,26 +83,26 @@ class CoinDetailsModel {
         slack,
         paper,
         youtube,
-        available_supply,
+        availableSupply,
         guides,
-        market_id);
+        marketId);
   }
 
   static CoinDetailsModel fromEntity(CoinDetailsEntity entity) {
     return CoinDetailsModel(
-        entity.percent_change24h,
+        entity.percentChange24h,
         entity.logo,
-        entity.price_btc,
+        entity.priceBtc,
         entity.price,
         entity.symbol,
         entity.name,
         entity.color1,
         entity.color2,
-        entity.market_cap_usd,
+        entity.marketCapUsd,
         entity.intro,
-        entity.volume24h_usd,
-        entity.low24_usd,
-        entity.high24_usd,
+        entity.volume24hUsd,
+        entity.low24Usd,
+        entity.high24Usd,
         entity.website,
         entity.explorer,
         entity.forum,
@@ -113,8 +113,8 @@ class CoinDetailsModel {
         entity.slack,
         entity.paper,
         entity.youtube,
-        entity.available_supply,
+        entity.availableSupply,
         entity.guides,
-        entity.market_id);
+        entity.marketId);
   }
 }

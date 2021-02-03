@@ -4,9 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/featured_news_bloc/featured_news_bloc.dart';
 import 'package:flutter_cointopper/bloc/featured_news_bloc/featured_news_state.dart';
 import 'package:flutter_cointopper/screens/news_webview_screen.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:hexcolor/hexcolor.dart'; 
 
 class NewsFeatured extends StatefulWidget {
   @override
@@ -60,20 +58,7 @@ class _NewsSliderState extends State<NewsSlider> {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _launched;
-    Future<void> _launchInWebView(String url) async {
-      if (await canLaunch(url)) {
-        await launch(
-          url,
-          forceSafariVC: true,
-          forceWebView: true,
-          enableJavaScript: true,
-        );
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
-
+    
     Widget carousel = data == null
         ? Center(
             child: Container(

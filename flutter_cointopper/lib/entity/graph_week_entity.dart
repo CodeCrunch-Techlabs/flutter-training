@@ -1,59 +1,59 @@
 import 'package:equatable/equatable.dart';
 
 class GraphWeekModelEntity extends Equatable {
-  final double market_cap;
-  final dynamic btc_price;
-  final double percent_change_7d;
+  final double marketCap;
+  final dynamic btcPrice;
+  final double percentChange7d;
   final double price;
-  final double percent_change_24h;
-  final double total_supply;
-  final dynamic max_supply;
-  final double volume_24h;
-  final double circulating_supply;
+  final double percentChange24h;
+  final double totalSupply;
+  final dynamic maxSupply;
+  final double volume24h;
+  final double circulatingSupply;
   final int time;
-  final double percent_change_1h;
+  final double percentChange1h;
 
   GraphWeekModelEntity(
-      this.market_cap,
-      this.btc_price,
-      this.percent_change_7d,
+      this.marketCap,
+      this.btcPrice,
+      this.percentChange7d,
       this.price,
-      this.percent_change_24h,
-      this.total_supply,
-      this.max_supply,
-      this.volume_24h,
-      this.circulating_supply,
+      this.percentChange24h,
+      this.totalSupply,
+      this.maxSupply,
+      this.volume24h,
+      this.circulatingSupply,
       this.time,
-      this.percent_change_1h);
+      this.percentChange1h);
 
   @override
   List<Object> get props => [
-        market_cap,
-        btc_price,
-        percent_change_7d,
+        marketCap,
+        btcPrice,
+        percentChange7d,
         price,
-        percent_change_24h,
-        total_supply,
-        max_supply,
-        volume_24h,
-        circulating_supply,
+        percentChange24h,
+        totalSupply,
+        maxSupply,
+        volume24h,
+        circulatingSupply,
         time,
-        percent_change_1h
+        percentChange1h
       ];
 
   Map<String, Object> toJson() {
     return {
-      'market_cap': market_cap,
-      'btc_price': btc_price,
-      'percent_change_7d': percent_change_7d,
+      'market_cap': marketCap,
+      'btc_price': btcPrice,
+      'percent_change_7d': percentChange7d,
       'price': price,
-      'percent_change_24h': percent_change_24h,
-      'total_supply': total_supply,
-      'max_supply': max_supply,
-      'volume_24h': volume_24h,
-      'circulating_supply': circulating_supply,
+      'percent_change_24h': percentChange24h,
+      'total_supply': totalSupply,
+      'max_supply': maxSupply,
+      'volume_24h': volume24h,
+      'circulating_supply': circulatingSupply,
       'time': time,
-      'percent_change_1h': percent_change_1h
+      'percent_change_1h': percentChange1h
     };
   }
 

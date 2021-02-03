@@ -115,7 +115,7 @@ class _CoinDetailsState extends State<CoinDetails> {
                         Image(
                           height: 10,
                           width: 10,
-                          image: AssetImage(data.percent_change24h > 0
+                          image: AssetImage(data.percentChange24h > 0
                               ? "assets/images/up_arrow.png"
                               : "assets/images/down_arrow.png"),
                         ),
@@ -123,7 +123,7 @@ class _CoinDetailsState extends State<CoinDetails> {
                           width: 5,
                         ),
                         Text(
-                          '${double.parse((data.percent_change24h).toStringAsFixed(2))}%',
+                          '${double.parse((data.percentChange24h).toStringAsFixed(2))}%',
                           style: TextStyle(
                               fontSize: 14,
                               color: Colors.white60,
@@ -139,7 +139,7 @@ class _CoinDetailsState extends State<CoinDetails> {
                           size: 14,
                         ),
                         Text(
-                          "${data.price_btc.toStringAsFixed(8)}",
+                          "${data.priceBtc.toStringAsFixed(8)}",
                           style: TextStyle(
                               fontSize: 14,
                               color: Colors.white60,
@@ -160,13 +160,13 @@ class _CoinDetailsState extends State<CoinDetails> {
                               Row(
                                 children: [
                                   Text(
-                                    data.high24_usd > 99999
+                                    data.high24Usd > 99999
                                         ? NumberFormat.compactCurrency(
                                             decimalDigits: 2,
                                             symbol: '${widget.currencySymbol}',
-                                          ).format(data.high24_usd)
+                                          ).format(data.high24Usd)
                                         : '${widget.currencySymbol}' +
-                                            data.high24_usd.toStringAsFixed(2),
+                                            data.high24Usd.toStringAsFixed(2),
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
@@ -187,13 +187,13 @@ class _CoinDetailsState extends State<CoinDetails> {
                               Row(
                                 children: [
                                   Text(
-                                    data.low24_usd > 99999
+                                    data.low24Usd > 99999
                                         ? NumberFormat.compactCurrency(
                                             decimalDigits: 2,
                                             symbol: '${widget.currencySymbol}',
-                                          ).format(data.low24_usd)
+                                          ).format(data.low24Usd)
                                         : '${widget.currencySymbol}' +
-                                            data.low24_usd.toStringAsFixed(2),
+                                            data.low24Usd.toStringAsFixed(2),
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
@@ -271,9 +271,9 @@ class _CoinDetailsState extends State<CoinDetails> {
               ),
               Expanded(
                 child:CoinDetailsVideo(
-                  data.volume24h_usd,
-                  data.available_supply,
-                  data.market_cap_usd,
+                  data.volume24hUsd,
+                  data.availableSupply,
+                  data.marketCapUsd,
                   data.intro,
                   data.youtube,
                   data.website,
@@ -286,7 +286,7 @@ class _CoinDetailsState extends State<CoinDetails> {
                   data.slack,
                   data.paper,
                   title,
-                  data.market_id,
+                  data.marketId,
                   data.color1,
                   data.color2,
                   widget.currencySymbol,), 

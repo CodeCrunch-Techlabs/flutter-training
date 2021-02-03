@@ -27,7 +27,7 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
       ui.Image image = await boundary.toImage();
       ByteData byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);
-      var png = byteData.buffer.asUint8List();
+      // var png = byteData.buffer.asUint8List();
       final snackBar = SnackBar(
         content: Text('Saved to Gallery'),
         backgroundColor: Colors.green,
@@ -196,7 +196,7 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
                                       height: 12,
                                       width: 12,
                                       image: AssetImage(
-                                           data.percent_change24h > 0
+                                           data.percentChange24h > 0
                                               ? "assets/images/up_arrow.png"
                                               : "assets/images/down_arrow.png"),
                                     ),
@@ -204,7 +204,7 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
                                       width: 5,
                                     ),
                                     Text(
-                                      "${data.percent_change24h.toStringAsFixed(2)}%",
+                                      "${data.percentChange24h.toStringAsFixed(2)}%",
                                       style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.white60,
@@ -220,7 +220,7 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
                                       size: 14,
                                     ),
                                     Text(
-                                     "${data.price_btc.toStringAsFixed(8)}",
+                                     "${data.priceBtc.toStringAsFixed(8)}",
                                       style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.white60,
@@ -249,14 +249,14 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
                                           Row(
                                             children: [
                                               Text(
-                                                data.high24_usd > 99999
+                                                data.high24Usd > 99999
                                           ? NumberFormat.compactCurrency(
                                               decimalDigits: 2,
                                               symbol:
                                                   '${widget.currencySymbol}',
-                                            ).format(data.high24_usd)
+                                            ).format(data.high24Usd)
                                           : '${widget.currencySymbol}' +
-                                              data.high24_usd
+                                              data.high24Usd
                                                   .toStringAsFixed(2),
                                                 style: TextStyle(
                                                     fontSize: 14,
@@ -280,14 +280,14 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
                                           Row(
                                             children: [
                                               Text(
-                                                data.low24_usd > 99999
+                                                data.low24Usd > 99999
                                           ? NumberFormat.compactCurrency(
                                               decimalDigits: 2,
                                               symbol:
                                                   '${widget.currencySymbol}',
-                                            ).format(data.low24_usd)
+                                            ).format(data.low24Usd)
                                           : '${widget.currencySymbol}' +
-                                              data.low24_usd.toStringAsFixed(2),
+                                              data.low24Usd.toStringAsFixed(2),
                                                 style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.white,
@@ -313,7 +313,7 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
                                                 NumberFormat.compactCurrency(
                                         decimalDigits: 2,
                                         symbol: '$currencySymbol',
-                                      ).format(data.market_cap_usd),
+                                      ).format(data.marketCapUsd),
                                                 style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.white,
@@ -355,7 +355,7 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
                                         color: Colors.transparent,
                                         padding: EdgeInsets.all(4.0),
                                         child: CoinGraph(
-                                          widget.data.market_id, 
+                                          widget.data.marketId, 
                                           '#FFFAFA', 
                                         '#F5F5F5',
                                           false,

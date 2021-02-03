@@ -81,7 +81,7 @@ class _CoinCardState extends State<CoinCard> {
                           context,
                           state.topCoinsList[index].name,
                           state.topCoinsList[index].price,
-                          state.topCoinsList[index].percent_change24h,
+                          state.topCoinsList[index].percentChange24h,
                           state.topCoinsList[index].logo,
                           state.topCoinsList[index].color1,
                           state.topCoinsList[index].color2,

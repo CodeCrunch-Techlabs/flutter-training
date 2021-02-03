@@ -8,7 +8,7 @@ class SearchCoinEntity extends Equatable {
   final String logo;
   final String url;
   final int coinid;
-  final int market_id;
+  final int marketId;
 
 
   SearchCoinEntity(this.value,
@@ -18,7 +18,7 @@ class SearchCoinEntity extends Equatable {
   this.logo,
   this.url,
   this.coinid,
-  this.market_id);
+  this.marketId);
 
   @override
   List<Object> get props => [
@@ -29,7 +29,7 @@ class SearchCoinEntity extends Equatable {
     logo,
     url,
     coinid,
-    market_id,
+    marketId,
   ];
 
   Map<String, Object> toJson() {
@@ -41,7 +41,7 @@ class SearchCoinEntity extends Equatable {
       "logo" : logo,
       "url" : url,
       "coinid" : coinid,
-      "market_id" : market_id,
+      "market_id" : marketId,
     };
   }
 

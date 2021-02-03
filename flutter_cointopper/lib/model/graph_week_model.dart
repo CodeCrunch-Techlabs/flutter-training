@@ -3,58 +3,58 @@ import 'package:meta/meta.dart';
 
 @immutable
 class GraphWeekModel {
-  final double market_cap;
-  final  dynamic btc_price;
-  final double percent_change_7d;
+  final double marketCap;
+  final  dynamic btcPrice;
+  final double percentChange7d;
   final double price;
-  final double percent_change_24h;
-  final double total_supply;
-  final  dynamic max_supply;
-  final double volume_24h;
-  final double circulating_supply;
+  final double percentChange24h;
+  final double totalSupply;
+  final  dynamic maxSupply;
+  final double volume24h;
+  final double circulatingSupply;
   final int time;
-  final double percent_change_1h;
+  final double percentChange1h;
 
   GraphWeekModel(
-      this.market_cap,
-      this.btc_price,
-      this.percent_change_7d,
+      this.marketCap,
+      this.btcPrice,
+      this.percentChange7d,
       this.price,
-      this.percent_change_24h,
-      this.total_supply,
-      this.max_supply,
-      this.volume_24h,
-      this.circulating_supply,
+      this.percentChange24h,
+      this.totalSupply,
+      this.maxSupply,
+      this.volume24h,
+      this.circulatingSupply,
       this.time,
-      this.percent_change_1h);
+      this.percentChange1h);
 
   GraphWeekModelEntity toEntity() {
     return GraphWeekModelEntity(
-        market_cap,
-        btc_price,
-        percent_change_7d,
+        marketCap,
+        btcPrice,
+        percentChange7d,
         price,
-        percent_change_24h,
-        total_supply,
-        max_supply,
-        volume_24h,
-        circulating_supply,
+        percentChange24h,
+        totalSupply,
+        maxSupply,
+        volume24h,
+        circulatingSupply,
         time,
-        percent_change_1h);
+        percentChange1h);
   }
 
   static GraphWeekModel fromEntity(GraphWeekModelEntity entity) {
     return GraphWeekModel(
-        entity.market_cap,
-        entity.btc_price,
-        entity.percent_change_7d,
+        entity.marketCap,
+        entity.btcPrice,
+        entity.percentChange7d,
         entity.price,
-        entity.percent_change_24h,
-        entity.total_supply,
-        entity.max_supply,
-        entity.volume_24h,
-        entity.circulating_supply,
+        entity.percentChange24h,
+        entity.totalSupply,
+        entity.maxSupply,
+        entity.volume24h,
+        entity.circulatingSupply,
         entity.time,
-        entity.percent_change_1h);
+        entity.percentChange1h);
   }
 }

@@ -9,13 +9,13 @@ import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart'; 
 
 class CoinGraph extends StatefulWidget {
-  final int market_id;
+  final int marketId;
   final String color1;
   final String color2;
   final bool leftSizeShowTitles;
   final bool bottomSideShowTitles;
 
-  CoinGraph(this.market_id, this.color1, this.color2,this.leftSizeShowTitles,this.bottomSideShowTitles);
+  CoinGraph(this.marketId, this.color1, this.color2,this.leftSizeShowTitles,this.bottomSideShowTitles);
   @override
   _CoinGraphState createState() =>
       _CoinGraphState();
@@ -126,7 +126,7 @@ class _CoinGraphState extends State<CoinGraph> {
  @override
   Widget build(BuildContext context) { 
     BlocProvider.of<GraphWeekBloc>(context)
-        .add(LoadGraphWeek(widget.market_id));
+        .add(LoadGraphWeek(widget.marketId));
     return BlocBuilder<GraphWeekBloc, GraphWeekState>(
       builder: (context, state) {
         if (state is GraphWeekLoadSuccess) {

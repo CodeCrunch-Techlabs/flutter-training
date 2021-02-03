@@ -3,8 +3,7 @@ import 'package:flutter_cointopper/bloc/news_search_bloc/news_search_state.dart'
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/news_search_bloc/news_search_bloc.dart';
 import 'package:flutter_cointopper/bloc/news_search_bloc/news_search_event.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; 
 
 import 'news_webview_screen.dart';
 

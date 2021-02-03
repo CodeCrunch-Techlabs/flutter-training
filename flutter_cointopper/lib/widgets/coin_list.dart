@@ -119,11 +119,11 @@ class _CoinListScreenState extends State<CoinListScreen> {
                     setState(() {
                       if (isSort) {
                         _pagingController.itemList.sort((a, b) =>
-                            b.percent_change24h.compareTo(a.percent_change24h));
+                            b.percentChange24h.compareTo(a.percentChange24h));
                         isSort = false;
                       } else {
                         _pagingController.itemList.sort((a, b) =>
-                            a.percent_change24h.compareTo(b.percent_change24h));
+                            a.percentChange24h.compareTo(b.percentChange24h));
                         isSort = true;
                       }
                     });
@@ -211,7 +211,7 @@ class _CoinListScreenState extends State<CoinListScreen> {
                               item.symbol + " / " + NumberFormat.compactCurrency(
                                 decimalDigits: 2,
                                 symbol: '${widget.currencySymbol}',
-                              ).format(item.market_cap_usd),
+                              ).format(item.marketCapUsd),
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey[500],
@@ -229,7 +229,7 @@ class _CoinListScreenState extends State<CoinListScreen> {
                       Image(
                         width: 12,
                         height: 12,
-                        image: AssetImage(item.percent_change24h > 0
+                        image: AssetImage(item.percentChange24h > 0
                             ? "assets/images/up_arrow_green.png"
                             : "assets/images/down_arrow_red.png"),
                       ),
@@ -237,11 +237,11 @@ class _CoinListScreenState extends State<CoinListScreen> {
                         width: 5,
                       ),
                       Text(
-                        '${item.percent_change24h.toStringAsFixed(2)}%',
+                        '${item.percentChange24h.toStringAsFixed(2)}%',
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: item.percent_change24h > 0
+                          color: item.percentChange24h > 0
                               ? Colors.green[600]
                               : HexColor("#a94442"),
                         ),
@@ -276,7 +276,7 @@ class _CoinListScreenState extends State<CoinListScreen> {
                             size: 12,
                           ),
                           Text(
-                            "${item.price_btc.toStringAsFixed(8)}",
+                            "${item.priceBtc.toStringAsFixed(8)}",
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[500],

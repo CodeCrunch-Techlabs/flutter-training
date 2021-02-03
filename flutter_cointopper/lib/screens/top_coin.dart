@@ -5,8 +5,7 @@ import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_event.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_state.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
-
+import 'package:intl/intl.dart'; 
 import 'coin_detail.dart';
 
 class TopCoin extends StatefulWidget {
@@ -159,13 +158,13 @@ class _TopCoinState extends State<TopCoin> {
                                   _sortColumnIndex = i;
                                   if (isSortChange) {
                                     state.topCoinsList.sort((a, b) => b
-                                        .percent_change24h
-                                        .compareTo(a.percent_change24h));
+                                        .percentChange24h
+                                        .compareTo(a.percentChange24h));
                                     isSortChange = false;
                                   } else {
                                     state.topCoinsList.sort((a, b) => a
-                                        .percent_change24h
-                                        .compareTo(b.percent_change24h));
+                                        .percentChange24h
+                                        .compareTo(b.percentChange24h));
                                     isSortChange = true;
                                   }
                                 }
@@ -257,7 +256,7 @@ class _TopCoinState extends State<TopCoin> {
                                                               symbol:
                                                                   '${widget.currencySymbol}')
                                                           .format(coins
-                                                              .market_cap_usd),
+                                                              .marketCapUsd),
                                                   style: TextStyle(
                                                     fontSize: 12,
                                                     color: Colors.grey[500],
@@ -280,7 +279,7 @@ class _TopCoinState extends State<TopCoin> {
                                             width: 12,
                                             height: 12,
                                             image: AssetImage(coins
-                                                        .percent_change24h >
+                                                        .percentChange24h >
                                                     0
                                                 ? "assets/images/up_arrow_green.png"
                                                 : "assets/images/down_arrow_red.png"),
@@ -289,11 +288,11 @@ class _TopCoinState extends State<TopCoin> {
                                             width: 5,
                                           ),
                                           Text(
-                                            '${double.parse((coins.percent_change24h).toStringAsFixed(2))}%',
+                                            '${double.parse((coins.percentChange24h).toStringAsFixed(2))}%',
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold,
-                                              color: coins.percent_change24h > 0
+                                              color: coins.percentChange24h > 0
                                                   ? Colors.green[600]
                                                   : HexColor("#a94442"),
                                             ),
@@ -334,7 +333,7 @@ class _TopCoinState extends State<TopCoin> {
                                                 size: 12,
                                               ),
                                               Text(
-                                                "${coins.price_btc.toStringAsFixed(8)}",
+                                                "${coins.priceBtc.toStringAsFixed(8)}",
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey[500],

@@ -10,14 +10,14 @@ class SearchCoinModel {
   final String logo;
   final String url;
   final int coinid;
-  final int market_id;
+  final int marketId;
 
   SearchCoinModel(this.value, this.id, this.color1, this.color2, this.logo,
-      this.url, this.coinid, this.market_id);
+      this.url, this.coinid, this.marketId);
 
   SearchCoinEntity toEntity() {
     return SearchCoinEntity(
-        value, id, color1, color2, logo, url, coinid, market_id);
+        value, id, color1, color2, logo, url, coinid, marketId);
   }
 
   static SearchCoinModel fromEntity(SearchCoinEntity entity) {
@@ -29,6 +29,6 @@ class SearchCoinModel {
         entity.logo,
         entity.url,
         entity.coinid,
-        entity.market_id);
+        entity.marketId);
   }
 }

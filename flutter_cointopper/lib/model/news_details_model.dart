@@ -1,5 +1,4 @@
-import 'package:flutter_cointopper/entity/news_details_entity.dart';
-import 'package:flutter_cointopper/entity/news_list_entity.dart';
+import 'package:flutter_cointopper/entity/news_details_entity.dart'; 
 import 'package:meta/meta.dart';
 
 @immutable
