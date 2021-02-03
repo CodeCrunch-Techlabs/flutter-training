@@ -54,7 +54,7 @@ class _CoinCardState extends State<CoinCard> {
                           child: Card(
                             elevation: 2,
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
+                                borderRadius: BorderRadius.circular(10)),
                             child: Container(
                               padding: EdgeInsets.all(10),
                               // width: MediaQuery.of(context).size.width * 0.4,
@@ -64,7 +64,7 @@ class _CoinCardState extends State<CoinCard> {
                                     color: Colors.blue[800],
                                     width: 2,
                                   ),
-                                  borderRadius: BorderRadius.circular(15)),
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Center(
                                 child: Text(
                                   "View All",
@@ -124,7 +124,7 @@ Widget _cardSlider(
     },
     child: Card(
       elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Container(
         padding: EdgeInsets.only(top: 10, left: 10, right: 5, bottom: 5),
         width: 160,
@@ -134,7 +134,7 @@ Widget _cardSlider(
               end: Alignment.centerRight,
               colors: [HexColor("$color1"), HexColor("$color2")],
             ),
-            borderRadius: BorderRadius.circular(15)),
+            borderRadius: BorderRadius.circular(10)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -35,7 +35,6 @@ class _TopCoinState extends State<TopCoin> {
         .add(LoadTopCoins(widget.currencyCode));
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -214,9 +213,10 @@ class _TopCoinState extends State<TopCoin> {
                                         onTap: () {
                                           Navigator.of(context)
                                               .push(MaterialPageRoute(
-                                            builder: (_) =>
-                                                CoinDetails(coins.symbol, widget.currencyCode,
-                                                          widget.currencySymbol),
+                                            builder: (_) => CoinDetails(
+                                                coins.symbol,
+                                                widget.currencyCode,
+                                                widget.currencySymbol),
                                           ));
                                         },
                                         child: Row(
@@ -249,13 +249,15 @@ class _TopCoinState extends State<TopCoin> {
                                                 ),
                                                 SizedBox(
                                                   height: 6,
-                                                ),
+                                                ), 
                                                 Text( 
-                                                   NumberFormat.compactCurrency(
-                                                      decimalDigits: 2,
-                                                      symbol: '${widget.currencySymbol}',
-                                                    ).format(coins.market_cap_usd),
-                                              //  coins.symbol / NumberFormat.compactCurrency(decimalDigits: 2,symbol: '${widget.currencySymbol}').format(coins.market_cap_usd),
+                                                  coins.symbol + " / " +
+                                                      NumberFormat.compactCurrency(
+                                                              decimalDigits: 2,
+                                                              symbol:
+                                                                  '${widget.currencySymbol}')
+                                                          .format(coins
+                                                              .market_cap_usd),
                                                   style: TextStyle(
                                                     fontSize: 12,
                                                     color: Colors.grey[500],
@@ -287,7 +289,7 @@ class _TopCoinState extends State<TopCoin> {
                                             width: 5,
                                           ),
                                           Text(
-                                             '${double.parse((coins.percent_change24h).toStringAsFixed(2))}%', 
+                                            '${double.parse((coins.percent_change24h).toStringAsFixed(2))}%',
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold,
@@ -307,10 +309,15 @@ class _TopCoinState extends State<TopCoin> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                              coins.price > 99999 ? NumberFormat.compactCurrency(
-                                                  decimalDigits: 2,
-                                                  symbol: '${widget.currencySymbol}',
-                                                ).format(coins.price) : '${widget.currencySymbol}' + coins.price.toStringAsFixed(2),
+                                            coins.price > 99999
+                                                ? NumberFormat.compactCurrency(
+                                                    decimalDigits: 2,
+                                                    symbol:
+                                                        '${widget.currencySymbol}',
+                                                  ).format(coins.price)
+                                                : '${widget.currencySymbol}' +
+                                                    coins.price
+                                                        .toStringAsFixed(2),
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: Colors.blue,

@@ -9,22 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 
-Stream<List<CoinList>> getCharacterList(
-    int offset, int limit, String currencyCode) async* {
-  final response = await http.get(
-      Uri.encodeFull(
-          '${"https://api.cointopper.com/api/v3/" + "ticker?offset=$offset&limit=$limit&currency=$currencyCode"}'),
-      headers: {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-      });
-  Map<String, dynamic> map = json.decode(response.body);
-  List<dynamic> results = map["data"];
-  yield results
-      .map((dynamic item) => CoinList.fromEntity(
-          CoinListEntity.fromJson(item as Map<String, dynamic>)))
-      .toList();
-}
+
 
 class CoinListScreen extends StatefulWidget {
   final String currencyCode;
@@ -45,16 +30,41 @@ class _CoinListScreenState extends State<CoinListScreen> {
 
   @override
   void initState() {
+    print("currencyCode==>${widget.currencyCode}");
+     print("currencySymbol==>${widget.currencySymbol}");
     _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
+      _fetchPage(pageKey,widget.currencyCode);
     });
     super.initState();
   }
+   @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
 
-  Future<void> _fetchPage(int pageKey) async {
+
+  Stream<List<CoinList>> getCharacterList(
+    int offset, int limit, String currencyCode) async* {
+  final response = await http.get(
+      Uri.encodeFull(
+          '${"https://api.cointopper.com/api/v3/" + "ticker?offset=$offset&limit=$limit&currency=${widget.currencyCode}"}'),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      });
+  Map<String, dynamic> map = json.decode(response.body);
+  List<dynamic> results = map["data"]; 
+  yield results
+      .map((dynamic item) => CoinList.fromEntity(
+          CoinListEntity.fromJson(item as Map<String, dynamic>)))
+      .toList();
+}
+
+  Future<void> _fetchPage(int pageKey,String currencyCode) async {
     try {
       final newItems =
-          await getCharacterList(pageKey, _pageSize, widget.currencyCode)
+          await getCharacterList(pageKey, _pageSize, currencyCode)
               .single;
 
       final isLastPage = newItems.length < _pageSize;
@@ -198,7 +208,7 @@ class _CoinListScreenState extends State<CoinListScreen> {
                               height: 6,
                             ),
                             Text(
-                                NumberFormat.compactCurrency(
+                              item.symbol + " / " + NumberFormat.compactCurrency(
                                 decimalDigits: 2,
                                 symbol: '${widget.currencySymbol}',
                               ).format(item.market_cap_usd),
@@ -284,11 +294,6 @@ class _CoinListScreenState extends State<CoinListScreen> {
             color: Colors.black38,
           ),
         ),
-      ]);
-
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
+      ]); 
+ 
 }
