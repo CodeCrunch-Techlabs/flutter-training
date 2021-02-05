@@ -248,17 +248,17 @@ class _DashboardState extends State<Dashboard> {
               thickness: 2,
             ),
           ),
-          BlocBuilder<CoinListBloc, CoinListState>(builder: (context, state) {
-            if (state is CoinListLoadSuccess) {
-              return Expanded(
+          // BlocBuilder<CoinListBloc, CoinListState>(builder: (context, state) {
+          //   if (state is CoinListLoadSuccess) {
+              Expanded(
                 child: CoinListScreen(dropdownValue, currencySymbol),
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          }),
+              ),
+          //   } else {
+          //     return Center(
+          //       child: CircularProgressIndicator(),
+          //     );
+          //   }
+          // }),
         ],
       ),
     );

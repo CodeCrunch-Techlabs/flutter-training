@@ -26,7 +26,7 @@ class CoinDetailsModel {
   final String slack;
   final String paper;
   final String youtube;
-  final double availableSupply;
+  final dynamic availableSupply;
   final List<dynamic> guides;
   final int marketId;
 

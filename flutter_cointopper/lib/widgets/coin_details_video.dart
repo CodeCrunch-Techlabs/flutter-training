@@ -13,7 +13,7 @@ import 'coin_graph.dart';
 
 class CoinDetailsVideo extends StatefulWidget {
   final double volume;
-  final double coin;
+  final dynamic coin;
   final double cap;
   final String intro;
   final String youtube;
