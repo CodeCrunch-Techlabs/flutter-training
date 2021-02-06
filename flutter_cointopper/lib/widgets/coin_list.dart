@@ -22,6 +22,7 @@ class _CoinListScreenState extends State<CoinListScreen> {
   bool isSortChange = true;
   bool isSortPrice = true;
   static const _pageSize = 20; 
+  String code = 'USD';
 
   final PagingController<int, CoinList> _pagingController =
       PagingController(firstPageKey: 0);
@@ -75,10 +76,17 @@ class _CoinListScreenState extends State<CoinListScreen> {
     }
   }
  
+ dynamic refreshControl() {
+  if (widget.currencyCode != code) {
+    code = widget.currencyCode;
+    _pagingController.refresh();
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
-    _pagingController.refresh(); 
+    refreshControl();
     return CustomScrollView(slivers: <Widget>[
       SliverAppBar(
         pinned: true,
@@ -105,36 +113,54 @@ class _CoinListScreenState extends State<CoinListScreen> {
                     }
                   });
                 },
-                child: Text(
-                  'NAME/  M.CAP',
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF005580),
-                  ),
+                child: Row(
+                  children: [
+                    Text(
+                      'NAME/  M.CAP',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.03,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF005580),
+                      ),
+                    ),
+                    Icon(
+                     isSort ? Icons.arrow_downward : Icons.arrow_upward, 
+                     size:MediaQuery.of(context).size.width * 0.03,
+                     color: Color(0xFF005580),
+                    ),
+                  ],
                 ),
               ),
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    if (isSort) {
+                    if (isSortChange) {
                       _pagingController.itemList.sort((a, b) =>
                           b.percentChange24h.compareTo(a.percentChange24h));
-                      isSort = false;
+                      isSortChange = false;
                     } else {
                       _pagingController.itemList.sort((a, b) =>
                           a.percentChange24h.compareTo(b.percentChange24h));
-                      isSort = true;
+                      isSortChange = true;
                     }
                   });
                 },
-                child: Text(
-                  'CHANGE',
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF005580),
-                  ),
+                child: Row(
+                  children: [
+                    Text(
+                      'CHANGE',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.03,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF005580),
+                      ),
+                    ),
+                     Icon(
+                     isSortChange ? Icons.arrow_downward : Icons.arrow_upward, 
+                     size: MediaQuery.of(context).size.width * 0.03,
+                     color: Color(0xFF005580),
+                    ),
+                  ],
                 ),
               ),
               GestureDetector(
@@ -151,13 +177,22 @@ class _CoinListScreenState extends State<CoinListScreen> {
                     }
                   });
                 },
-                child: Text(
-                  'PRICE',
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF005580),
-                  ),
+                child: Row(
+                  children: [
+                    Text(
+                      'PRICE',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.03,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF005580),
+                      ),
+                    ),
+                     Icon(
+                     isSortPrice ? Icons.arrow_downward : Icons.arrow_upward, 
+                     size: MediaQuery.of(context).size.width * 0.03,
+                     color: Color(0xFF005580),
+                    ),
+                  ],
                 ),
               ),
             ],
