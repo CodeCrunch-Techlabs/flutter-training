@@ -92,7 +92,7 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
           )),
       onPressed: () {
         Navigator.of(context).pop();
-      },
+      }, 
     );
 
     var currDt = DateTime.now();

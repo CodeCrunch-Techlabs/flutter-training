@@ -100,7 +100,7 @@ class _CoinGraphState extends State<CoinGraph> {
         return DateFormat.MMM().format(date);
       },
       margin: 8,
-      interval: (_maxX - _minX) / 6,
+      interval: (_maxX - _minX) / 7,
     );
   }
 

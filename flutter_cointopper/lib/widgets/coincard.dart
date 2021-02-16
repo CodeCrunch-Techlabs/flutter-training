@@ -104,7 +104,7 @@ class _CoinCardState extends State<CoinCard> {
 Widget _cardSlider(
     BuildContext context,
     String name,
-    double price,
+    dynamic price,
     double percentChange24h,
     String logo,
     String color1,

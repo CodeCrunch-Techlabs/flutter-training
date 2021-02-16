@@ -190,8 +190,7 @@ class ApiClient {
         .toList();
   }
 
-  Stream<List<GraphWeekModel>> fetchGraphWeekList(int marketId) async* {
-    print("marketId===>$marketId");
+  Stream<List<GraphWeekModel>> fetchGraphWeekList(int marketId) async* { 
     final String graphUrl = "https://graph.cointopper.com/";
     final response = await httpClient.get(
         Uri.encodeFull('${graphUrl + "historyweekhours/" + "$marketId"}'),
