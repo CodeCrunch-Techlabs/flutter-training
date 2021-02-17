@@ -9,6 +9,7 @@ import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_state.dart'
 import 'package:flutter_cointopper/screens/search_screen.dart';
 import 'package:flutter_cointopper/widgets/coin_list.dart';
 import 'package:flutter_cointopper/widgets/coincard.dart';
+import 'package:flutter_cointopper/widgets/icon_button_widget.dart';
 import 'package:intl/intl.dart';
 
 class Dashboard extends StatefulWidget {
@@ -71,7 +72,7 @@ class _DashboardState extends State<Dashboard> {
                               NumberFormat.compactCurrency(
                             decimalDigits: 2,
                             symbol: '\$',
-                          ).format(state.globalDataList[0].totalMarketCap); 
+                          ).format(state.globalDataList[0].totalMarketCap);
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -115,7 +116,8 @@ class _DashboardState extends State<Dashboard> {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => SearchScreen( dropdownValue, currencySymbol)));
+                                builder: (_) => SearchScreen(
+                                    dropdownValue, currencySymbol)));
                           },
                           child: Container(
                               padding: EdgeInsets.only(
@@ -146,7 +148,7 @@ class _DashboardState extends State<Dashboard> {
                               height: 40,
                               width: MediaQuery.of(context).size.width * 0.2,
                               decoration: BoxDecoration(
-                                 color: Color(0xFF00e00),
+                                color: Color(0xFF00e00),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: DropdownButton(
@@ -174,10 +176,10 @@ class _DashboardState extends State<Dashboard> {
                                 },
                                 items: state.currencyList.map((value) {
                                   return DropdownMenuItem(
-                                    value: value.symbol,  
-                                    child: Container( 
-                                      padding: EdgeInsets.all(5.0), 
-                                      child: Column(  
+                                    value: value.symbol,
+                                    child: Container(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
@@ -186,7 +188,7 @@ class _DashboardState extends State<Dashboard> {
                                                   color: Colors.black)),
                                           Text('(${value.symbol})',
                                               style: TextStyle(
-                                                  color: Colors.black)), 
+                                                  color: Colors.black)),
                                         ],
                                       ),
                                     ),
@@ -205,36 +207,16 @@ class _DashboardState extends State<Dashboard> {
                             return CircularProgressIndicator();
                           }
                         }),
-                        Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width * 0.15,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF00e00),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.star_border,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width * 0.15,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF00e00),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.notifications_active,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+                        IconButtonWidget(
+                            iconName: Icons.star_border,
+                            onPress: null,
+                            iconColor: Colors.white,
+                            iconBackgroundColor: Color(0xFF00e00)),
+                        IconButtonWidget(
+                            iconName: Icons.notifications_active,
+                            onPress: null,
+                            iconColor: Colors.white,
+                            iconBackgroundColor: Color(0xFF00e00)),
                       ]),
                 ),
               ],
@@ -250,9 +232,9 @@ class _DashboardState extends State<Dashboard> {
           ),
           // BlocBuilder<CoinListBloc, CoinListState>(builder: (context, state) {
           //   if (state is CoinListLoadSuccess) {
-              Expanded(
-                child: CoinListScreen(dropdownValue, currencySymbol),
-              ),
+          Expanded(
+            child: CoinListScreen(dropdownValue, currencySymbol),
+          ),
           //   } else {
           //     return Center(
           //       child: CircularProgressIndicator(),
