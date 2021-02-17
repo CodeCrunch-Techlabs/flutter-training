@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart'; 
+import 'coin_details_card_header_text.dart';
 import 'details_youtube_player.dart';
 
 class CoindetailsIntro extends StatelessWidget {
@@ -27,13 +28,7 @@ class CoindetailsIntro extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "About",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black54,
-                ),
-              ),
+              CoindetailsCardHeaderText(title:"About",color: Colors.black54,fontSize: 16),
               SizedBox(
                 height: 10,
               ),

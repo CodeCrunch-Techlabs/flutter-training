@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'coin_details_card_header_text.dart';
+
 class CoinDetailsTotalCap extends StatelessWidget {
   final double volume;
   final dynamic coin;
@@ -40,20 +42,8 @@ Widget _buildTotalCap(String name, dynamic volume, dynamic currencySymbol) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            name,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black54,
-            ),
-          ),
-          Text(
-            _formattedValue,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.blue[800],
-            ),
-          ),
+           CoindetailsCardHeaderText(title: name,color: Colors.black54,fontSize: 16),
+           CoindetailsCardHeaderText(title: _formattedValue,color: Colors.blue[800],fontSize: 16),  
         ],
       ),
     );

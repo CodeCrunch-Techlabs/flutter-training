@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cointopper/widgets/coin_details_widgets/coin_details_card_header_text.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class CoinlistBodyChange extends StatelessWidget {
-   final dynamic item;
-   CoinlistBodyChange(this.item);
+  final dynamic item;
+  CoinlistBodyChange(this.item);
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +24,14 @@ class CoinlistBodyChange extends StatelessWidget {
           SizedBox(
             width: 5,
           ),
-          Text(
-            '${item.percentChange24h.toStringAsFixed(2)}%',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: item.percentChange24h > 0
-                  ? Colors.green[600]
-                  : HexColor("#a94442"),
-            ),
+          CoindetailsCardHeaderText(
+            title: '${item.percentChange24h.toStringAsFixed(2)}%',
+            color: item.percentChange24h > 0
+                ? Colors.green[600]
+                : HexColor("#a94442"),fontSize: 12
           ),
         ],
       ),
     );
   }
 }
-
-

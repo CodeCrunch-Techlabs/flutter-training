@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart'; 
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
+import 'coin_details_card_header_text.dart';
+
 class MyInAppBrowser extends InAppBrowser {
   @override
   Future onLoadStart(String url) async {
@@ -156,13 +158,8 @@ class _CoinImportantLinksState extends State<CoinImportantLinks> {
                 ),
                 SizedBox(
                   height: 5,
-                ),
-                Text(
-                  impLinks[index]['name'],
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.035,
-                  ),
-                ),
+                ), 
+                CoindetailsCardHeaderText(title:impLinks[index]['name'],color: Colors.black54,fontSize: 16),
               ],
             ),
           );

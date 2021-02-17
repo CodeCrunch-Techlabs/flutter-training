@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cointopper/widgets/coin_details_widgets/coin_details_card_header_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
@@ -15,17 +16,15 @@ class CoinlistBodyPrice extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            item.price > 99999
+          CoindetailsCardHeaderText(
+            title: item.price > 99999
                 ? NumberFormat.compactCurrency(
                     decimalDigits: 2,
                     symbol: '$widget',
                   ).format(item.price)
                 : '$widget' + item.price.toStringAsFixed(2),
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.blue,
-            ),
+            color: Colors.blue,
+            fontSize: 12
           ),
           SizedBox(
             height: 6,
@@ -37,12 +36,10 @@ class CoinlistBodyPrice extends StatelessWidget {
                 color: Colors.grey[500],
                 size: 12,
               ),
-              Text(
-                "${item.priceBtc.toStringAsFixed(8)}",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[500],
-                ),
+              CoindetailsCardHeaderText(
+                title: "${item.priceBtc.toStringAsFixed(8)}",
+                color: Colors.grey[500],
+                fontSize: 12
               ),
             ],
           ),

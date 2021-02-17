@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import 'coin_details_widgets/coin_details_card_header_text.dart';
+
 class CoinCardSlider extends StatefulWidget {
   final coinCard;
 
@@ -77,14 +79,10 @@ class _CoinCardSliderState extends State<CoinCardSlider> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          data.title, 
-                                          style: TextStyle(
+                                        CoindetailsCardHeaderText(
+                                            title: data.title,
                                             color: Colors.white,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
+                                            fontSize: 14),
                                       ],
                                     )),
                               ),

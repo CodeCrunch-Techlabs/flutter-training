@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart'; 
+import 'coin_details_card_header_text.dart';
 import 'coin_important_links.dart';
 
 
@@ -47,14 +48,8 @@ class CoindetailsImpotantlink extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                  ),
-                  child: Text(
-                    "Important Links",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black54,
-                    ),
-                  ),
+                  ), 
+                  child:  CoindetailsCardHeaderText(title:"Important Links",color: Colors.black54,fontSize: 16),
                 ),
                 content: CoinImportantLinks(
                   youtube,

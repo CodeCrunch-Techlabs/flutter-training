@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cointopper/widgets/coin_details_widgets/coin_details_card_header_text.dart';
 import 'package:intl/intl.dart';
 
 class CoinlistBodyName extends StatelessWidget {
   final dynamic item;
   final String widget;
-  CoinlistBodyName(this.item,this.widget); 
+  CoinlistBodyName(this.item, this.widget);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,28 +26,23 @@ class CoinlistBodyName extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                item.name,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[800],
-                ),
-              ),
+              CoindetailsCardHeaderText(
+                title: item.name,
+                color: Colors.grey[800],
+                fontSize: 12
+              ), 
               SizedBox(
                 height: 6,
               ),
-              Text(
-                item.symbol +
+              CoindetailsCardHeaderText(
+                title: item.symbol +
                     " / " +
                     NumberFormat.compactCurrency(
                       decimalDigits: 2,
                       symbol: '$widget',
                     ).format(item.marketCapUsd),
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[500],
-                ),
-              ),
+                color: Colors.grey[500],fontSize: 12
+              ), 
             ],
           )
         ],
@@ -54,4 +50,3 @@ class CoinlistBodyName extends StatelessWidget {
     );
   }
 }
-

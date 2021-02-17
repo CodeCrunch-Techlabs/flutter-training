@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+import 'coin_details_card_header_text.dart';
+
 class DetailsImageCarousel extends StatefulWidget {
   final title;
   DetailsImageCarousel(this.title);
@@ -65,15 +67,8 @@ class _DetailsImageCarouselState extends State<DetailsImageCarousel> {
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          data.title,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
+                                      children: [ 
+                                        CoindetailsCardHeaderText(title:data.title,color: Colors.white,fontSize: 14),
                                       ],
                                     )),
                               ),

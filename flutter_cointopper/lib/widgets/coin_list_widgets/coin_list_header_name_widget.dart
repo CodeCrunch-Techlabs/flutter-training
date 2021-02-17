@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 
-class CoinlistHeaderChange extends StatelessWidget {
-  const CoinlistHeaderChange({
+class CoinlistHeaderName extends StatelessWidget {
+  const CoinlistHeaderName({
     Key key,
-    @required this.isSortChange,
+    @required this.isSort,
+    @required this.name,
+    @required this.width,
   }) : super(key: key);
 
-  final bool isSortChange;
+  final bool isSort;
+  final String name;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.30,
+      width: MediaQuery.of(context).size.width * width,
       child: Row(
         children: [
           Text(
-            'CHANGE',
+            name,
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.width * 0.03,
               fontWeight: FontWeight.w600,
@@ -23,9 +27,7 @@ class CoinlistHeaderChange extends StatelessWidget {
             ),
           ),
           Icon(
-            isSortChange
-                ? Icons.arrow_downward
-                : Icons.arrow_upward,
+            isSort ? Icons.arrow_downward : Icons.arrow_upward,
             size: MediaQuery.of(context).size.width * 0.03,
             color: Color(0xFF005580),
           ),
@@ -33,4 +35,4 @@ class CoinlistHeaderChange extends StatelessWidget {
       ),
     );
   }
-}
+} 

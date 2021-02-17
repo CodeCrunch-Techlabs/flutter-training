@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cointopper/entity/coin_list_entity.dart';
 import 'package:flutter_cointopper/model/coin_list_all.dart';
-import 'package:flutter_cointopper/screens/coin_detail.dart'; 
+import 'package:flutter_cointopper/screens/coin_detail.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart'; 
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'coin_list_body_widget/coinlist_body_change.dart';
 import 'coin_list_body_widget/coinlist_body_name.dart';
-import 'coin_list_body_widget/coinlist_body_price.dart';
-import 'coin_list_header_widgets/coin_list_header_change_widget.dart';
-import 'coin_list_header_widgets/coin_list_header_name_widget.dart';
-import 'coin_list_header_widgets/coin_list_header_price_widget.dart';
+import 'coin_list_body_widget/coinlist_body_price.dart'; 
+import 'coin_list_widgets/coin_list_header_name_widget.dart'; 
 
 class CoinListScreen extends StatefulWidget {
   final String currencyCode;
@@ -115,7 +113,8 @@ class _CoinListScreenState extends State<CoinListScreen> {
                     }
                   });
                 },
-                child: CoinlistHeaderName(isSort: isSort),
+                child: CoinlistHeaderName(
+                    isSort: isSort, name: 'NAME / M.CAP', width: 0.45),
               ),
               GestureDetector(
                 onTap: () {
@@ -131,7 +130,8 @@ class _CoinListScreenState extends State<CoinListScreen> {
                     }
                   });
                 },
-                child: CoinlistHeaderChange(isSortChange: isSortChange),
+                child: CoinlistHeaderName(
+                    isSort: isSortChange, name: 'CHANGE', width: 0.30),
               ),
               GestureDetector(
                 onTap: () {
@@ -147,7 +147,8 @@ class _CoinListScreenState extends State<CoinListScreen> {
                     }
                   });
                 },
-                child: CoinlistHeaderPrice(isSortPrice: isSortPrice),
+                child: CoinlistHeaderName(
+                    isSort: isSortChange, name: 'PRICE', width: 0.15),
               ),
             ],
           ),
@@ -184,4 +185,3 @@ class _CoinListScreenState extends State<CoinListScreen> {
     ]);
   }
 }
-

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart'; 
+import 'coin_details_card_header_text.dart';
 import 'details_img_carousel.dart';
 
 
@@ -21,13 +22,7 @@ class CoindetailsImportantarticles extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Important Articles",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-              ),
+              CoindetailsCardHeaderText(title:"Important Articles",color: Colors.black54,fontSize: 16,),
               SizedBox(
                 height: 10,
               ),
@@ -39,3 +34,5 @@ class CoindetailsImportantarticles extends StatelessWidget {
     );
   }
 }
+
+
