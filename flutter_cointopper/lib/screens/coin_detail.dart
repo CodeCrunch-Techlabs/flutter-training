@@ -4,6 +4,9 @@ import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_bloc.dart
 import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_event.dart';
 import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_state.dart'; 
 import 'package:flutter_cointopper/widgets/coin_details_video.dart';
+import 'package:flutter_cointopper/widgets/coin_details_widgets/coin_logo_and_name_widget.dart';
+import 'package:flutter_cointopper/widgets/coin_details_widgets/coin_price_change_widget.dart';
+import 'package:flutter_cointopper/widgets/coin_text_fontweight_widget.dart';
 import 'package:flutter_cointopper/widgets/icon_button_widget.dart';
 import 'package:flutter_cointopper/widgets/screenshot_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -46,88 +49,18 @@ class _CoinDetailsState extends State<CoinDetails> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.white30,
-                              ),
-                              child: Image(
-                                width: 30,
-                                height: 30,
-                                image: NetworkImage(data.logo),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 6,
-                            ),
-                            CoindetailsTextwidget(
-                              data: '${data.name}/ ${data.symbol}',
-                              fontSize: 18,
-                              color: Colors.white60,
-                            ),
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.white30,
-                            ),
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white60,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CoindetailsTextwidget(
-                          data: data.price > 99999
-                              ? NumberFormat.compactCurrency(
-                                  decimalDigits: 2,
-                                  symbol: '${widget.currencySymbol}',
-                                ).format(data.price)
-                              : '${widget.currencySymbol}' +
-                                  data.price.toStringAsFixed(2),
-                          fontSize: 26,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Image(
-                          height: 10,
-                          width: 10,
-                          image: AssetImage(data.percentChange24h > 0
-                              ? "assets/images/up_arrow.png"
-                              : "assets/images/down_arrow.png"),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        CoindetailsTextwidget(
-                          data:
-                              '${double.parse((data.percentChange24h).toStringAsFixed(2))}%',
-                          fontSize: 14,
-                          color: Colors.white60,
-                        ),
-                        
-                      ],
-                    ),
+                     CoinLogoAndNameWidget(widget: data, context: context,closeBtn: true,), 
+                    CoinPriceAndChangeWidget(
+                        price: data.price > 99999
+                            ? NumberFormat.compactCurrency(
+                                decimalDigits: 2,
+                                symbol: '${widget.currencySymbol}',
+                              ).format(data.price)
+                            : '${widget.currencySymbol}' +
+                                data.price.toStringAsFixed(2),
+                        change: data.percentChange24h,
+                        fontSize1: 26,
+                        fontSize2: 14),
                     Row(
                       children: [
                         Icon(
@@ -140,7 +73,6 @@ class _CoinDetailsState extends State<CoinDetails> {
                           fontSize: 14,
                           color: Colors.white60,
                         ),
-                         
                       ],
                     ),
                     SizedBox(
@@ -153,55 +85,29 @@ class _CoinDetailsState extends State<CoinDetails> {
                           width: MediaQuery.of(context).size.width * 0.5,
                           child: Column(
                             children: [
-                              Row(
-                                children: [
-                                  CoindetailsTextwidget(
-                                    data: data.high24Usd > 99999
-                                        ? NumberFormat.compactCurrency(
-                                            decimalDigits: 2,
-                                            symbol: '${widget.currencySymbol}',
-                                          ).format(data.high24Usd)
-                                        : '${widget.currencySymbol}' +
-                                            data.high24Usd.toStringAsFixed(2),
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                  
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  CoindetailsTextwidget(
-                                    data: "24 HOUR HIGH",
-                                    fontSize: 10,
-                                    color: Colors.white60,
-                                  ),
-                                 
-                                ],
+                              CoinPriceAndChangeWidget(
+                                price: data.high24Usd > 99999
+                                    ? NumberFormat.compactCurrency(
+                                        decimalDigits: 2,
+                                        symbol: '${widget.currencySymbol}',
+                                      ).format(data.high24Usd)
+                                    : '${widget.currencySymbol}' +
+                                        data.high24Usd.toStringAsFixed(2),
+                                title: "24 HRS HIGH",
+                                fontSize1: 20,
+                                fontSize2: 10,
                               ),
-                              Row(
-                                children: [
-                                  CoindetailsTextwidget(
-                                    data: data.low24Usd > 99999
-                                        ? NumberFormat.compactCurrency(
-                                            decimalDigits: 2,
-                                            symbol: '${widget.currencySymbol}',
-                                          ).format(data.low24Usd)
-                                        : '${widget.currencySymbol}' +
-                                            data.low24Usd.toStringAsFixed(2),
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                  
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  CoindetailsTextwidget(
-                                    data: "24 HOUR LOW",
-                                    fontSize: 10,
-                                    color: Colors.white60,
-                                  ),
-                                  
-                                ],
+                              CoinPriceAndChangeWidget(
+                                price: data.low24Usd > 99999
+                                    ? NumberFormat.compactCurrency(
+                                        decimalDigits: 2,
+                                        symbol: '${widget.currencySymbol}',
+                                      ).format(data.low24Usd)
+                                    : '${widget.currencySymbol}' +
+                                        data.low24Usd.toStringAsFixed(2),
+                                title: "24 HRS LOW",
+                                fontSize1: 20,
+                                fontSize2: 10,
                               ),
                             ],
                           ),
@@ -275,28 +181,6 @@ class _CoinDetailsState extends State<CoinDetails> {
           );
         }
       }),
-    );
-  }
-}
-
-class CoindetailsTextwidget extends StatelessWidget {
-  const CoindetailsTextwidget({
-    Key key,
-    @required this.data,
-    @required this.fontSize,
-    @required this.color,
-  }) : super(key: key);
-
-  final String data;
-  final double fontSize;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      data,
-      style: TextStyle(
-          fontSize: fontSize, color: color, fontWeight: FontWeight.bold),
     );
   }
 }

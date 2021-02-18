@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_cointopper/widgets/coin_close_icon_button.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'coin_detail.dart';
@@ -147,22 +148,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.white30,
-                        ),
-                        child: Icon(
-                          Icons.close,
-                          color: Colors.white60,
-                        ),
-                      ),
-                    )
+                     CloseButtonWidget(context:context), 
                   ],
                 ),
               ],

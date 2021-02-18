@@ -51,10 +51,9 @@ class NewsSlider extends StatefulWidget {
 }
 
 class _NewsSliderState extends State<NewsSlider> {
-  final data;
-  final _key = UniqueKey();
+  final data; 
   _NewsSliderState(this.data);
-  int _current = 0;
+  int current = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,7 @@ class _NewsSliderState extends State<NewsSlider> {
                 enlargeCenterPage: true,
                 onPageChanged: (index, reason) {
                   setState(() {
-                    _current = index;
+                    current = index;
                   });
                 }),
             items: data.map<Widget>((e) {
@@ -166,26 +165,4 @@ class _NewsSliderState extends State<NewsSlider> {
     );
   }
 }
-
-// Widget featuredNews(BuildContext context, final data) {
-//   int _current = 0;
-
-//   return SingleChildScrollView(
-//     child: Container(
-//       margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           data != null
-//               ? Container(
-//                   color: Colors.grey[100],
-//                   child: Column(
-//                     children: <Widget>[carousel],
-//                   ),
-//                 )
-//               : Container()
-//         ],
-//       ),
-//     ),
-//   );
-// }
+ 

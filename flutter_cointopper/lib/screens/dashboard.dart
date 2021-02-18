@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_bloc.dart';
-import 'package:flutter_cointopper/bloc/coin_list_bloc/coin_list_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart'; 
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_bloc.dart';
 import 'package:flutter_cointopper/bloc/currency_bloc/dashboard_state.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_bloc.dart';

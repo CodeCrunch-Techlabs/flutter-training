@@ -3,6 +3,7 @@ import 'package:flutter_cointopper/bloc/news_search_bloc/news_search_state.dart'
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/news_search_bloc/news_search_bloc.dart';
 import 'package:flutter_cointopper/bloc/news_search_bloc/news_search_event.dart';
+import 'package:flutter_cointopper/widgets/coin_close_icon_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart'; 
 
 import 'news_webview_screen.dart';
@@ -94,22 +95,7 @@ class _NewsSearchState extends State<NewsSearch> {
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.white30,
-                        ),
-                        child: Icon(
-                          Icons.close,
-                          color: Colors.white60,
-                        ),
-                      ),
-                    )
+                     CloseButtonWidget(context:context), 
                   ],
                 ),
               ],
