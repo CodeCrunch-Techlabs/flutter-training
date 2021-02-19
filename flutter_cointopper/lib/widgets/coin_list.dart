@@ -97,7 +97,8 @@ class _CoinListScreenState extends State<CoinListScreen> {
         title: Container(
           padding: EdgeInsets.symmetric(horizontal: 0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
                 onTap: () {
@@ -114,7 +115,7 @@ class _CoinListScreenState extends State<CoinListScreen> {
                   });
                 },
                 child: CoinlistHeaderName(
-                    isSort: isSort, name: 'NAME / M.CAP', width: 0.45),
+                    isSort: isSort, name: 'NAME / M.CAP', width: 0.40),
               ),
               GestureDetector(
                 onTap: () {
@@ -148,7 +149,7 @@ class _CoinListScreenState extends State<CoinListScreen> {
                   });
                 },
                 child: CoinlistHeaderName(
-                    isSort: isSortChange, name: 'PRICE', width: 0.15),
+                    isSort: isSortPrice, name: 'PRICE', width: 0.20),
               ),
             ],
           ),

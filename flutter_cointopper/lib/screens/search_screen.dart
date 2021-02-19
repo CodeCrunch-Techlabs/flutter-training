@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_cointopper/widgets/coin_close_icon_button.dart';
+import 'package:flutter_cointopper/widgets/custom_safearea_widget.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'coin_detail.dart';
@@ -89,110 +90,114 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            height: 90,
-            padding: EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 0),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Colors.blue[800], Colors.blue[400]],
+    return CustomSafeAreaWidget(
+      color1: Colors.blue[800],
+      color2: Colors.blue[400],
+          child: new Scaffold(
+        body: new Column( 
+          children: <Widget>[
+            Container(
+               height: MediaQuery.of(context).size.height * 0.15,
+              padding: EdgeInsets.only(left: 10, right: 10, ),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [Colors.blue[800], Colors.blue[400]],
+                ),
               ),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF00e00),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ListTile(
-                        leading: new Icon(
-                          Icons.search,
-                          color: Colors.white60,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF00e00),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        title: new TextField(
-                          cursorColor: Colors.white60,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                          controller: controller,
-                          decoration: new InputDecoration(
-                              hintText: "Search",
-                              hintStyle: TextStyle(color: Colors.white60),
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(12))),
-                          onChanged: onSearchTextChanged,
-                        ),
-                        trailing: new IconButton(
-                          icon: new Icon(
-                            Icons.cancel,
+                        child: ListTile(
+                          leading: new Icon(
+                            Icons.search,
                             color: Colors.white60,
                           ),
-                          onPressed: () {
-                            controller.clear();
-                            onSearchTextChanged('');
-                          },
+                          title: new TextField(
+                            cursorColor: Colors.white60,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                            controller: controller,
+                            decoration: new InputDecoration(
+                                hintText: "Search",
+                                hintStyle: TextStyle(color: Colors.white60),
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(12))),
+                            onChanged: onSearchTextChanged,
+                          ),
+                          trailing: new IconButton(
+                            icon: new Icon(
+                              Icons.cancel,
+                              color: Colors.white60,
+                            ),
+                            onPressed: () {
+                              controller.clear();
+                              onSearchTextChanged('');
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                     CloseButtonWidget(context:context), 
-                  ],
-                ),
-              ],
+                       CloseButtonWidget(context:context), 
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          new Expanded(
-              child: _searchResult.length != 0 || controller.text.isNotEmpty
-                  ? new ListView.builder(
-                      itemCount: _searchResult.length,
-                      itemBuilder: (context, i) {
-                        return Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) =>
-                                        CoinDetails(_searchResult[i].id, widget.currencyCode,
-                                                widget.currencySymbol)));
-                              },
-                              child: new ListTile(
-                                leading: new CircleAvatar(
-                                  backgroundColor: Colors.black12,
-                                  backgroundImage: new NetworkImage(
-                                    _searchResult[i].logo,
+            new Expanded(
+                child: _searchResult.length != 0 || controller.text.isNotEmpty
+                    ? new ListView.builder(
+                        itemCount: _searchResult.length,
+                        itemBuilder: (context, i) {
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) =>
+                                          CoinDetails(_searchResult[i].id, widget.currencyCode,
+                                                  widget.currencySymbol)));
+                                },
+                                child: new ListTile(
+                                  leading: new CircleAvatar(
+                                    backgroundColor: Colors.black12,
+                                    backgroundImage: new NetworkImage(
+                                      _searchResult[i].logo,
+                                    ),
                                   ),
+                                  title: new Text(_searchResult[i].value),
                                 ),
-                                title: new Text(_searchResult[i].value),
                               ),
-                            ),
-                            Divider(
-                              color: Colors.grey[400],
-                              thickness: 1,
-                            )
-                          ],
-                        );
-                      },
-                    )
-                  : Scaffold(
-                    backgroundColor: Colors.transparent,
-                      body: Center(
-                        child: Text("Please search the Keyword"),
-                      ),
-                    )),
-        ],
+                              Divider(
+                                color: Colors.grey[400],
+                                thickness: 1,
+                              )
+                            ],
+                          );
+                        },
+                      )
+                    : Scaffold(
+                      backgroundColor: Colors.transparent,
+                        body: Center(
+                          child: Text("Please search the Keyword"),
+                        ),
+                      )),
+          ],
+        ),
       ),
     );
   }

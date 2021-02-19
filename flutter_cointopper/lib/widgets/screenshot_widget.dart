@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_cointopper/widgets/graph_screenshot.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
@@ -206,13 +207,15 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
                                       width: 70,
                                       color: Colors.transparent,
                                       padding: EdgeInsets.all(4.0),
-                                      child: CoinGraph(
-                                        widget.data.marketId,
-                                        '#FFFAFA',
-                                        '#F5F5F5',
-                                        false,
-                                        false,
-                                      ),
+                                      // child: CoinGraph(
+                                      //   widget.data.marketId,
+                                      //   '#FFFAFA',
+                                      //   '#F5F5F5',
+                                      //   false,
+                                      //   false,
+                                      // ),
+                                    child:  GraphScreenshot(widget.data.marketId,'#FFFAFA',
+                                        '#F5F5F5',),
                                     ),
                                     Text(
                                       "$formattedDate ISD",

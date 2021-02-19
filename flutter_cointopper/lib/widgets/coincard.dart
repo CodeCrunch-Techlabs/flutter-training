@@ -105,7 +105,7 @@ Widget _cardSlider(
     BuildContext context,
     String name,
     dynamic price,
-    double percentChange24h,
+    dynamic percentChange24h,
     String logo,
     String color1,
     String color2,

@@ -97,9 +97,10 @@ class _CoinGraphState extends State<CoinGraph> {
       getTitles: (value) {
         final DateTime date =
             DateTime.fromMillisecondsSinceEpoch(value.toInt());
-        return DateFormat.MMM().format(date);
+        return DateFormat.MMMd().format(date);
       },
       margin: 8,
+      rotateAngle: 30,
       interval: (_maxX - _minX) / 7,
     );
   }

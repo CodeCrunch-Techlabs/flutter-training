@@ -9,7 +9,7 @@ class CoinlistBodyChange extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.30,
+      width: MediaQuery.of(context).size.width * 0.25,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

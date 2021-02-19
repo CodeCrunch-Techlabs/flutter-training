@@ -37,7 +37,7 @@ class CoinlistBodyPrice extends StatelessWidget {
                 size: 12,
               ),
               CoindetailsCardHeaderText(
-                title: "${item.priceBtc.toStringAsFixed(8)}",
+                title: "${item.priceBtc.toStringAsFixed(6)}",
                 color: Colors.grey[500],
                 fontSize: 12
               ),
