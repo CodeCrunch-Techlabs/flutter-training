@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 import 'coin_details_widgets/coin_logo_and_name_widget.dart';
 import 'coin_details_widgets/coin_price_change_widget.dart';
 import 'coin_details_widgets/coin_screenshot_action_button.dart';
-import 'coin_graph.dart';
+// import 'coin_graph.dart';
 
 class ScreenShotWidget extends StatefulWidget {
   final data;

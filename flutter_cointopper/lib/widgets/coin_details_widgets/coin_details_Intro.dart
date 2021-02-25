@@ -13,6 +13,8 @@ class CoindetailsIntro extends StatelessWidget {
     RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
     return htmlText.replaceAll(exp, '');
   } 
+   
+  
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class CoindetailsIntro extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-             DetailsYoutubePlayer(youtube),
+             DetailsYoutubePlayer(youtube:youtube),
             ],
           ),
         ),

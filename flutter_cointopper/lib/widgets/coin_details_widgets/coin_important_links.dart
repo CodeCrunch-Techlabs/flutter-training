@@ -159,7 +159,7 @@ class _CoinImportantLinksState extends State<CoinImportantLinks> {
                 SizedBox(
                   height: 5,
                 ), 
-                CoindetailsCardHeaderText(title:impLinks[index]['name'],color: Colors.black54,fontSize: 16),
+                CoindetailsCardHeaderText(title:impLinks[index]['name'],color: Colors.black54,fontSize: 14),
               ],
             ),
           );

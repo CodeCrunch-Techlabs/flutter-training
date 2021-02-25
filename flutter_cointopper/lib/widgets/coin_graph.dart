@@ -1,29 +1,34 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/graph_week_bloc/graph_week_bloc.dart';
 import 'package:flutter_cointopper/bloc/graph_week_bloc/graph_week_event.dart';
 import 'package:flutter_cointopper/bloc/graph_week_bloc/graph_week_state.dart';
-import 'package:hexcolor/hexcolor.dart'; 
-import 'package:intl/intl.dart'; 
-import 'package:fl_chart/fl_chart.dart'; 
+import 'package:hexcolor/hexcolor.dart';
+import 'package:intl/intl.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class CoinGraph extends StatefulWidget {
+  const CoinGraph({
+    Key key,
+    @required this.marketId,
+    @required this.color1,
+    @required this.color2,
+    @required this.leftSizeShowTitles,
+    @required this.bottomSideShowTitles,
+  }) : super(key: key);
+
   final int marketId;
   final String color1;
   final String color2;
   final bool leftSizeShowTitles;
   final bool bottomSideShowTitles;
 
-  CoinGraph(this.marketId, this.color1, this.color2,this.leftSizeShowTitles,this.bottomSideShowTitles);
   @override
-  _CoinGraphState createState() =>
-      _CoinGraphState();
+  _CoinGraphState createState() => _CoinGraphState();
 }
 
 class _CoinGraphState extends State<CoinGraph> {
-   
-   final int _leftLabelsCount = 7;
+  final int _leftLabelsCount = 7;
 
   List<FlSpot> _values = const [];
 
@@ -120,14 +125,10 @@ class _CoinGraphState extends State<CoinGraph> {
       },
     );
   }
-  
 
-  
-
- @override
-  Widget build(BuildContext context) { 
-    BlocProvider.of<GraphWeekBloc>(context)
-        .add(LoadGraphWeek(widget.marketId));
+  @override
+  Widget build(BuildContext context) {
+    BlocProvider.of<GraphWeekBloc>(context).add(LoadGraphWeek(widget.marketId));
     return BlocBuilder<GraphWeekBloc, GraphWeekState>(
       builder: (context, state) {
         if (state is GraphWeekLoadSuccess) {

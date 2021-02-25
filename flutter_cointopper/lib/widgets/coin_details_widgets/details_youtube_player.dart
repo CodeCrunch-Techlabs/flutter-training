@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailsYoutubePlayer extends StatefulWidget {
-  final youtube;
-  DetailsYoutubePlayer(this.youtube);
+  const DetailsYoutubePlayer({
+    Key key,
+     @required this.youtube, 
+  }): super(key: key);
+  
+  final String youtube;
+  
   @override
   _DetailsYoutubePlayerState createState() => _DetailsYoutubePlayerState();
 }
+
+ 
 
 class _DetailsYoutubePlayerState extends State<DetailsYoutubePlayer> {
   @override

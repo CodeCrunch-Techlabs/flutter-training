@@ -11,7 +11,7 @@ class CoinlistBodyPrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.20,
+      width: MediaQuery.of(context).size.width * 0.22,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -37,7 +37,7 @@ class CoinlistBodyPrice extends StatelessWidget {
                 size: 12,
               ),
               CoindetailsCardHeaderText(
-                title: "${item.priceBtc.toStringAsFixed(6)}",
+                title: "${item.priceBtc.toStringAsFixed(8)}",
                 color: Colors.grey[500],
                 fontSize: 12
               ),

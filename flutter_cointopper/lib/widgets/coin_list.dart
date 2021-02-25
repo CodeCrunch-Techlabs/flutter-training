@@ -73,7 +73,7 @@ class _CoinListScreenState extends State<CoinListScreen> {
         _pagingController.appendPage(newItems, nextPageKey);
       }
     } catch (error) {
-      _pagingController.error = error;
+      _pagingController.error = error; 
     }
   }
 
@@ -155,21 +155,23 @@ class _CoinListScreenState extends State<CoinListScreen> {
           ),
         ),
       ),
-      PagedSliverList<int, CoinList>.separated(
+      PagedSliverList<int, CoinList>.separated( 
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate(
           itemBuilder: (context, item, index) => Container(
-            padding: EdgeInsets.only(left: 10, right: 10),
+            padding: EdgeInsets.only(left: 10, right: 10,top: 0.0,bottom:0.0),
             width: MediaQuery.of(context).size.width,
-            child: GestureDetector(
-              onTap: () {
+            child: FlatButton(
+              padding: EdgeInsets.all(0.0),
+              onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (_) => CoinDetails(
                       item.symbol, widget.currencyCode, widget.currencySymbol),
                 ));
               },
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CoinlistBodyName(item, widget.currencySymbol),
                   CoinlistBodyChange(item),
@@ -181,6 +183,7 @@ class _CoinListScreenState extends State<CoinListScreen> {
         ),
         separatorBuilder: (context, index) => const Divider(
           color: Colors.black38,
+          height: 2.0,
         ),
       ),
     ]);

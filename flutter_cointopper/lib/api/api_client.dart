@@ -187,7 +187,7 @@ class ApiClient {
     yield convertInArray
         .map((dynamic item) => NewsDetailsModel.fromEntity(
             NewsDetailsEntity.fromJson(item as Map<String, dynamic>)))
-        .toList();
+        .toList(); 
   }
 
   Stream<List<GraphWeekModel>> fetchGraphWeekList(int marketId) async* { 

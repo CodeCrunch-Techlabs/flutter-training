@@ -15,6 +15,8 @@ class _NewsListState extends State<NewsList> {
   bool isVisible = false;
   var cid;
 
+  int newsId = 0; 
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NewsListBloc, NewsListState>(
@@ -65,13 +67,17 @@ class _NewsListState extends State<NewsList> {
                                   child: new Text(data[i].titleEn),
                                 ),
                                 onTap: () {
+                                  setState(() {
+                                    newsId= data[i].id;
+                                  }); 
+
                                   Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          NewsWebview( 
-                                        id: data[i].id,
-                                      ),
-                                    ),
+                                    new MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                      return new NewsWebview(
+                                        id: newsId,
+                                      );
+                                    }),
                                   );
                                 },
                                 subtitle: new Column(
@@ -127,6 +133,7 @@ class _NewsListState extends State<NewsList> {
                             Divider(
                               color: Colors.grey[400],
                               thickness: 1,
+                              height: 1.0,
                             )
                           ],
                         );

@@ -5,6 +5,7 @@ import 'package:flutter_cointopper/bloc/news_details_bloc/news_details_event.dar
 import 'package:flutter_cointopper/bloc/news_details_bloc/news_details_state.dart';
 import 'package:flutter_cointopper/widgets/custom_safearea_widget.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 class NewsWebview extends StatefulWidget {
   final int id;
@@ -24,26 +25,20 @@ class _NewsWebviewState extends State<NewsWebview> {
   });
 
   final globalKey = GlobalKey<ScaffoldState>();
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<NewsDetailsBloc>(context).add(LoadNewsDetails(id));
-  }
+  final flutterWebviewPlugin = new FlutterWebviewPlugin();
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<NewsDetailsBloc>(context).add(LoadNewsDetails(id));
+
     return CustomSafeAreaWidget(
       color1: Color(0xFFdb1ec9),
       color2: Color(0xFFff005a),
       child: Scaffold(
-        key: globalKey,
         body: BlocBuilder<NewsDetailsBloc, NewsDetailsState>(
           builder: (context, state) {
             if (state is NewsDetailsLoadSuccess) {
-              var data = state.newsDetailsList;
-              var details = data.map((e) => e.detailsEn).toList();
-              var title = data.map((e) => e.titleEn).toList();
-              var photo = data.map((e) => e.photoFile.trim()).toList(); 
+              var data = state.newsDetailsList[0]; 
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -72,7 +67,7 @@ class _NewsWebviewState extends State<NewsWebview> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).pop();
+                                Navigator.of(context).pop(); 
                               },
                               child: Container(
                                 padding: EdgeInsets.all(4),
@@ -104,7 +99,7 @@ class _NewsWebviewState extends State<NewsWebview> {
                             ),
                           ),
                           child: Text(
-                            title.single.toString(),
+                            data.titleEn.toString(),
                             style: TextStyle(
                                 fontSize: 24,
                                 color: Colors.white,
@@ -116,16 +111,14 @@ class _NewsWebviewState extends State<NewsWebview> {
                             width: MediaQuery.of(context).size.width,
                             height: 160,
                             fit: BoxFit.fill,
-                            image: NetworkImage(photo.single.toString()),
+                            image: NetworkImage(data.photoFile.toString()),
                           ),
                         ),
                         Expanded(
-                          // child: _buildWebView(details.single.toString()),
-                          child: WebviewScaffold(
-                            url: new Uri.dataFromString(details.single,
-                                    mimeType: 'text/html')
-                                .toString(),
-                          ),
+                          child: Container(
+                              padding: EdgeInsets.all(10),
+                              child: SingleChildScrollView(
+                                  child: HtmlWidget(data.detailsEn))), 
                         ),
                       ],
                     ),
@@ -144,3 +137,4 @@ class _NewsWebviewState extends State<NewsWebview> {
     );
   }
 }
+ 
