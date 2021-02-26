@@ -294,6 +294,7 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
         return Center(child: alert);
       },
     );
+    return Container();
   }
 
   @override

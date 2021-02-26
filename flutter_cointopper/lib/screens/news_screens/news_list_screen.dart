@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/news_list_bloc/news_list_bloc.dart';
 import 'package:flutter_cointopper/bloc/news_list_bloc/news_list_state.dart';
-import 'package:flutter_cointopper/screens/news_webview_screen.dart';
+import 'package:flutter_cointopper/screens/news_screens/news_webview_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 

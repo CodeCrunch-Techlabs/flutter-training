@@ -24,7 +24,7 @@ class CoinDetails extends StatefulWidget {
   _CoinDetailsState createState() => _CoinDetailsState();
 }
 
-class _CoinDetailsState extends State<CoinDetails> {
+class _CoinDetailsState extends State<CoinDetails>  {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<CoinDetailsBloc>(context)
@@ -45,7 +45,7 @@ class _CoinDetailsState extends State<CoinDetails> {
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height * 0.25,
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 10, right: 10,top: 10),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.centerLeft,

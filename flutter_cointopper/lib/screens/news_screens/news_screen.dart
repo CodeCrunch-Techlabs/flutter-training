@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cointopper/screens/news_search.dart';
+import 'package:flutter_cointopper/screens/news_screens/news_search.dart';
 import 'package:flutter_cointopper/widgets/custom_safearea_widget.dart';
 import 'package:flutter_cointopper/widgets/news_featured.dart';
 

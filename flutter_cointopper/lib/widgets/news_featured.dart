@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/featured_news_bloc/featured_news_bloc.dart';
 import 'package:flutter_cointopper/bloc/featured_news_bloc/featured_news_state.dart';
-import 'package:flutter_cointopper/screens/news_webview_screen.dart';
+import 'package:flutter_cointopper/screens/news_screens/news_webview_screen.dart';
 import 'package:hexcolor/hexcolor.dart'; 
 
 class NewsFeatured extends StatefulWidget {

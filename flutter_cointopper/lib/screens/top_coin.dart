@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_bloc.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_event.dart';
 import 'package:flutter_cointopper/bloc/top_coin_bloc/top_coin_state.dart';
-import 'package:flutter_cointopper/widgets/custom_safearea_widget.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_cointopper/widgets/coin_list_body_widget/coinlist_body_change.dart';
+import 'package:flutter_cointopper/widgets/coin_list_body_widget/coinlist_body_name.dart';
+import 'package:flutter_cointopper/widgets/coin_list_body_widget/coinlist_body_price.dart';
+import 'package:flutter_cointopper/widgets/coin_list_widgets/top_coins_header.dart';
+import 'package:flutter_cointopper/widgets/custom_safearea_widget.dart'; 
 import 'coin_detail.dart';
 
 class TopCoin extends StatefulWidget {
@@ -26,6 +27,7 @@ class _TopCoinState extends State<TopCoin> {
   bool isSort = true;
   bool isSortChange = true;
   bool isSortPrice = true;
+  bool ascending = false;
   var _sortColumnIndex;
   var loadData = 20;
 
@@ -113,22 +115,12 @@ class _TopCoinState extends State<TopCoin> {
                           headingRowHeight:
                               MediaQuery.of(context).size.height * 0.06,
                           sortColumnIndex: _sortColumnIndex,
-                          sortAscending: isSort,
+                          sortAscending: ascending,
                           columns: [
                             DataColumn(
-                              label: Container(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'NAME/  M.CAP',
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.03,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFF005580),
-                                  ),
-                                ),
-                              ),
+                              numeric: false,
+                              label:
+                                  ListHeaderWidget(headerName: 'NAME / M.CAP'),
                               onSort: (i, b) {
                                 setState(() {
                                   if (i == 0) {
@@ -137,27 +129,20 @@ class _TopCoinState extends State<TopCoin> {
                                       state.topCoinsList.sort(
                                           (a, b) => b.name.compareTo(a.name));
                                       isSort = false;
+                                      ascending = true;
                                     } else {
                                       state.topCoinsList.sort(
                                           (a, b) => a.name.compareTo(b.name));
                                       isSort = true;
+                                      ascending = false;
                                     }
                                   }
                                 });
                               },
-                              numeric: false,
-                              tooltip: "M.CAP",
                             ),
                             DataColumn(
-                              label: Text(
-                                'CHANGE',
-                                style: TextStyle(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.03,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF005580),
-                                ),
-                              ),
+                              label: ListHeaderWidget(headerName: 'CHANGE'),
+                              numeric: false,
                               onSort: (i, b) {
                                 setState(() {
                                   if (i == 1) {
@@ -167,28 +152,21 @@ class _TopCoinState extends State<TopCoin> {
                                           .percentChange24h
                                           .compareTo(a.percentChange24h));
                                       isSortChange = false;
+                                      ascending = true;
                                     } else {
                                       state.topCoinsList.sort((a, b) => a
                                           .percentChange24h
                                           .compareTo(b.percentChange24h));
                                       isSortChange = true;
+                                      ascending = false;
                                     }
                                   }
                                 });
                               },
-                              numeric: false,
-                              tooltip: "CHANGE",
                             ),
                             DataColumn(
-                              label: Text(
-                                'PRICE',
-                                style: TextStyle(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.03,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF005580),
-                                ),
-                              ),
+                              numeric: false,
+                              label: ListHeaderWidget(headerName: 'PRICE'),
                               onSort: (i, b) {
                                 setState(() {
                                   if (i == 2) {
@@ -197,16 +175,16 @@ class _TopCoinState extends State<TopCoin> {
                                       state.topCoinsList.sort(
                                           (a, b) => b.price.compareTo(a.price));
                                       isSortPrice = false;
+                                      ascending = true;
                                     } else {
                                       state.topCoinsList.sort(
                                           (a, b) => a.price.compareTo(b.price));
                                       isSortPrice = true;
+                                      ascending = false;
                                     }
                                   }
                                 });
                               },
-                              numeric: false,
-                              tooltip: "PRICE",
                             ),
                           ],
                           rows: state.topCoinsList.length != 0
@@ -224,135 +202,16 @@ class _TopCoinState extends State<TopCoin> {
                                                   widget.currencySymbol),
                                             ));
                                           },
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Image(
-                                                width: 30,
-                                                height: 30,
-                                                image: NetworkImage(
-                                                    "${coins.logo}"),
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    coins.name,
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      color: Colors.grey[800],
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 6,
-                                                  ),
-                                                  Text(
-                                                    coins.symbol +
-                                                        " / " +
-                                                        NumberFormat.compactCurrency(
-                                                                decimalDigits:
-                                                                    2,
-                                                                symbol:
-                                                                    '${widget.currencySymbol}')
-                                                            .format(coins
-                                                                .marketCapUsd),
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      color: Colors.grey[500],
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
+                                          child: CoinlistBodyName(
+                                              coins, widget.currencySymbol),
                                         ),
                                       ),
                                       DataCell(
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Image(
-                                              width: 12,
-                                              height: 12,
-                                              image: AssetImage(coins
-                                                          .percentChange24h >
-                                                      0
-                                                  ? "assets/images/up_arrow_green.png"
-                                                  : "assets/images/down_arrow_red.png"),
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              '${double.parse((coins.percentChange24h).toStringAsFixed(2))}%',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold,
-                                                color:
-                                                    coins.percentChange24h > 0
-                                                        ? Colors.green[600]
-                                                        : HexColor("#a94442"),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                        CoinlistBodyChange(coins),
                                       ),
                                       DataCell(
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              coins.price > 99999
-                                                  ? NumberFormat
-                                                      .compactCurrency(
-                                                      decimalDigits: 2,
-                                                      symbol:
-                                                          '${widget.currencySymbol}',
-                                                    ).format(coins.price)
-                                                  : '${widget.currencySymbol}' +
-                                                      coins.price
-                                                          .toStringAsFixed(2),
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.blue,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 6,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  FontAwesomeIcons.btc,
-                                                  color: Colors.grey[500],
-                                                  size: 12,
-                                                ),
-                                                Text(
-                                                  "${coins.priceBtc.toStringAsFixed(8)}",
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.grey[500],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                        CoinlistBodyPrice(
+                                            widget.currencySymbol, coins),
                                       ),
                                     ]),
                                   )

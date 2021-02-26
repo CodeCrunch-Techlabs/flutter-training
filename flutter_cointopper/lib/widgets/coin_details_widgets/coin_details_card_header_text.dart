@@ -15,9 +15,11 @@ class CoindetailsCardHeaderText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
+      overflow:TextOverflow.ellipsis ,
+      softWrap: false,
       style: TextStyle(
         fontSize: fontSize,
-        color: color, 
+        color: color,  
       ),
     );
   }

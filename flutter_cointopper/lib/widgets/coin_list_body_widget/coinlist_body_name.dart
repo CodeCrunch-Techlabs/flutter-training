@@ -29,7 +29,7 @@ class CoinlistBodyName extends StatelessWidget {
               CoindetailsCardHeaderText(
                 title: item.name,
                 color: Colors.grey[800],
-                fontSize: 12
+                fontSize:11,
               ), 
               SizedBox(
                 height: 6,

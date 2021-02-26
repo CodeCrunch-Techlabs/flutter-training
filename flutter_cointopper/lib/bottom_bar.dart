@@ -3,7 +3,7 @@ import 'package:flutter_cointopper/screens/account_screen.dart';
 import 'package:flutter_cointopper/screens/airdrop_screen.dart';
 import 'package:flutter_cointopper/screens/dashboard.dart';
 import 'package:flutter_cointopper/screens/ico_screen.dart'; 
-import 'package:flutter_cointopper/screens/news_screen.dart';
+import 'package:flutter_cointopper/screens/news_screens/news_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override

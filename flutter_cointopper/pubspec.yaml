@@ -42,9 +42,7 @@ dependencies:
   infinite_scroll_pagination: ^2.3.0
   readmore: ^1.0.1
   flutter_sparkline: ^0.1.0
-  flutter_widget_from_html_core: ^0.5.2
-  
-   
+  flutter_widget_from_html_core: ^0.5.2 
 
 dev_dependencies:
   flutter_test:

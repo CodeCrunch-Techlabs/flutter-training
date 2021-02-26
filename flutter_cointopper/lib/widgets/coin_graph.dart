@@ -89,8 +89,8 @@ class _CoinGraphState extends State<CoinGraph> {
     return SideTitles(
       showTitles: widget.leftSizeShowTitles,
       getTitles: (value) =>
-          NumberFormat.compactCurrency(symbol: '\$').format(value),
-      reservedSize: 28,
+          NumberFormat.compactCurrency(symbol: '\$',decimalDigits: value > 1 ? 0 : 6).format(value),
+      reservedSize: 30,
       margin: 12,
       interval: _leftTitlesInterval,
     );
@@ -105,7 +105,7 @@ class _CoinGraphState extends State<CoinGraph> {
         return DateFormat.MMMd().format(date);
       },
       margin: 8,
-      rotateAngle: 30,
+      rotateAngle: 50,
       interval: (_maxX - _minX) / 7,
     );
   }
@@ -124,6 +124,11 @@ class _CoinGraphState extends State<CoinGraph> {
         return (value - _minY) % _leftTitlesInterval == 0;
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -147,7 +152,7 @@ class _CoinGraphState extends State<CoinGraph> {
           _minY = minY.floorToDouble();
           _maxY = maxY.ceilToDouble();
           _leftTitlesInterval =
-              ((_maxY - _minY) / (_leftLabelsCount - 1)).floorToDouble();
+              ((_maxY - _minY) / (_leftLabelsCount - 1));
           return Container(
             height: MediaQuery.of(context).size.height * 0.3,
             width: MediaQuery.of(context).size.width,
