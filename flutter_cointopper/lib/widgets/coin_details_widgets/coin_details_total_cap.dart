@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-import 'coin_details_card_header_text.dart';
+import 'package:flutter_cointopper/widgets/coin_details_widgets/coin_details_total_cap_widget.dart';
+ 
 
 class CoinDetailsTotalCap extends StatelessWidget {
   final double volume;
@@ -15,38 +14,23 @@ class CoinDetailsTotalCap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildTotalCap("24 Hrs Volume", volume, currencySymbol),
+        BuildTotalCapWidget(
+            name: "24 Hrs Volume",
+            volume: volume,
+            currencySymbol: currencySymbol),
         Divider(
           color: Colors.blue[800],
           thickness: 2,
         ),
-        _buildTotalCap("Total Coins", coin, currencySymbol),
+        BuildTotalCapWidget(
+            name: "Total Coins", volume: coin, currencySymbol: currencySymbol),
         Divider(
           color: Colors.blue[800],
           thickness: 2,
         ),
-        _buildTotalCap("Market Cap", cap, currencySymbol),
+        BuildTotalCapWidget(
+            name: "Market Cap", volume: cap, currencySymbol: currencySymbol),
       ],
     );
   }
-}
-
-
-Widget _buildTotalCap(String name, dynamic volume, dynamic currencySymbol) {
-    var _formattedValue = NumberFormat.compactCurrency(
-      decimalDigits: 2,
-      symbol: '$currencySymbol',
-    ).format(volume);
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-           CoindetailsCardHeaderText(title: name,color: Colors.black54,fontSize: 16),
-           CoindetailsCardHeaderText(title: _formattedValue,color: Colors.blue[800],fontSize: 16),  
-        ],
-      ),
-    );
-  }
-
-
+} 
