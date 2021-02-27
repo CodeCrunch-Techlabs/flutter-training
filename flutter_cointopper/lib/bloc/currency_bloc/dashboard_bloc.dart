@@ -25,8 +25,7 @@ class CurrencyBloc extends Bloc<CurrencyEvent, CurrencyState> {
     }
   }
 
-  Stream<CurrencyState> _mapLoadCurrencyListState() async* {
-    print("bloc enterred");
+  Stream<CurrencyState> _mapLoadCurrencyListState() async* { 
     _coinSubscription?.cancel();
     _coinSubscription = coinRepository.loadCurrencyList().listen(
           (list) => add(UpdateCurrencyList(list)),

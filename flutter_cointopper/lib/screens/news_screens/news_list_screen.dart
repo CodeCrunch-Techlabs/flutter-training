@@ -43,10 +43,7 @@ class _NewsListState extends State<NewsList> {
                         return Column(
                           children: [
                             GestureDetector(
-                              onTap: () {
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //     builder: (_) =>
-                                //         CoinDetails(_searchResult[i].id)));
+                              onTap: () { 
                               },
                               child: new ListTile(
                                 dense: true,

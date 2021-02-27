@@ -25,8 +25,7 @@ class TopCoinsBloc extends Bloc<TopCoinsEvent, TopCoinsState> {
     }
   }
 
-  Stream<TopCoinsState> _mapLoadTopCoinsListState(currencyCode) async* {
-    print("bloc enterred");
+  Stream<TopCoinsState> _mapLoadTopCoinsListState(currencyCode) async* { 
     _coinSubscription?.cancel();
     _coinSubscription = coinRepository.loadTopCoinsList(currencyCode).listen(
           (list) => add(UpdateTopCoins(list)),

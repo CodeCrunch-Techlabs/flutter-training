@@ -9,8 +9,7 @@ import 'package:image_picker_saver/image_picker_saver.dart';
 import 'package:intl/intl.dart';
 import 'coin_details_widgets/coin_logo_and_name_widget.dart';
 import 'coin_details_widgets/coin_price_change_widget.dart';
-import 'coin_details_widgets/coin_screenshot_action_button.dart';
-// import 'coin_graph.dart';
+import 'coin_details_widgets/coin_screenshot_action_button.dart'; 
 
 class ScreenShotWidget extends StatefulWidget {
   final data;
@@ -29,15 +28,13 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
           _globalKey.currentContext.findRenderObject();
       ui.Image image = await boundary.toImage();
       ByteData byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
-      // var png = byteData.buffer.asUint8List();
+          await image.toByteData(format: ui.ImageByteFormat.png); 
       final snackBar = SnackBar(
         content: Text('Saved to Gallery'),
         backgroundColor: Colors.green,
         action: SnackBarAction(
           label: 'Ok',
-          onPressed: () {
-            // Some code
+          onPressed: () { 
           },
         ),
       );
@@ -86,9 +83,7 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
                       end: Alignment.centerRight,
                       colors: [
                         HexColor(widget.data.color1),
-                        HexColor(widget.data.color2)
-//                          HexColor('#000000'),
-//                          HexColor('#000000')
+                        HexColor(widget.data.color2) 
                       ],
                     ),
                   ),
@@ -206,14 +201,7 @@ class _ScreenShotWidgetState extends State<ScreenShotWidget> {
                                       height: 50,
                                       width: 70,
                                       color: Colors.transparent,
-                                      padding: EdgeInsets.all(4.0),
-                                      // child: CoinGraph(
-                                      //   widget.data.marketId,
-                                      //   '#FFFAFA',
-                                      //   '#F5F5F5',
-                                      //   false,
-                                      //   false,
-                                      // ),
+                                      padding: EdgeInsets.all(4.0), 
                                     child:  GraphScreenshot(widget.data.marketId,'#FFFAFA',
                                         '#F5F5F5',),
                                     ),

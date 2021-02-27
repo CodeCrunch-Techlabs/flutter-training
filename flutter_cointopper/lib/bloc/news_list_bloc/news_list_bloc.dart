@@ -25,8 +25,7 @@ class NewsListBloc extends Bloc<NewsListEvent, NewsListState> {
     }
   }
 
-  Stream<NewsListState> _mapLoadNewsListState() async* {
-    print("bloc enterred");
+  Stream<NewsListState> _mapLoadNewsListState() async* { 
     _coinSubscription?.cancel();
     _coinSubscription = coinRepository.loadNewsList().listen(
           (list) => add(UpdateNewsList(list)),

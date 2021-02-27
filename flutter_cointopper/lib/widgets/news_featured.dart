@@ -30,8 +30,7 @@ class _NewsFeaturedState extends State<NewsFeatured> {
                   fontSize: MediaQuery.of(context).size.width * 0.03,
                 ),
               ),
-            ),
-            // featuredNews(context, data)
+            ), 
             NewsSlider(data)
           ]);
         }

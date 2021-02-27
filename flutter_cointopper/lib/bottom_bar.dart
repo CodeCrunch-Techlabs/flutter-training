@@ -48,7 +48,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
             label: 'AirDrops',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
+            icon: Icon( 
               Icons.web,
             ),
             label: 'News',

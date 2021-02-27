@@ -70,8 +70,7 @@ class _NewsScreenState extends State<NewsScreen> {
                                 EdgeInsets.only(top: 10, bottom: 10, left: 10),
                             height: 40,
                             width: MediaQuery.of(context).size.width * 0.9,
-                            decoration: BoxDecoration(
-                              // color: Color(0xFF00e00),
+                            decoration: BoxDecoration( 
                               color: Colors.black12,
                               borderRadius: BorderRadius.circular(12),
                             ),
