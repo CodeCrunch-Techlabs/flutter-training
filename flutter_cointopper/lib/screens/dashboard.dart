@@ -6,7 +6,7 @@ import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_bloc.dart';
 import 'package:flutter_cointopper/bloc/global_data_bloc/global_data_state.dart';
 import 'package:flutter_cointopper/screens/search_screen.dart';
 import 'package:flutter_cointopper/widgets/coin_list.dart';
-import 'package:flutter_cointopper/widgets/coincard.dart';
+import 'package:flutter_cointopper/widgets/coin_card_widget.dart';
 import 'package:flutter_cointopper/widgets/custom_safearea_widget.dart';
 import 'package:flutter_cointopper/widgets/icon_button_widget.dart';
 import 'package:intl/intl.dart';
@@ -232,18 +232,10 @@ class _DashboardState extends State<Dashboard> {
                 color: Colors.blue[800],
                 thickness: 2,
               ),
-            ),
-            // BlocBuilder<CoinListBloc, CoinListState>(builder: (context, state) {
-            //   if (state is CoinListLoadSuccess) {
+            ), 
             Expanded(
               child: CoinListScreen(dropdownValue, currencySymbol),
-            ),
-            //   } else {
-            //     return Center(
-            //       child: CircularProgressIndicator(),
-            //     );
-            //   }
-            // }),
+            ), 
           ],
         ),
       ),
