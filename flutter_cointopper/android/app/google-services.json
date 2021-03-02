@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "994006304526",
+    "project_id": "fluttercrashlyticscointopper",
+    "storage_bucket": "fluttercrashlyticscointopper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994006304526:android:0f81b3ca63cc81605fb95f",
+        "android_client_info": {
+          "package_name": "com.example.flutter_cointopper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "994006304526-mvl5njfsv48kqfab0or8l4klamvq2r9e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5HlxzBZ2NLwB5c7qhQtHQVawkSjePvwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "994006304526-mvl5njfsv48kqfab0or8l4klamvq2r9e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

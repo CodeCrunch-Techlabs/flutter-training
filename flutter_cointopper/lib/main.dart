@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cointopper/bloc/coin_details_bloc/coin_details_bloc.dart';
@@ -23,9 +24,24 @@ import 'bloc/news_details_bloc/news_details_event.dart';
 import 'bloc/news_list_bloc/news_list_bloc.dart';
 import 'bloc/news_list_bloc/news_list_event.dart';
 import 'bloc/top_coin_bloc/top_coin_event.dart';
-import 'bottom_bar.dart';
+import 'bottom_bar.dart'; 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
-void main() {
+
+void main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+//FirebaseCrashlytics.instance.crash();
+
+  FirebaseCrashlytics.instance.setCustomKey('str_key', 'hello');
+  FirebaseCrashlytics.instance.log("Higgs-Boson detected! Bailing out");
+  FirebaseCrashlytics.instance.setUserIdentifier("12345");
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+
+
   runApp( 
       MultiBlocProvider(
     providers: [
@@ -88,7 +104,12 @@ void main() {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

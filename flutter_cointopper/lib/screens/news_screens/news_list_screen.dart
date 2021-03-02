@@ -64,15 +64,15 @@ class _NewsListState extends State<NewsList> {
                                   child: new Text(data[i].titleEn),
                                 ),
                                 onTap: () {
-                                  setState(() {
-                                    newsId= data[i].id;
-                                  }); 
+//                                  setState(() {
+//                                    newsId= data[i].id;
+//                                  });
 
                                   Navigator.of(context).push(
                                     new MaterialPageRoute(
                                         builder: (BuildContext context) {
                                       return new NewsWebview(
-                                        id: newsId,
+                                        id:data[i].id,
                                       );
                                     }),
                                   );
